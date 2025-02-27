@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# ###############################################################
+# PATH
+# ###############################################################
+
+# Set path -> here.
+declare MPCTL="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# ###############################################################
+# COMMANDS
+# ###############################################################
+
+# Infrastructure commands:
+# ... binaries
+alias mpctl-infra-bin-compile='source $MPCTL/cmds/infra/bin/compile.sh'
+alias mpctl-infra-bin-compile-client='source $MPCTL/cmds/infra/bin/compile_client.sh'
+alias mpctl-infra-bin-compile-server='source $MPCTL/cmds/infra/bin/compile_server.sh'
+alias mpctl-infra-bin-compile-server-hawk='source $MPCTL/cmds/infra/bin/compile_server_hawk.sh'
