@@ -1,19 +1,19 @@
-smpctl
+mpctl
 ===============
 
 Bash application to work with a **local** IRIS-MPC network.
 
-What is smpctl ?
+What is mpctl ?
 --------------------------------------
 
-smpctl is a bash utility that allows a developer to work with a local IRIS-MPC network.
+mpctl is a bash utility that allows a developer to work with a local IRIS-MPC network.
 
-Why smpctl ?
+Why mpctl ?
 --------------------------------------
 
 Developers need to spin up small local throwaway networks.
 
-Who uses smpctl ?
+Who uses mpctl ?
 --------------------------------------
 
 Command line friendly folks such as developers, testers, evaluators ... etc.
