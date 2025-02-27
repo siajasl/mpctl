@@ -11,11 +11,12 @@ function do_build_binary()
 
     local build_path="$(get_path_to_monorepo)/$build_subdir"
     if [ ! -d "$build_path" ]; then
-        log "ERROR: invalid build path: $build_path"
+        log_error "Invalid build path: $build_path"
         return
     fi
 
     pushd $build_path
+    log "Building binary: mode=$build_mode :: binary=$build_target"
     if [ "$build_mode" == "debug" ]; then
         cargo build --bin $build_target
     else

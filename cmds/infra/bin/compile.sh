@@ -26,8 +26,10 @@ function _main()
 
     source "$MPCTL"/cmds/infra/bin/compile_client.sh mode="$MODE"
     source "$MPCTL"/cmds/infra/bin/compile_key_manager.sh mode="$MODE"
-    source "$MPCTL"/cmds/infra/bin/compile_server.sh mode="$MODE"
-    source "$MPCTL"/cmds/infra/bin/compile_server_hawk.sh mode="$MODE"
+    source "$MPCTL"/cmds/infra/bin/compile_server_cpu.sh mode="$MODE"
+    source "$MPCTL"/cmds/infra/bin/compile_server_cpu_other.sh mode="$MODE"
+    source "$MPCTL"/cmds/infra/bin/compile_server_gpu.sh mode="$MODE"
+    source "$MPCTL"/cmds/infra/bin/compile_server_gpu_other.sh mode="$MODE"
 }
 
 # ----------------------------------------------------------------

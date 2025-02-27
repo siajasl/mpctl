@@ -41,7 +41,7 @@ function log ()
     local MSG=${1}
 	local NOW=$(date +%Y-%m-%dT%H:%M:%S.%6N)
 
-    echo -e "$NOW [INFO] [$$] CCTL :: $MSG"
+    echo -e "$NOW [INFO] [$$] MPCTL :: $MSG"
 }
 
 #######################################
@@ -60,7 +60,7 @@ function log_error ()
     local MSG=${1}
     local NOW=$(date +%Y-%m-%dT%H:%M:%S.%6N)
 
-    echo -e "$NOW [ERROR] [$$] CCTL :: $MSG"
+    echo -e "$NOW [ERROR] [$$] MPCTL :: $MSG"
 }
 
 #######################################
@@ -88,7 +88,7 @@ function log_warning()
     local MSG=${1}
 	local NOW=$(date +%Y-%m-%dT%H:%M:%S.%6N)
 
-    echo -e "$NOW [WARN] [$$] CCTL :: $MSG"
+    echo -e "$NOW [WARN] [$$] MPCTL :: $MSG"
 }
 
 #######################################
