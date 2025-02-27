@@ -4,11 +4,11 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-bin-compile-client
+    mpctl-infra-bin-compile-key-manager
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Compiles client binary.
+    Compiles key-manager binary.
 
     ARGS
     ----------------------------------------------------------------
@@ -24,7 +24,7 @@ function _main()
 {
     local build_mode=${1}
 
-    do_build_binary "iris-mpc" "client" "$build_mode"
+    do_build_binary "iris-mpc-common" "key-manager" "$build_mode"
 }
 
 # ----------------------------------------------------------------

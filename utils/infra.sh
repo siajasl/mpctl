@@ -19,7 +19,7 @@ function do_build_binary()
     if [ "$build_mode" == "debug" ]; then
         cargo build --bin $build_target
     else
-        cargo build --bin $build_target $build_mode
+        cargo build --bin $build_target --$build_mode
     fi
     popd || exit
 }

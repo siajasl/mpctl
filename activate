@@ -15,5 +15,6 @@ declare MPCTL="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # ... binaries
 alias mpctl-infra-bin-compile='source $MPCTL/cmds/infra/bin/compile.sh'
 alias mpctl-infra-bin-compile-client='source $MPCTL/cmds/infra/bin/compile_client.sh'
+alias mpctl-infra-bin-compile-key-manager='source $MPCTL/cmds/infra/bin/compile_key_manager.sh'
 alias mpctl-infra-bin-compile-server-cpu='source $MPCTL/cmds/infra/bin/compile_server_cpu.sh'
 alias mpctl-infra-bin-compile-server-gpu='source $MPCTL/cmds/infra/bin/compile_server_gpu.sh'
