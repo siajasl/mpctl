@@ -20,3 +20,7 @@ alias mpctl-infra-bin-compile-server-cpu='source $MPCTL/cmds/infra/bin/compile_s
 alias mpctl-infra-bin-compile-server-cpu-other='source $MPCTL/cmds/infra/bin/compile_server_cpu_other.sh'
 alias mpctl-infra-bin-compile-server-gpu='source $MPCTL/cmds/infra/bin/compile_server_gpu.sh'
 alias mpctl-infra-bin-compile-server-gpu-other='source $MPCTL/cmds/infra/bin/compile_server_gpu_other.sh'
+
+# ... networks
+alias mpctl-infra-net-setup='source $MPCTL/cmds/infra/net/ctl_setup.sh'
+alias mpctl-infra-net-teardown='source $MPCTL/cmds/infra/net/ctl_teardown.sh'
