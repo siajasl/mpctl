@@ -27,5 +27,6 @@ alias mpctl-infra-dkr-bring-up-services='source $MPCTL/cmds/infra/dkr/bring_up_s
 alias mpctl-infra-dkr-build-image-of-server='source $MPCTL/cmds/infra/dkr/build_image_of_server.sh'
 
 # ... networks
+alias mpctl-infra-net-rotate-keys='source $MPCTL/cmds/infra/net/rotate_keys.sh'
 alias mpctl-infra-net-setup='source $MPCTL/cmds/infra/net/ctl_setup.sh'
 alias mpctl-infra-net-teardown='source $MPCTL/cmds/infra/net/ctl_teardown.sh'

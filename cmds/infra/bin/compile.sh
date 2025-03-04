@@ -22,12 +22,12 @@ function _help() {
 
 function _main()
 {
-    local MODE=${1}
+    local build_mode=${1}
 
-    source "$MPCTL"/cmds/infra/bin/compile_client.sh mode="$MODE"
-    source "$MPCTL"/cmds/infra/bin/compile_key_manager.sh mode="$MODE"
-    source "$MPCTL"/cmds/infra/bin/compile_other.sh mode="$MODE"
-    source "$MPCTL"/cmds/infra/bin/compile_server.sh mode="$MODE"
+    source "$MPCTL"/cmds/infra/bin/compile_client.sh mode="$build_mode"
+    source "$MPCTL"/cmds/infra/bin/compile_key_manager.sh mode="$build_mode"
+    source "$MPCTL"/cmds/infra/bin/compile_other.sh mode="$build_mode"
+    source "$MPCTL"/cmds/infra/bin/compile_server.sh mode="$build_mode"
 }
 
 # ----------------------------------------------------------------
@@ -37,7 +37,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
-unset _MODE
+unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
@@ -45,7 +45,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        mode) _MODE=${VALUE} ;;
+        mode) _BUILD_MODE=${VALUE} ;;
         *)
     esac
 done
@@ -53,5 +53,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_MODE:-"release"}"
+    _main "${_BUILD_MODE:-"release"}"
 fi

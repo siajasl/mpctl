@@ -58,8 +58,7 @@ function _setup_fs()
         path_to_node="$path_to_assets"/nodes/node-"$idx_of_node"
         mkdir -p "$path_to_node"
         mkdir "$path_to_node/bin"
-        mkdir "$path_to_node/config"
-        mkdir "$path_to_node/keys"
+        mkdir "$path_to_node/envs"
         mkdir "$path_to_node/logs"
     done
 }

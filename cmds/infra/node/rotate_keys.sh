@@ -4,41 +4,39 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-bin-compile-other
+    mpctl-infra-node-rotate-keys
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Compiles other server related binaries.
+    Rotates asymmetric key-pairs for a node within an MPC network.
 
     ARGS
     ----------------------------------------------------------------
-    mode        Compilation mode: debug | release. Optional.
-
-    DEFAULTS
-    ----------------------------------------------------------------
-    mode        release
+    node        Ordinal identifier of node.
     "
 }
 
 function _main()
 {
-    local build_mode=${1}
+    local idx_of_node=${1}
 
-    local build_subdir="iris-mpc-cpu"
+    log_break
+    log "Rotating keys for node $idx_of_node"
+    log_break
 
-    declare -a build_targets=(
-        "hawk-genesis-indexer"
-        "hawk_main"
-        "hnsw_algorithm_metrics"
-        "hnsw_network_stats_example"
-        "local_hnsw"
-        "generate_benchmark_data"
-    )
+    # Activate node env.
+    source "$MPCTL"/cmds/infra/node/activate_node_env.sh node=$idx_of_node
 
-    for build_target in "${build_targets[@]}"
-    do
-        do_build_binary "$build_mode" "$build_subdir" "$build_target"
-    done
+    # Rotate keys via AWS KMS.
+    pushd "$(get_path_to_monorepo)"
+    cargo run --bin \
+        key-manager -- \
+            --region $MPCTL_AWS_REGION \
+            --node-id $idx_of_node \
+            --env dev \
+        rotate \
+            --public-key-bucket-name wf-dev-public-keys
+    popd || exit
 }
 
 # ----------------------------------------------------------------
@@ -48,7 +46,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
-unset _BUILD_MODE
+unset _NODE_ID
 
 for ARGUMENT in "$@"
 do
@@ -56,7 +54,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        mode) _BUILD_MODE=${VALUE} ;;
+        node) _NODE_ID=${VALUE} ;;
         *)
     esac
 done
@@ -64,5 +62,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_BUILD_MODE:-"release"}"
+    _main "$_NODE_ID"
 fi

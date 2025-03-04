@@ -34,7 +34,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
-unset _MODE
+unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
@@ -42,7 +42,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        mode) _MODE=${VALUE} ;;
+        mode) _BUILD_MODE=${VALUE} ;;
         *)
     esac
 done
@@ -50,5 +50,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_MODE:-"release"}"
+    _main "${_BUILD_MODE:-"release"}"
 fi

@@ -4,27 +4,26 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-bin-compile-client
+    mpctl-infra-net-keys-rotate
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Compiles client binary.
-
-    ARGS
-    ----------------------------------------------------------------
-    mode        Compilation mode: debug | release. Optional.
-
-    DEFAULTS
-    ----------------------------------------------------------------
-    mode        release
+    Rotates key-pairs for each node within an MPC network.
     "
 }
 
 function _main()
 {
-    local build_mode=${1}
+    local idx_of_node
 
-    do_build_binary "$build_mode" "iris-mpc" "client"
+    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
+    do
+        source "$MPCTL"/cmds/infra/node/rotate_keys.sh node=$idx_of_node
+    done
+
+    log_break
+    log "Key rotation complete"
+    log_break
 }
 
 # ----------------------------------------------------------------
@@ -34,7 +33,6 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
-unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
@@ -42,7 +40,6 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        mode) _BUILD_MODE=${VALUE} ;;
         *)
     esac
 done
@@ -50,5 +47,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_BUILD_MODE:-"release"}"
+    _main
 fi
