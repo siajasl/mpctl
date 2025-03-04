@@ -24,7 +24,7 @@ function _main()
 {
     local build_mode=${1}
 
-    do_build_binary "iris-mpc-common" "key-manager" "$build_mode"
+    do_build_binary "$build_mode" "iris-mpc-common" "key-manager"
 }
 
 # ----------------------------------------------------------------

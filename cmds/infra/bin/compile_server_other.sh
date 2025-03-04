@@ -4,11 +4,11 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-bin-compile-server-cpu
+    mpctl-infra-bin-compile-server-cpu-other
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Compiles CPU server binary.
+    Compiles other CPU server related binaries.
 
     ARGS
     ----------------------------------------------------------------
@@ -24,7 +24,13 @@ function _main()
 {
     local build_mode=${1}
 
-    do_build_binary "iris-mpc" "server-hawk" "$build_mode"
+    local build_subdir="iris-mpc-cpu"
+
+    do_build_binary "$build_mode" "$build_subdir" "hawk_main"
+    do_build_binary "$build_mode" "$build_subdir" "hnsw_algorithm_metrics"
+    do_build_binary "$build_mode" "$build_subdir" "hnsw_network_stats_example"
+    do_build_binary "$build_mode" "$build_subdir" "local_hnsw"
+    do_build_binary "$build_mode" "$build_subdir" "generate_benchmark_data"
 }
 
 # ----------------------------------------------------------------
