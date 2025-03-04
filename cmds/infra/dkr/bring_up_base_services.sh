@@ -4,19 +4,33 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-dkr-build-server-image
+    mpctl-infra-dkr-bring-up-base-services
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Builds server docker image.
+    Brings up base dockerised services, i.e. localstack & PostgreSQL.
+
+    ARGS
+    ----------------------------------------------------------------
+    mode        Mode: detached | other. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    mode        detached
     "
 }
 
 function _main()
 {
+    local mode=${1}
+
     pushd "$(get_path_to_monorepo)"
 
-    docker build -f Dockerfile.dev.hawk -t hawk-server-local-build:latest .
+    if [ "$mode" == "detached" ]; then
+        docker-compose -f docker-compose.dev.yaml up --detach
+    else
+        docker-compose -f docker-compose.dev.yaml up
+    fi
 
     popd || exit
 }
@@ -28,6 +42,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
+unset _MODE
 
 for ARGUMENT in "$@"
 do
@@ -35,6 +50,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
+        mode) _MODE=${VALUE} ;;
         *)
     esac
 done
@@ -42,5 +58,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_MODE:-"detached"}"
 fi

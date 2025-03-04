@@ -22,6 +22,8 @@ alias mpctl-infra-bin-compile-server-gpu='source $MPCTL/cmds/infra/bin/compile_s
 alias mpctl-infra-bin-compile-server-gpu-other='source $MPCTL/cmds/infra/bin/compile_server_gpu_other.sh'
 
 # ... docker
+alias mpctl-infra-dkr-bring-down-base-services='source $MPCTL/cmds/infra/dkr/bring_down_base_services.sh'
+alias mpctl-infra-dkr-bring-up-base-services='source $MPCTL/cmds/infra/dkr/bring_up_base_services.sh'
 alias mpctl-infra-dkr-build-image-of-server='source $MPCTL/cmds/infra/dkr/build_image_of_server.sh'
 
 # ... networks
