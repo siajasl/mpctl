@@ -21,6 +21,9 @@ alias mpctl-infra-bin-compile-server-cpu-other='source $MPCTL/cmds/infra/bin/com
 alias mpctl-infra-bin-compile-server-gpu='source $MPCTL/cmds/infra/bin/compile_server_gpu.sh'
 alias mpctl-infra-bin-compile-server-gpu-other='source $MPCTL/cmds/infra/bin/compile_server_gpu_other.sh'
 
+# ... docker
+alias mpctl-infra-dkr-build-image-of-server='source $MPCTL/cmds/infra/dkr/build_image_of_server.sh'
+
 # ... networks
 alias mpctl-infra-net-setup='source $MPCTL/cmds/infra/net/ctl_setup.sh'
 alias mpctl-infra-net-teardown='source $MPCTL/cmds/infra/net/ctl_teardown.sh'

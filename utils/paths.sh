@@ -11,23 +11,15 @@ function get_path_to_assets()
 }
 
 #######################################
-# Returns path to compiled client binary.
-# Globals:
-#   CSPR_COMPILE_TARGET
-#   CSPR_PATH_TO_BIN
+# Returns path to a node's local assets.
+# Arguments:
+#   Node ordinal identifier.
 #######################################
-function get_path_to_compiled_client()
+function get_path_to_assets_of_node()
 {
-    local COMPILE_TARGET
-    local PATH_TO_BINARY
+    local node_idx=${1}
 
-    if ((${#CSPR_PATH_TO_BIN[@]})); then
-        echo $CSPR_PATH_TO_BIN/casper-client
-    else
-        COMPILE_TARGET=${CSPR_COMPILE_TARGET:-release}
-        PATH_TO_BINARY="casper-client-rs/target/$COMPILE_TARGET/casper-client"
-        echo $(get_path_to_working_directory_file $PATH_TO_BINARY)
-    fi
+    echo "$(get_path_to_assets)"/nodes/node-"$node_idx"
 }
 
 #######################################
@@ -38,16 +30,20 @@ function get_path_to_compiled_client()
 #######################################
 function get_path_to_compiled_node()
 {
-    local COMPILE_TARGET
-    local PATH_TO_BINARY
+    local path_to_monorepo=$(get_path_to_monorepo)
 
-    if ((${#CSPR_PATH_TO_BIN[@]})); then
-        echo $CSPR_PATH_TO_BIN/casper-node
-    else
-        COMPILE_TARGET=${CSPR_COMPILE_TARGET:-release}
-        PATH_TO_BINARY="casper-node/target/$COMPILE_TARGET/casper-node"
-        echo $(get_path_to_working_directory_file $PATH_TO_BINARY)
-    fi
+    echo $path_to_monorepo
+
+    # local COMPILE_TARGET
+    # local PATH_TO_BINARY
+
+    # if ((${#CSPR_PATH_TO_BIN[@]})); then
+    #     echo $CSPR_PATH_TO_BIN/casper-node
+    # else
+    #     COMPILE_TARGET=${CSPR_COMPILE_TARGET:-release}
+    #     PATH_TO_BINARY="casper-node/target/$COMPILE_TARGET/casper-node"
+    #     echo $(get_path_to_working_directory_file $PATH_TO_BINARY)
+    # fi
 }
 
 #######################################
@@ -61,23 +57,13 @@ function get_path_to_monorepo()
 }
 
 #######################################
-# Returns path to a node's local assets.
-# Arguments:
-#   Node ordinal identifier.
+# Returns path to the monorepo within which solution has been developed.
 #######################################
-function get_path_to_node()
+function get_path_to_monorepo_subdir()
 {
-    local node_id=${1:-1}
+    local name_of_subdir=${1}
 
-    echo "$(get_path_to_assets)"/nodes/node-"$node_id"
-}
-
-#######################################
-# Returns path to client binary.
-#######################################
-function get_path_to_node_client()
-{
-    echo "$(get_path_to_assets)"/bin/casper-client
+    echo "$(get_path_to_monorepo)/$name_of_subdir"
 }
 
 #######################################
@@ -87,9 +73,9 @@ function get_path_to_node_client()
 #######################################
 function get_path_to_node_logs()
 {
-    local node_id=${1:-1}
+    local node_idx=${1:-1}
 
-    echo "$(get_path_to_node "$node_id")"/logs
+    echo "$(get_path_to_assets_of_node "$node_idx")"/logs
 }
 
 #######################################
@@ -98,4 +84,15 @@ function get_path_to_node_logs()
 function get_path_to_parent()
 {
     echo "$( cd "$( dirname "${MPCTL[0]}" )" && pwd )"
+}
+
+#######################################
+# Returns path to a target binary.
+#######################################
+function get_path_to_target_binary()
+{
+    local name_of_binary=${1}
+    local build_mode=${2}
+
+    echo "$(get_path_to_monorepo)/target/$build_mode/$name_of_binary"
 }

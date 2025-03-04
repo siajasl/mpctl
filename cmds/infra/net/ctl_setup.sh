@@ -14,20 +14,40 @@ function _help() {
 
 function _main()
 {
-    log "MPC network setup -> begins"
     log_break
+    log "MPC network setup :: begins"
 
     _setup_fs
-    log "Assets directory -> initialised"
+    log "    assets directory created"
 
+    _setup_binaries
+    log "    binaries assigned"
+
+    log "MPC network setup :: ends"
     log_break
-    log "MPC network setup -> ends"
+}
+
+function _setup_binaries()
+{
+    local idx_of_node
+
+    for idx_of_node in $(seq 1 "$MPCTL_COUNT_OF_PARTIES")
+    do
+        cp \
+            $(get_path_to_target_binary "client" "release") \
+            "$(get_path_to_assets_of_node $idx_of_node)/bin"
+        cp \
+            $(get_path_to_target_binary "key-manager" "release") \
+            "$(get_path_to_assets_of_node $idx_of_node)/bin"
+        cp \
+            $(get_path_to_target_binary "server-hawk" "release") \
+            "$(get_path_to_assets_of_node $idx_of_node)/bin"
+    done
 }
 
 function _setup_fs()
 {
     local path_to_assets=$(get_path_to_assets)
-
     local path_to_node
     local idx_of_node
 
@@ -41,7 +61,6 @@ function _setup_fs()
         mkdir "$path_to_node/config"
         mkdir "$path_to_node/keys"
         mkdir "$path_to_node/logs"
-        mkdir "$path_to_node/storage"
     done
 }
 

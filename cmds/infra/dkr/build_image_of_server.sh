@@ -4,49 +4,19 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-net-teardown
+    mpctl-infra-dkr-build-server-image
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Tears down assets for an MPC network.
+    Builds server docker image.
     "
 }
 
 function _main()
 {
-    log_break
-    log "Network teardown :: begins"
-
-    _teardown_processes
-    log "    processes stopped"
-
-    _teardown_services
-    log "    services stopped"
-
-    _teardown_assets
-    log "    assets deleted"
-
-    log "Network teardown :: complete"
-    log_break
-}
-
-function _teardown_assets()
-{
-    local path_to_assets=$(get_path_to_assets)
-
-    if [ -d "$path_to_assets" ]; then
-        rm -rf "$path_to_assets"
-    fi
-}
-
-function _teardown_processes()
-{
-    echo "TODO: _teardown_processes"
-}
-
-function _teardown_services()
-{
-    echo "TODO: _teardown_services"
+    pushd "$(get_path_to_monorepo)"
+    docker build -f Dockerfile.dev.hawk -t hawk-server-local-build:latest .
+    popd || exit
 }
 
 # ----------------------------------------------------------------
@@ -56,6 +26,7 @@ function _teardown_services()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
+unset _MODE
 
 for ARGUMENT in "$@"
 do
@@ -63,6 +34,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
+        mode) _MODE=${VALUE} ;;
         *)
     esac
 done
@@ -70,5 +42,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_MODE:-"release"}"
 fi
