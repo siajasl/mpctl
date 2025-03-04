@@ -25,7 +25,7 @@ function _main()
     log_break
 
     # Activate node env.
-    source "$MPCTL"/cmds/infra/node/activate_node_env.sh node=$idx_of_node
+    source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
 
     # Rotate keys via AWS KMS.
     pushd "$(get_path_to_monorepo)"
