@@ -16,8 +16,8 @@ declare MPCTL="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 alias mpctl-infra-bin-compile='source $MPCTL/cmds/infra/bin/compile.sh'
 alias mpctl-infra-bin-compile-client='source $MPCTL/cmds/infra/bin/compile_client.sh'
 alias mpctl-infra-bin-compile-key-manager='source $MPCTL/cmds/infra/bin/compile_key_manager.sh'
+alias mpctl-infra-bin-compile-other='source $MPCTL/cmds/infra/bin/compile_other.sh'
 alias mpctl-infra-bin-compile-server='source $MPCTL/cmds/infra/bin/compile_server.sh'
-alias mpctl-infra-bin-compile-server-other='source $MPCTL/cmds/infra/bin/compile_server_other.sh'
 
 # ... docker
 alias mpctl-infra-dkr-bring-down-nodes='source $MPCTL/cmds/infra/dkr/bring_down_nodes.sh'

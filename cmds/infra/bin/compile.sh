@@ -26,8 +26,8 @@ function _main()
 
     source "$MPCTL"/cmds/infra/bin/compile_client.sh mode="$MODE"
     source "$MPCTL"/cmds/infra/bin/compile_key_manager.sh mode="$MODE"
+    source "$MPCTL"/cmds/infra/bin/compile_other.sh mode="$MODE"
     source "$MPCTL"/cmds/infra/bin/compile_server.sh mode="$MODE"
-    source "$MPCTL"/cmds/infra/bin/compile_server_other.sh mode="$MODE"
 }
 
 # ----------------------------------------------------------------
