@@ -34,6 +34,30 @@ function get_os()
 }
 
 #######################################
+# Returns true if passed environment variable is set.
+#######################################
+function is_env_var_set ()
+{
+    local var_name="$1"
+    local expected_value="${2:-}"
+
+    # Method 1: Check if variable is unset or empty
+    if [[ -z "${!var_name+x}" ]]; then
+        return 1
+    fi
+
+    # If an expected value is provided, check for exact match
+    if [[ -n "$expected_value" ]]; then
+        if [[ "${!var_name}" != "$expected_value" ]]; then
+            return 1
+        fi
+    fi
+
+    # Variable is set (and matches expected value if provided)
+    return 0
+}
+
+#######################################
 # Wraps standard echo by adding application prefix.
 #######################################
 function log ()
@@ -105,19 +129,4 @@ function pushd ()
 function popd ()
 {
     command popd "$@" > /dev/null
-}
-
-#######################################
-# Forces a directory delete / recreate.
-# Arguments:
-#   Directory to be reset / recreated.
-#######################################
-function resetd ()
-{
-    local DPATH=${1}
-
-    if [ -d "$DPATH" ]; then
-        rm -rf "$DPATH"
-    fi
-    mkdir -p "$DPATH"
 }

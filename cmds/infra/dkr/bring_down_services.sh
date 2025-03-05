@@ -14,7 +14,7 @@ function _help() {
 
 function _main()
 {
-    pushd "$(get_path_to_monorepo)"
+    pushd "$(get_path_to_monorepo)" || exit
 
     docker-compose -f docker-compose.dev.yaml down --volumes
 

@@ -14,7 +14,7 @@ function _help() {
 
 function _main()
 {
-    pushd "$(get_path_to_monorepo)"
+    pushd "$(get_path_to_monorepo)" || exit
 
     docker build -f Dockerfile.dev.hawk -t hawk-server-local-build:latest .
 

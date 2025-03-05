@@ -27,10 +27,14 @@ alias mpctl-infra-dkr-bring-up-services='source $MPCTL/cmds/infra/dkr/bring_up_s
 alias mpctl-infra-dkr-build-image-of-server='source $MPCTL/cmds/infra/dkr/build_image_of_server.sh'
 
 # ... networks
+alias mpctl-infra-net-dump-pgres-db-set='source $MPCTL/cmds/infra/net/pgres_db_dump.sh'
+alias mpctl-infra-net-restore-pgres-db-set='source $MPCTL/cmds/infra/net/pgres_db_restore.sh'
 alias mpctl-infra-net-rotate-keys='source $MPCTL/cmds/infra/net/rotate_keys.sh'
 alias mpctl-infra-net-setup='source $MPCTL/cmds/infra/net/ctl_setup.sh'
 alias mpctl-infra-net-teardown='source $MPCTL/cmds/infra/net/ctl_teardown.sh'
 
 # ... nodes
 alias mpctl-infra-node-activate-env='source $MPCTL/cmds/infra/node/activate_env.sh'
+alias mpctl-infra-node-dump-pgres-db='source $MPCTL/cmds/infra/node/pgres_db_dump.sh'
+alias mpctl-infra-node-restore-postgres-db='source $MPCTL/cmds/infra/node/pgres_db_restore.sh'
 alias mpctl-infra-node-rotate-keys='source $MPCTL/cmds/infra/node/rotate_keys.sh'

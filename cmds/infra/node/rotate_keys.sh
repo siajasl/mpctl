@@ -28,10 +28,10 @@ function _main()
     source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
 
     # Rotate keys via AWS KMS.
-    pushd "$(get_path_to_monorepo)"
+    pushd "$(get_path_to_monorepo)" || exit
     cargo run --bin \
         key-manager -- \
-            --region $MPCTL_AWS_REGION \
+            --region $MPCTL_DEFAULT_AWS_REGION \
             --node-id $idx_of_node \
             --env dev \
         rotate \
@@ -46,7 +46,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
-unset _NODE_ID
+unset _IDX_OF_NODE
 
 for ARGUMENT in "$@"
 do
@@ -54,7 +54,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        node) _NODE_ID=${VALUE} ;;
+        node) _IDX_OF_NODE=${VALUE} ;;
         *)
     esac
 done
@@ -62,5 +62,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "$_NODE_ID"
+    _main "$_IDX_OF_NODE"
 fi

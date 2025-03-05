@@ -17,9 +17,9 @@ function get_path_to_assets()
 #######################################
 function get_path_to_assets_of_node()
 {
-    local node_idx=${1}
+    local idx_of_node=${1}
 
-    echo "$(get_path_to_assets)"/nodes/node-"$node_idx"
+    echo "$(get_path_to_assets)"/nodes/node-"$idx_of_node"
 }
 
 #######################################
@@ -73,9 +73,9 @@ function get_path_to_monorepo_subdir()
 #######################################
 function get_path_to_node_logs()
 {
-    local node_idx=${1:-1}
+    local idx_of_node=${1:-1}
 
-    echo "$(get_path_to_assets_of_node "$node_idx")"/logs
+    echo "$(get_path_to_assets_of_node "$idx_of_node")"/logs
 }
 
 #######################################

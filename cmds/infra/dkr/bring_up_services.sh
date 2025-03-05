@@ -24,7 +24,7 @@ function _main()
 {
     local mode=${1}
 
-    pushd "$(get_path_to_monorepo)"
+    pushd "$(get_path_to_monorepo)" || exit
 
     if [ "$mode" == "detached" ]; then
         docker-compose -f docker-compose.dev.yaml up --detach
