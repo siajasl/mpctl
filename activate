@@ -20,9 +20,9 @@ alias mpctl-infra-bin-compile-other='source $MPCTL/cmds/infra/bin/compile_other.
 alias mpctl-infra-bin-compile-server='source $MPCTL/cmds/infra/bin/compile_server.sh'
 
 # ... docker
-alias mpctl-infra-dkr-bring-down-nodes='source $MPCTL/cmds/infra/dkr/bring_down_nodes.sh'
+alias mpctl-infra-dkr-bring-down-net='source $MPCTL/cmds/infra/dkr/bring_down_net.sh'
 alias mpctl-infra-dkr-bring-down-services='source $MPCTL/cmds/infra/dkr/bring_down_services.sh'
-alias mpctl-infra-dkr-bring-up-nodes='source $MPCTL/cmds/infra/dkr/bring_up_nodes.sh'
+alias mpctl-infra-dkr-bring-up-net='source $MPCTL/cmds/infra/dkr/bring_up_net.sh'
 alias mpctl-infra-dkr-bring-up-services='source $MPCTL/cmds/infra/dkr/bring_up_services.sh'
 alias mpctl-infra-dkr-build-image-of-server='source $MPCTL/cmds/infra/dkr/build_image_of_server.sh'
 
