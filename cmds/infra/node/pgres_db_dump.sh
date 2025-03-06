@@ -42,11 +42,12 @@ function _main()
 
     log "Enter dB super-user password"
     pg_dump \
+        -Fp -C -c --inserts \
         -d ${db_name} \
         -h ${server_host} \
         -p ${server_port} \
         -U ${super_user_name} \
-        | gzip > "$path_to_dump"
+        -f ${path_to_dump}
 
     log "Node $idx_of_node: postgres dB dump complete"
 }

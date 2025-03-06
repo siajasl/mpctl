@@ -2,11 +2,11 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-node-dump-pgres-db
+    mpctl-infra-node-restore-pgres-db
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Dumps a node's postgres database.
+    Restores a node's postgres database.
 
     ARGS
     ----------------------------------------------------------------
@@ -33,7 +33,7 @@ function _main()
     path_to_dump="${MPCTL}/data/${db_name}.tar.gz"
 
     log_break
-    log "Node $idx_of_node: postgres dB dump begins"
+    log "Node $idx_of_node: postgres dB restore begins"
     log "    dB name=${db_name}"
     log "    dB server host=${server_host}"
     log "    dB server port=${server_port}"
@@ -41,14 +41,14 @@ function _main()
     log "    dB dump path=${path_to_dump}"
 
     log "Enter dB super-user password"
-    pg_dump \
-        -d ${db_name} \
+    pg_restore \
+        -v \
+        -f ${path_to_dump} \
         -h ${server_host} \
         -p ${server_port} \
-        -U ${super_user_name} \
-        | gzip > "$path_to_dump"
+        -U ${super_user_name}
 
-    log "Node $idx_of_node: postgres dB dump complete"
+    log "Node $idx_of_node: postgres dB restore complete"
 }
 
 # ----------------------------------------------------------------
