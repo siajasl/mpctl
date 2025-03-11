@@ -11,6 +11,10 @@ declare MPCTL="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # COMMANDS
 # ###############################################################
 
+# Developer commands:
+# ... binaries
+alias mpctl-dev-apply-linter='source $MPCTL/cmds/dev/apply_linter.sh'
+
 # Infrastructure commands:
 # ... binaries
 alias mpctl-infra-bin-compile='source $MPCTL/cmds/infra/bin/compile.sh'
