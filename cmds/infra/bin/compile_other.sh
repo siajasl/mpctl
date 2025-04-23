@@ -26,7 +26,7 @@ function _main()
 
     local build_subdir="iris-mpc-cpu"
 
-    declare -a build_targets=(
+    local -a build_targets=(
         "hawk-genesis-indexer"
         "hawk_main"
         "hnsw_algorithm_metrics"
