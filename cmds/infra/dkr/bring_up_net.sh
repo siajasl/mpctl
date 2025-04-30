@@ -17,7 +17,7 @@ function _help() {
 
     DEFAULTS
     ----------------------------------------------------------------
-    binary      genesis
+    binary      standard
     mode        detached
     "
 }
