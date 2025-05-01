@@ -27,7 +27,7 @@ alias mpctl-infra-bin-compile-server='source $MPCTL/cmds/infra/bin/compile_serve
 alias mpctl-infra-dkr-build-server-image='source $MPCTL/cmds/infra/dkr/build_image_of_server.sh'
 alias mpctl-infra-dkr-net-down='source $MPCTL/cmds/infra/dkr/bring_down_net.sh'
 alias mpctl-infra-dkr-net-up='source $MPCTL/cmds/infra/dkr/bring_up_net.sh'
-alias mpctl-infra-dkr-services-down-='source $MPCTL/cmds/infra/dkr/bring_down_services.sh'
+alias mpctl-infra-dkr-services-down='source $MPCTL/cmds/infra/dkr/bring_down_services.sh'
 alias mpctl-infra-dkr-services-up='source $MPCTL/cmds/infra/dkr/bring_up_services.sh'
 
 # ... networks

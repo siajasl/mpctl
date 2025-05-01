@@ -22,6 +22,8 @@ function _help() {
 
 function _main()
 {
+    local image=${1}
+
     pushd "$(get_path_to_monorepo)" || exit
 
     if [ "$image" == "all" ]; then
@@ -30,7 +32,7 @@ function _main()
             -t hawk-server-local-build-genesis:latest .
         docker build \
             -f Dockerfile.dev.hawk \
-            -t hawk-server-local-build:latest .
+            -t hawk-server-local-build-genesis:latest .
     elif [ "$image" == "genesis" ]; then
         docker build \
             -f Dockerfile.dev.hawk.genesis \
