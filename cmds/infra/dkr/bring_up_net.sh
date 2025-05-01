@@ -70,5 +70,7 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_BINARY:-"standard"}" "${_MODE:-"detached"}"
+    _main \
+        "${_BINARY:-"standard"}" \
+        "${_MODE:-"detached"}"
 fi

@@ -17,11 +17,12 @@ function _main()
     pushd "$(get_path_to_monorepo)" || exit
 
     if [ "$binary" == "genesis" ]; then
-        docker-compose -f docker-compose.test.genesis.yaml down --volumes
+        docker_filename="docker-compose.test.genesis.yaml"
     else
-        docker-compose -f docker-compose.test.yaml down --volumes
+        docker_filename="docker-compose.test.yaml"
     fi
 
+    docker-compose -f $docker_filename down --volumes
 
     popd || exit
 }
