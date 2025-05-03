@@ -47,6 +47,25 @@ function get_path_to_compiled_node()
 }
 
 #######################################
+# Returns path to a docker compose file for managing network nodes.
+#######################################
+function get_path_to_docker_compose_file_of_net()
+{
+    local binary=${1}
+    local docker_filename
+    local docker_filepath
+    local docker_service
+
+    if [ "$binary" == "genesis" ]; then
+        docker_filename="docker-compose.test.genesis.yaml"
+    else
+        docker_filename="docker-compose.test.yaml"
+    fi
+
+    echo "$(get_path_to_monorepo)/${docker_filename}"
+}
+
+#######################################
 # Returns path to the monorepo within which solution has been developed.
 #######################################
 function get_path_to_monorepo()
