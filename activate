@@ -42,3 +42,7 @@ alias mpctl-infra-node-activate-env='source $MPCTL/cmds/infra/node/activate_env.
 alias mpctl-infra-node-dump-pgres-db='source $MPCTL/cmds/infra/node/pgres_db_dump.sh'
 alias mpctl-infra-node-restore-postgres-db='source $MPCTL/cmds/infra/node/pgres_db_restore.sh'
 alias mpctl-infra-node-rotate-keys='source $MPCTL/cmds/infra/node/rotate_keys.sh'
+
+# Job commands:
+alias mpctl-job-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/init_db_from_plain_text_iris_file.sh'
+alias mpctl-job-init-plain-text-iris-file='source $MPCTL/cmds/jobs/init_plain_text_iris_file.sh'
