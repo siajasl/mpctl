@@ -6,7 +6,7 @@ function _help() {
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Dumps a node's postgres database.
+    Backs up a node's postgres database.
 
     ARGS
     ----------------------------------------------------------------
@@ -24,25 +24,24 @@ function _main()
     local super_user_name
 
     # Activate node env.
-    source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
+    source "$MPCTL/cmds/infra/node/activate_env.sh" node=$idx_of_node
 
     db_name=$(get_pgres_app_db_name "$idx_of_node")
     server_host=$(get_pgres_server_host)
     server_port=$(get_pgres_server_port)
     super_user_name=$(get_pgres_super_user_name)
-    path_to_dump="${MPCTL}/data/${db_name}.tar.gz"
+    path_to_dump="${MPCTL}/data/db_backups/${db_name}.tar.gz"
 
     log_break
     log "Node $idx_of_node: postgres dB dump begins"
     log "    dB name=${db_name}"
-    log "    dB server host=${server_host}"
-    log "    dB server port=${server_port}"
+    log "    dB server ${server_host}:${server_port}"
     log "    dB super user=${super_user_name}"
     log "    dB dump path=${path_to_dump}"
 
     log "Enter dB super-user password"
     pg_dump \
-        -Fp -C -c --inserts \
+        -Ft --inserts \
         -d ${db_name} \
         -h ${server_host} \
         -p ${server_port} \

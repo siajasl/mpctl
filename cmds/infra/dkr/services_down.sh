@@ -4,26 +4,21 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-net-keys-rotate
+    mpctl-infra-dkr-services-down
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Rotates key-pairs for each node within an MPC network.
+    Brings down base dockerised services, i.e. localstack & PostgreSQL.
     "
 }
 
 function _main()
 {
-    local idx_of_node
+    pushd "$(get_path_to_monorepo)" || exit
 
-    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
-    do
-        source "$MPCTL"/cmds/infra/node/pgres_db_dump.sh node=$idx_of_node
-    done
+    docker-compose -f docker-compose.dev.yaml down --volumes
 
-    log_break
-    log "Network postgres databases dumps complete"
-    log_break
+    popd || exit
 }
 
 # ----------------------------------------------------------------

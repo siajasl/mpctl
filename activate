@@ -24,24 +24,26 @@ alias mpctl-infra-bin-compile-other='source $MPCTL/cmds/infra/bin/compile_other.
 alias mpctl-infra-bin-compile-server='source $MPCTL/cmds/infra/bin/compile_server.sh'
 
 # ... docker
-alias mpctl-infra-dkr-bring-up-net='source $MPCTL/cmds/infra/dkr/bring_up_net.sh'
-alias mpctl-infra-dkr-bring-up-services='source $MPCTL/cmds/infra/dkr/bring_up_services.sh'
-alias mpctl-infra-dkr-build-server-image='source $MPCTL/cmds/infra/dkr/build_image_of_server.sh'
-alias mpctl-infra-dkr-take-down-net='source $MPCTL/cmds/infra/dkr/take_down_net.sh'
-alias mpctl-infra-dkr-take-down-services='source $MPCTL/cmds/infra/dkr/take_down_services.sh'
+alias mpctl-infra-dkr-build-image='source $MPCTL/cmds/infra/dkr/build_image.sh'
+alias mpctl-infra-dkr-net-down='source $MPCTL/cmds/infra/dkr/net_down.sh'
+alias mpctl-infra-dkr-net-up='source $MPCTL/cmds/infra/dkr/net_up.sh'
+alias mpctl-infra-dkr-services-down='source $MPCTL/cmds/infra/dkr/services_down.sh'
+alias mpctl-infra-dkr-services-up='source $MPCTL/cmds/infra/dkr/services_up.sh'
 
 # ... networks
-alias mpctl-infra-net-dump-pgres-db-set='source $MPCTL/cmds/infra/net/pgres_db_dump.sh'
-alias mpctl-infra-net-restore-pgres-db-set='source $MPCTL/cmds/infra/net/pgres_db_restore.sh'
+alias mpctl-infra-net-pgres-dump='source $MPCTL/cmds/infra/net/pgres_dump.sh'
+alias mpctl-infra-net-pgres-restore='source $MPCTL/cmds/infra/net/pgres_restore.sh'
+alias mpctl-infra-net-pgres-truncate-graph-tables='source $MPCTL/cmds/infra/net/pgres_truncate_graph_tables.sh'
 alias mpctl-infra-net-rotate-keys='source $MPCTL/cmds/infra/net/rotate_keys.sh'
 alias mpctl-infra-net-setup='source $MPCTL/cmds/infra/net/ctl_setup.sh'
 alias mpctl-infra-net-teardown='source $MPCTL/cmds/infra/net/ctl_teardown.sh'
 
 # ... nodes
 alias mpctl-infra-node-activate-env='source $MPCTL/cmds/infra/node/activate_env.sh'
-alias mpctl-infra-node-dump-pgres-db='source $MPCTL/cmds/infra/node/pgres_db_dump.sh'
-alias mpctl-infra-node-restore-postgres-db='source $MPCTL/cmds/infra/node/pgres_db_restore.sh'
 alias mpctl-infra-node-rotate-keys='source $MPCTL/cmds/infra/node/rotate_keys.sh'
+alias mpctl-infra-node-pgres-dump='source $MPCTL/cmds/infra/node/pgres_dump.sh'
+alias mpctl-infra-node-pgres-restore='source $MPCTL/cmds/infra/node/pgres_restore.sh'
+alias mpctl-infra-node-pgres-truncate-graph-tables='source $MPCTL/cmds/infra/node/pgres_truncate_graph_tables.sh'
 
 # Job commands:
 alias mpctl-job-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/init_db_from_plain_text_iris_file.sh'

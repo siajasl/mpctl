@@ -4,33 +4,26 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-dkr-build-server-image
+    mpctl-infra-net-pgres-restore
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Builds server docker image.
-
-    ARGS
-    ----------------------------------------------------------------
-    image       Image to build: all | standard | genesis. Optional.
-
-    DEFAULTS
-    ----------------------------------------------------------------
-    image       all
+    Restores a network's postgres databases.
     "
 }
 
 function _main()
 {
-    local image=${1}
+    local idx_of_node
 
-    pushd "$(get_path_to_monorepo)" || exit
+    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
+    do
+        source "$MPCTL"/cmds/infra/node/pgres_restore.sh node=$idx_of_node
+    done
 
-    docker build \
-        -f Dockerfile.dev.hawk \
-        -t hawk-server-local-build:latest .
-
-    popd || exit
+    log_break
+    log "Network postgres databases restore complete"
+    log_break
 }
 
 # ----------------------------------------------------------------

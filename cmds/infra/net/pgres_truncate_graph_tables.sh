@@ -4,23 +4,30 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-jobs-init-db-from-plain-text-iris-file
+    mpctl-infra-net-pgres-truncate-graph-tables
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Initializes database from previously generated plain text iris files.
+    Truncates a network's postgres database graph related tables.
     "
 }
 
 function _main()
 {
-    pushd "$(get_path_to_monorepo)" || exit
+    local idx_of_node
 
-    declare SMPC_INIT_PATH_TO_PRNG_STATE="$MPCTL/data/tmp/prng_state"
-    declare SMPC_INIT_PATH_TO_IRIS_PLAINTEXT="$MPCTL/data/iris-plaintext/store.ndjson"
-    source "./scripts/tools/init_db_from_plaintext_iris_file.sh"
+    log_break
+    log "Network postgres dB graph tables truncation begins"
+    log_break
 
-    popd || exit
+    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
+    do
+        source "$MPCTL"/cmds/infra/node/pgres_truncate_graph_tables.sh node=$idx_of_node
+    done
+
+    log_break
+    log "Network postgres dB graph tables truncation complete"
+    log_break
 }
 
 # ----------------------------------------------------------------

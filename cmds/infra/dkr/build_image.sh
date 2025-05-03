@@ -4,19 +4,31 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-dkr-bring-down-base-services
+    mpctl-infra-dkr-build-image
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Brings down base dockerised services, i.e. localstack & PostgreSQL.
+    Builds server docker image.
+
+    ARGS
+    ----------------------------------------------------------------
+    image       Image to build: all | standard | genesis. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    image       all
     "
 }
 
 function _main()
 {
+    local image=${1}
+
     pushd "$(get_path_to_monorepo)" || exit
 
-    docker-compose -f docker-compose.dev.yaml down --volumes
+    docker build \
+        -f Dockerfile.dev.hawk \
+        -t hawk-server-local-build:latest .
 
     popd || exit
 }
