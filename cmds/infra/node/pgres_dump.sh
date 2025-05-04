@@ -19,7 +19,7 @@ function _main()
     local idx_of_node=${1}
 
     local db_name=$(get_pgres_app_db_name "$idx_of_node")
-    local path_to_dump="${MPCTL}/data/db_backups/${db_name}.sql"
+    local path_to_dump="${MPCTL}/data/db-backups/${db_name}.sql"
     local server_host=$(get_pgres_server_host)
     local server_port=$(get_pgres_server_port)
     local super_user_name=$(get_pgres_super_user_name)
