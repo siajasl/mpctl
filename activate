@@ -17,11 +17,11 @@ alias mpctl-dev-apply-linter='source $MPCTL/cmds/dev/apply_linter.sh'
 
 # Infrastructure commands:
 # ... binaries
-alias mpctl-infra-bin-compile='source $MPCTL/cmds/infra/bin/compile.sh'
-alias mpctl-infra-bin-compile-client='source $MPCTL/cmds/infra/bin/compile_client.sh'
-alias mpctl-infra-bin-compile-key-manager='source $MPCTL/cmds/infra/bin/compile_key_manager.sh'
-alias mpctl-infra-bin-compile-other='source $MPCTL/cmds/infra/bin/compile_other.sh'
-alias mpctl-infra-bin-compile-server='source $MPCTL/cmds/infra/bin/compile_server.sh'
+alias mpctl-bin-compile='source $MPCTL/cmds/bin/compile.sh'
+alias mpctl-bin-compile-client='source $MPCTL/cmds/bin/compile_client.sh'
+alias mpctl-bin-compile-key-manager='source $MPCTL/cmds/bin/compile_key_manager.sh'
+alias mpctl-bin-compile-other='source $MPCTL/cmds/bin/compile_other.sh'
+alias mpctl-bin-compile-server='source $MPCTL/cmds/bin/compile_server.sh'
 
 # ... docker
 alias mpctl-infra-dkr-build-image='source $MPCTL/cmds/infra/dkr/build_image.sh'
