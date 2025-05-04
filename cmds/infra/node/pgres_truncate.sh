@@ -11,52 +11,61 @@ function _help() {
     ARGS
     ----------------------------------------------------------------
     node        Ordinal identifier of node.
+    group       Group of table to truncate: all | graph | iris.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    group       graph
     "
 }
 
 function _main()
 {
     local idx_of_node=${1}
-    local db_name
-    local path_to_sql_script
-    local server_host
-    local server_port
-    local super_user_name
-
-    # Activate node env.
-    source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
-
-    db_name=$(get_pgres_app_db_name "$idx_of_node")
-    server_host=$(get_pgres_server_host)
-    server_port=$(get_pgres_server_port)
-    super_user_name=$(get_pgres_super_user_name)
-    path_to_sql_script="$MPCTL/cmds/infra/node/pgres_truncate_graph_tables-${idx_of_node}.sql"
+    local table_group=${2}
 
     log_break
-    log "Node $idx_of_node: postgres dB graph tables truncation begins"
-    log "    dB name=${db_name}"
-    log "    dB server ${server_host}:${server_port}"
-    log "    dB super user=${super_user_name}"
-    log "    SQL script=${path_to_sql_script}"
+    log "Node $idx_of_node: postgres dB table truncation begins"
 
-    psql \
-        -h "$server_host" \
-        -p "$server_port" \
-        -U "$super_user_name" \
-        -d "$db_name" \
-        -f "$path_to_sql_script"
+    if [ "${table_group:-""}" = "all" ]; then
+        _do_truncation "$idx_of_node" "graph"
+        _do_truncation "$idx_of_node" "iris"
 
-    log "Node $idx_of_node: postgres dB graph tables truncation complete"
+    elif [ "${table_group:-""}" = "graph" ]; then
+        _do_truncation "$idx_of_node" "graph"
+
+    elif [ "${table_group:-""}" = "iris" ]; then
+        _do_truncation "$idx_of_node" "iris"
+
+    else
+        log_error "Unrecognized table group: ${table_group}"
+    fi
+
+    log_break
+    log "Node $idx_of_node: postgres dB table truncation complete"
+}
+
+function _do_truncation() {
+    local idx_of_node=${1}
+    local table_group=${2}
+    local db_name
+    local path_to_sql
+
+    db_name=$(get_pgres_app_db_name "$idx_of_node")
+    path_to_sql="$MPCTL/cmds/infra/node/pgres_truncate_${table_group}-${idx_of_node}.sql"
+
+    exec_pgres_script "${db_name}" "${path_to_sql}"
 }
 
 # ----------------------------------------------------------------
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "$MPCTL"/utils/main.sh
+source "${MPCTL}/utils/main.sh"
 
 unset _HELP
 unset _IDX_OF_NODE
+unset _GROUP
 
 for ARGUMENT in "$@"
 do
@@ -65,6 +74,7 @@ do
     case "$KEY" in
         help) _HELP="show" ;;
         node) _IDX_OF_NODE=${VALUE} ;;
+        group) _GROUP=${VALUE} ;;
         *)
     esac
 done
@@ -72,5 +82,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "$_IDX_OF_NODE"
+    _main "$_IDX_OF_NODE" "${_GROUP:-"graph"}"
 fi

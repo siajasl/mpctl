@@ -36,8 +36,6 @@ alias mpctl-infra-dkr-services-up='source $MPCTL/cmds/infra/dkr/services_up.sh'
 alias mpctl-infra-net-pgres-dump='source $MPCTL/cmds/infra/net/pgres_dump.sh'
 alias mpctl-infra-net-pgres-restore='source $MPCTL/cmds/infra/net/pgres_restore.sh'
 alias mpctl-infra-net-pgres-truncate='source $MPCTL/cmds/infra/net/pgres_truncate.sh'
-alias mpctl-infra-net-pgres-truncate-graph='source $MPCTL/cmds/infra/net/pgres_truncate_graph.sh'
-alias mpctl-infra-net-pgres-truncate-iris='source $MPCTL/cmds/infra/net/pgres_truncate_iris.sh'
 alias mpctl-infra-net-rotate-keys='source $MPCTL/cmds/infra/net/rotate_keys.sh'
 alias mpctl-infra-net-setup='source $MPCTL/cmds/infra/net/ctl_setup.sh'
 alias mpctl-infra-net-teardown='source $MPCTL/cmds/infra/net/ctl_teardown.sh'
@@ -47,8 +45,6 @@ alias mpctl-infra-node-activate-env='source $MPCTL/cmds/infra/node/activate_env.
 alias mpctl-infra-node-pgres-dump='source $MPCTL/cmds/infra/node/pgres_dump.sh'
 alias mpctl-infra-node-pgres-restore='source $MPCTL/cmds/infra/node/pgres_restore.sh'
 alias mpctl-infra-node-pgres-truncate='source $MPCTL/cmds/infra/node/pgres_truncate.sh'
-alias mpctl-infra-node-pgres-truncate-graph='source $MPCTL/cmds/infra/node/pgres_truncate_graph.sh'
-alias mpctl-infra-node-pgres-truncate-iris='source $MPCTL/cmds/infra/node/pgres_truncate_iris.sh'
 alias mpctl-infra-node-rotate-keys='source $MPCTL/cmds/infra/node/rotate_keys.sh'
 
 # Job commands:

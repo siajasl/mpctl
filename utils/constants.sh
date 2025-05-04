@@ -5,3 +5,6 @@ declare MPCTL_COUNT_OF_PARTIES=3
 
 # Name of application monorepo.
 declare MPCTL_NAME_OF_MONREPO="iris-mpc"
+
+# Docker container id: PostgreSQL dB.
+declare MPCTL_DOCKER_CONTAINER_PGRES_DB="iris-mpc-dev_db-1"

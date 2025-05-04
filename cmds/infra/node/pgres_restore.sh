@@ -18,42 +18,20 @@ function _main()
 {
     local idx_of_node=${1}
     local db_name
-    local path_to_dump
-    local server_host
-    local server_port
-    local super_user_name
-    local docker_container_id="iris-mpc-dev_db-1"
-
-    # Activate node env.
-    source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
-
-    db_name=$(get_pgres_app_db_name "$idx_of_node")
-    server_host=$(get_pgres_server_host)
-    server_port=$(get_pgres_server_port)
-    super_user_name=$(get_pgres_super_user_name)
-    path_to_dump="${MPCTL}/data/db-backups/${db_name}.tar.gz"
+    local path_to_sql
 
     log_break
     log "Node $idx_of_node: postgres dB restore begins"
-    log "    dB name=${db_name}"
-    log "    dB server ${server_host}:${server_port}"
-    log "    dB super user=${super_user_name}"
-    log "    dB restore path=${path_to_dump}"
+    log_break
 
-    log "Enter dB super-user password"
-    pg_restore \
-        -v \
-        -f ${path_to_dump} \
-        -h ${server_host} \
-        -p ${server_port} \
-        -U ${super_user_name}
+    db_name=$(get_pgres_app_db_name "$idx_of_node")
+    path_to_sql="${MPCTL}/data/db-backups/${db_name}.sql"
 
-    docker exec \
-    -i "${docker_container_id}" /bin/bash \
-        -c "PGPASSWORD=${super_user_password} psql --username ${super_user_name} ${db_name}" \
-        < ${path_to_dump}
+    exec_pgres_script "${db_name}" "${path_to_sql}"
 
+    log_break
     log "Node $idx_of_node: postgres dB restore complete"
+    log_break
 }
 
 # ----------------------------------------------------------------

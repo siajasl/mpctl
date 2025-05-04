@@ -9,12 +9,21 @@ function _help() {
     DESCRIPTION
     ----------------------------------------------------------------
     Truncates a network's postgres database tables.
+
+    ARGS
+    ----------------------------------------------------------------
+    group       Group of table to truncate: all | graph | iris.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    group       graph
     "
 }
 
 function _main()
 {
     local idx_of_node
+    local table_group=${1}
 
     log_break
     log "Network postgres dB tables truncation begins"
@@ -22,7 +31,7 @@ function _main()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "$MPCTL"/cmds/infra/node/pgres_truncate.sh node=$idx_of_node
+        source "$MPCTL"/cmds/infra/node/pgres_truncate.sh node="${idx_of_node}" group="${table_group}"
     done
 
     log_break
@@ -37,6 +46,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
+unset _GROUP
 
 for ARGUMENT in "$@"
 do
@@ -44,6 +54,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
+        group) _GROUP=${VALUE} ;;
         *)
     esac
 done
@@ -51,5 +62,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_GROUP:-"graph"}"
 fi
