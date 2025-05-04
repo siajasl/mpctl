@@ -22,6 +22,7 @@ function _main()
     local server_host
     local server_port
     local super_user_name
+    local docker_container_id="iris-mpc-dev_db-1"
 
     # Activate node env.
     source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
@@ -46,6 +47,11 @@ function _main()
         -h ${server_host} \
         -p ${server_port} \
         -U ${super_user_name}
+
+    docker exec \
+    -i "${docker_container_id}" /bin/bash \
+        -c "PGPASSWORD=${super_user_password} psql --username ${super_user_name} ${db_name}" \
+        < ${path_to_dump}
 
     log "Node $idx_of_node: postgres dB restore complete"
 }

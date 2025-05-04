@@ -8,29 +8,17 @@ function _help() {
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Builds server docker image.
-
-    ARGS
-    ----------------------------------------------------------------
-    image       Image to build: all | standard | genesis. Optional.
-
-    DEFAULTS
-    ----------------------------------------------------------------
-    image       all
+    Builds Hawk server docker image.
     "
 }
 
 function _main()
 {
-    local image=${1}
-
-    pushd "$(get_path_to_monorepo)" || exit
+    local docker_filepath="$(get_path_to_monorepo)/Dockerfile.dev.hawk"
 
     docker build \
-        -f Dockerfile.dev.hawk \
+        -f "${docker_filepath}" \
         -t hawk-server-local-build:latest .
-
-    popd || exit
 }
 
 # ----------------------------------------------------------------

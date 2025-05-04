@@ -31,6 +31,7 @@ function _main()
         "hawk_main"
         "hnsw_algorithm_metrics"
         "hnsw_network_stats_example"
+        "init-test-dbs"
         "local_hnsw"
         "generate_benchmark_data"
     )

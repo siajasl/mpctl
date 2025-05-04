@@ -2,11 +2,11 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-node-dump-pgres-db
+    mpctl-infra-node-pgres-truncate-iris
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Backs up a node's postgres database.
+    Truncates a node's postgres database iris related tables.
 
     ARGS
     ----------------------------------------------------------------
@@ -17,31 +17,36 @@ function _help() {
 function _main()
 {
     local idx_of_node=${1}
-
-    local db_name=$(get_pgres_app_db_name "$idx_of_node")
-    local path_to_dump="${MPCTL}/data/db_backups/${db_name}.sql"
-    local server_host=$(get_pgres_server_host)
-    local server_port=$(get_pgres_server_port)
-    local super_user_name=$(get_pgres_super_user_name)
-    local super_user_password=$(get_pgres_super_user_password)
-    local docker_container_id="iris-mpc-dev_db-1"
+    local db_name
+    local path_to_sql_script
+    local server_host
+    local server_port
+    local super_user_name
 
     # Activate node env.
-    source "$MPCTL/cmds/infra/node/activate_env.sh" node=$idx_of_node
+    source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
+
+    db_name=$(get_pgres_app_db_name "$idx_of_node")
+    server_host=$(get_pgres_server_host)
+    server_port=$(get_pgres_server_port)
+    super_user_name=$(get_pgres_super_user_name)
+    path_to_sql_script="$MPCTL/cmds/infra/node/pgres_truncate_iris-${idx_of_node}.sql"
 
     log_break
-    log "Node $idx_of_node: postgres dB dump begins"
+    log "Node $idx_of_node: postgres dB iris tables truncation begins"
     log "    dB name=${db_name}"
     log "    dB server ${server_host}:${server_port}"
     log "    dB super user=${super_user_name}"
-    log "    dB dump path=${path_to_dump}"
+    log "    SQL script=${path_to_sql_script}"
 
-    docker exec \
-        -i "${docker_container_id}" /bin/bash \
-        -c "PGPASSWORD=${super_user_password} pg_dump -a --inserts -U ${super_user_name} -d ${db_name}" \
-        > ${path_to_dump}
+    psql \
+        -h "$server_host" \
+        -p "$server_port" \
+        -U "$super_user_name" \
+        -d "$db_name" \
+        -f "$path_to_sql_script"
 
-    log "Node $idx_of_node: postgres dB dump complete"
+    log "Node $idx_of_node: postgres dB iris tables truncation complete"
 }
 
 # ----------------------------------------------------------------

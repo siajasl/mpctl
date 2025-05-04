@@ -4,11 +4,11 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-net-pgres-truncate-graph-tables
+    mpctl-infra-net-pgres-truncate-iris
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Truncates a network's postgres database graph related tables.
+    Truncates a network's postgres database iris related tables.
     "
 }
 
@@ -22,7 +22,7 @@ function _main()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "$MPCTL"/cmds/infra/node/pgres_truncate_graph_tables.sh node=$idx_of_node
+        source "$MPCTL"/cmds/infra/node/pgres_truncate_iris.sh node=$idx_of_node
     done
 
     log_break

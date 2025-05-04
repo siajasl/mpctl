@@ -2,11 +2,11 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-node-restore-pgres-db
+    mpctl-infra-node-pgres-truncate
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Truncates a node's postgres database graph related tables.
+    Truncates a node's postgres database tables.
 
     ARGS
     ----------------------------------------------------------------
