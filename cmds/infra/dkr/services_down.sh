@@ -4,7 +4,7 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-dkr-services-down
+    mpctl-dkr-services-down
 
     DESCRIPTION
     ----------------------------------------------------------------

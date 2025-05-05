@@ -24,10 +24,10 @@ function _main()
 {
     local build_mode=${1}
 
-    source "$MPCTL"/cmds/infra/bin/compile_client.sh mode="$build_mode"
-    source "$MPCTL"/cmds/infra/bin/compile_key_manager.sh mode="$build_mode"
-    source "$MPCTL"/cmds/infra/bin/compile_other.sh mode="$build_mode"
-    source "$MPCTL"/cmds/infra/bin/compile_server.sh mode="$build_mode"
+    source "$MPCTL/cmds/bin/compile_client.sh" mode="$build_mode"
+    source "$MPCTL/cmds/bin/compile_key_manager.sh" mode="$build_mode"
+    source "$MPCTL/cmds/bin/compile_other.sh" mode="$build_mode"
+    source "$MPCTL/cmds/bin/compile_server.sh" mode="$build_mode"
 }
 
 # ----------------------------------------------------------------

@@ -32,7 +32,7 @@ function _main()
 
 function _teardown_assets()
 {
-    local path_to_assets=$(get_path_to_assets)
+    local path_to_assets=$(get_path_to_assets_of_net)
 
     if [ -d "$path_to_assets" ]; then
         rm -rf "$path_to_assets"

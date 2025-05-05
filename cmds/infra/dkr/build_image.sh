@@ -4,7 +4,7 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-dkr-build-image
+    mpctl-dkr-build-image
 
     DESCRIPTION
     ----------------------------------------------------------------

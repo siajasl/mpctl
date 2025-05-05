@@ -23,11 +23,7 @@ function _help() {
 function _main()
 {
     local build_mode=${1}
-
-    local build_subdir="iris-mpc-cpu"
-
     local -a build_targets=(
-        "hawk-genesis-indexer"
         "hawk_main"
         "hnsw_algorithm_metrics"
         "hnsw_network_stats_example"
@@ -38,7 +34,7 @@ function _main()
 
     for build_target in "${build_targets[@]}"
     do
-        do_build_binary "$build_mode" "$build_subdir" "$build_target"
+        do_build_binary "$build_mode" "iris-mpc-cpu" "$build_target"
     done
 }
 

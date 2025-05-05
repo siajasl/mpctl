@@ -5,7 +5,7 @@
 # Globals:
 #   MPCTL - path to mpctl home directory.
 #######################################
-function get_path_to_assets()
+function get_path_to_assets_of_net()
 {
     echo "${MPCTL_ASSETS:-$MPCTL/assets}"
 }
@@ -19,7 +19,7 @@ function get_path_to_assets_of_node()
 {
     local idx_of_node=${1}
 
-    echo "$(get_path_to_assets)"/nodes/node-"$idx_of_node"
+    echo "$(get_path_to_assets_of_net)"/nodes/node-"$idx_of_node"
 }
 
 #######################################
@@ -103,6 +103,16 @@ function get_path_to_node_logs()
 function get_path_to_parent()
 {
     echo "$( cd "$( dirname "${MPCTL[0]}" )" && pwd )"
+}
+
+#######################################
+# Returns path to primary resources folder.
+# Globals:
+#   MPCTL - path to mpctl home directory.
+#######################################
+function get_path_to_resources()
+{
+    echo "${MPCTL}/resources"
 }
 
 #######################################
