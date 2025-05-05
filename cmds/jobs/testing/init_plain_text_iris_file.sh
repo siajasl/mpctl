@@ -14,15 +14,15 @@ function _help() {
 
 function _main()
 {
+    local target_dir="$(get_path_to_assets)/data/iris-plaintext"
+
+    if [ -d "${target_dir}" ]; then
+        rm -rf "${target_dir}"
+    fi
+
     pushd "$(get_path_to_monorepo)" || exit
-
-    # Run job.
     cargo run --bin generate_benchmark_data
-
-    # Copy output.
-    rm -rf "$MPCTL/data/iris-plaintext"
-    cp -r "$(pwd)/iris-mpc-cpu/data" "$MPCTL/data/iris-plaintext"
-
+    cp -r "$(pwd)/iris-mpc-cpu/data" "${target_dir}"
     popd || exit
 }
 

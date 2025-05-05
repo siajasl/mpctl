@@ -33,6 +33,9 @@ function _main()
     log_break
 }
 
+##############################################################################
+# Initialises a networks's binary files.
+##############################################################################
 function _setup_binaries()
 {
     local idx_of_node
