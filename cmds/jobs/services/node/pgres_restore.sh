@@ -17,17 +17,15 @@ function _help() {
 function _main()
 {
     local idx_of_node=${1}
-    local db_name
-    local path_to_sql
+
+    local backup_dir="$(get_path_to_assets)/data/db-backups"
+    local db_name=$(get_pgres_app_db_name "$idx_of_node")
 
     log_break
     log "Node $idx_of_node: postgres dB restore begins"
     log_break
 
-    db_name=$(get_pgres_app_db_name "$idx_of_node")
-    path_to_sql="${MPCTL}/data/db-backups/${db_name}.sql"
-
-    exec_pgres_script "${db_name}" "${path_to_sql}"
+    exec_pgres_script "${db_name}" "${backup_dir}/${db_name}.sql"
 
     log_break
     log "Node $idx_of_node: postgres dB restore complete"

@@ -11,11 +11,7 @@ declare MPCTL="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # COMMANDS
 # ###############################################################
 
-# Developer commands:
-# ... binaries
-alias mpctl-dev-apply-linter='source $MPCTL/cmds/dev/apply_linter.sh'
-
-# Infrastructure commands:
+# Infrastructure:
 # ... local
 alias mpctl-local-compile='source $MPCTL/cmds/local/compile.sh'
 alias mpctl-local-compile-client='source $MPCTL/cmds/local/compile_client.sh'
@@ -38,12 +34,16 @@ alias mpctl-dkr-node-stop='source $MPCTL/cmds/dkr/node_stop.sh'
 alias mpctl-dkr-services-down='source $MPCTL/cmds/dkr/services_down.sh'
 alias mpctl-dkr-services-up='source $MPCTL/cmds/dkr/services_up.sh'
 
-# Jobs.
-alias mpctl-job-pgres-dump='source $MPCTL/cmds/infra/net/pgres_dump.sh'
-alias mpctl-job-pgres-restore='source $MPCTL/cmds/infra/net/pgres_restore.sh'
-alias mpctl-job-pgres-truncate='source $MPCTL/cmds/infra/net/pgres_truncate.sh'
-alias mpctl-job-aws-sm-rotate-keys='source $MPCTL/cmds/infra/net/rotate_keys.sh'
+# Jobs:
+# ... developer
+alias mpctl-dev-apply-linter='source $MPCTL/cmds/jobs/dev/apply_linter.sh'
 
-# Testing.
-alias mpctl-testing-init-db-from-plain-text-iris-file='source $MPCTL/cmds/testing/init_db_from_plain_text_iris_file.sh'
-alias mpctl-testing-init-plain-text-iris-file='source $MPCTL/cmds/testing/init_plain_text_iris_file.sh'
+# ... services
+alias mpctl-services-pgres-dump='source $MPCTL/cmds/jobs/services/net/pgres_dump.sh'
+alias mpctl-services-pgres-restore='source $MPCTL/cmds/jobs/services/net/pgres_restore.sh'
+alias mpctl-services-pgres-truncate='source $MPCTL/cmds/jobs/services/net/pgres_truncate.sh'
+alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/cmds/jobs/services/net/aws_sm_rotate_keys.sh'
+
+# ... testing
+alias mpctl-testing-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_db_from_plain_text_iris_file.sh'
+alias mpctl-testing-init-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_plain_text_iris_file.sh'

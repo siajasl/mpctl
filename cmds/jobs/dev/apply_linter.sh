@@ -15,10 +15,8 @@ function _help() {
 function _main()
 {
     pushd "$(get_path_to_monorepo)" || exit
-
     cargo fmt --check
     cargo clippy --all-targets --all-features -- -D warnings --no-deps
-
     popd | exit
 }
 

@@ -27,11 +27,12 @@ function _main()
 
     log_break
     log "Network postgres dB tables truncation begins"
+    log "TABLE GROUP=${table_group}"
     log_break
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "$MPCTL"/cmds/infra/node/pgres_truncate.sh node="${idx_of_node}" group="${table_group}"
+        source "$MPCTL"/cmds/jobs/services/node/pgres_truncate.sh node="${idx_of_node}" group="${table_group}"
     done
 
     log_break

@@ -18,7 +18,7 @@ function _main()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "$MPCTL"/cmds/infra/node/pgres_dump.sh node=$idx_of_node
+        source "$MPCTL"/cmds/jobs/services/node/pgres_dump.sh node=$idx_of_node
     done
 
     log_break
