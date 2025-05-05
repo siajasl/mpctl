@@ -16,12 +16,15 @@ declare MPCTL="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 alias mpctl-dev-apply-linter='source $MPCTL/cmds/dev/apply_linter.sh'
 
 # Infrastructure commands:
-# ... binaries
-alias mpctl-bin-compile='source $MPCTL/cmds/bin/compile.sh'
-alias mpctl-bin-compile-client='source $MPCTL/cmds/bin/compile_client.sh'
-alias mpctl-bin-compile-key-manager='source $MPCTL/cmds/bin/compile_key_manager.sh'
-alias mpctl-bin-compile-other='source $MPCTL/cmds/bin/compile_other.sh'
-alias mpctl-bin-compile-server='source $MPCTL/cmds/bin/compile_server.sh'
+# ... local
+alias mpctl-local-compile='source $MPCTL/cmds/local/compile.sh'
+alias mpctl-local-compile-client='source $MPCTL/cmds/local/compile_client.sh'
+alias mpctl-local-compile-key-manager='source $MPCTL/cmds/local/compile_key_manager.sh'
+alias mpctl-local-compile-other='source $MPCTL/cmds/local/compile_other.sh'
+alias mpctl-local-compile-server='source $MPCTL/cmds/local/compile_server.sh'
+alias mpctl-local-net-setup='source $MPCTL/cmds/local/net_setup.sh'
+alias mpctl-local-net-teardown='source $MPCTL/cmds/local/net_teardown.sh'
+alias mpctl-local-node-activate-env='source $MPCTL/cmds/local/node_activate_env.sh'
 
 # ... docker
 alias mpctl-dkr-build-image='source $MPCTL/cmds/infra/dkr/build_image.sh'
@@ -32,21 +35,10 @@ alias mpctl-dkr-net-up='source $MPCTL/cmds/infra/dkr/net_up.sh'
 alias mpctl-dkr-services-down='source $MPCTL/cmds/infra/dkr/services_down.sh'
 alias mpctl-dkr-services-up='source $MPCTL/cmds/infra/dkr/services_up.sh'
 
-# ... networks
-alias mpctl-infra-net-pgres-dump='source $MPCTL/cmds/infra/net/pgres_dump.sh'
-alias mpctl-infra-net-pgres-restore='source $MPCTL/cmds/infra/net/pgres_restore.sh'
-alias mpctl-infra-net-pgres-truncate='source $MPCTL/cmds/infra/net/pgres_truncate.sh'
-alias mpctl-infra-net-rotate-keys='source $MPCTL/cmds/infra/net/rotate_keys.sh'
-alias mpctl-infra-net-setup='source $MPCTL/cmds/infra/net/ctl_setup.sh'
-alias mpctl-infra-net-teardown='source $MPCTL/cmds/infra/net/ctl_teardown.sh'
-
-# ... nodes
-alias mpctl-infra-node-activate-env='source $MPCTL/cmds/infra/node/activate_env.sh'
-alias mpctl-infra-node-pgres-dump='source $MPCTL/cmds/infra/node/pgres_dump.sh'
-alias mpctl-infra-node-pgres-restore='source $MPCTL/cmds/infra/node/pgres_restore.sh'
-alias mpctl-infra-node-pgres-truncate='source $MPCTL/cmds/infra/node/pgres_truncate.sh'
-alias mpctl-infra-node-rotate-keys='source $MPCTL/cmds/infra/node/rotate_keys.sh'
-
 # Job commands:
 alias mpctl-job-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/init_db_from_plain_text_iris_file.sh'
 alias mpctl-job-init-plain-text-iris-file='source $MPCTL/cmds/jobs/init_plain_text_iris_file.sh'
+alias mpctl-job-pgres-dump='source $MPCTL/cmds/infra/net/pgres_dump.sh'
+alias mpctl-job-pgres-restore='source $MPCTL/cmds/infra/net/pgres_restore.sh'
+alias mpctl-job-pgres-truncate='source $MPCTL/cmds/infra/net/pgres_truncate.sh'
+alias mpctl-job-aws-sm-rotate-keys='source $MPCTL/cmds/infra/net/rotate_keys.sh'
