@@ -26,7 +26,7 @@ function _main()
     _setup_binaries
     log "    binaries assigned"
 
-    _setup_keys
+    # _setup_keys
     log "    secret keys initialised"
 
     log "MPC network setup :: ends"
@@ -37,8 +37,10 @@ function _setup_binaries()
 {
     local idx_of_node
 
-    source "${MPCTL}/cmds/bin/compile.sh"
+    # Compile.
+    source "${MPCTL}/cmds/local/compile.sh"
 
+    # Copy.
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
         cp \

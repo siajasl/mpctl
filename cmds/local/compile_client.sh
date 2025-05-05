@@ -4,23 +4,27 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-net-stop
+    mpctl-infra-bin-compile-client
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Stops an MPC network.
+    Compiles client binary.
+
+    ARGS
+    ----------------------------------------------------------------
+    mode        Compilation mode: debug | release. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    mode        release
     "
 }
 
 function _main()
 {
-    local binary=${1}
-    local idx_of_node
+    local build_mode=${1}
 
-    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
-    do
-        source "$MPCTL"/cmds/infra/dkr/node_stop.sh node=$idx_of_node binary=$binary
-    done
+    do_build_binary "$build_mode" "iris-mpc" "client"
 }
 
 # ----------------------------------------------------------------
@@ -29,16 +33,16 @@ function _main()
 
 source "$MPCTL"/utils/main.sh
 
-unset _BINARY
 unset _HELP
+unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
-        binary) _BINARY=${VALUE} ;;
         help) _HELP="show" ;;
+        mode) _BUILD_MODE=${VALUE} ;;
         *)
     esac
 done
@@ -46,5 +50,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_BINARY:-"standard"}"
+    _main "${_BUILD_MODE:-"release"}"
 fi

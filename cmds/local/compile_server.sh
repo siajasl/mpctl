@@ -4,21 +4,28 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-build-image
+    mpctl-infra-bin-compile-server-cpu
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Builds Hawk server docker image.
+    Compiles CPU server binary.
+
+    ARGS
+    ----------------------------------------------------------------
+    mode        Compilation mode: debug | release. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    mode        release
     "
 }
 
 function _main()
 {
-    local docker_filepath="$(get_path_to_monorepo)/Dockerfile.dev.hawk"
+    local build_mode=${1}
 
-    docker build \
-        -f "${docker_filepath}" \
-        -t hawk-server-local-build:latest .
+    do_build_binary "$build_mode" "iris-mpc" "iris-mpc-hawk"
+    do_build_binary "$build_mode" "iris-mpc" "iris-mpc-hawk-genesis"
 }
 
 # ----------------------------------------------------------------
@@ -28,6 +35,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
+unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
@@ -35,6 +43,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
+        mode) _BUILD_MODE=${VALUE} ;;
         *)
     esac
 done
@@ -42,5 +51,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_BUILD_MODE:-"release"}"
 fi

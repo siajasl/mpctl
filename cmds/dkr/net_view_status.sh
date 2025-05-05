@@ -4,23 +4,17 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-net-start
+    mpctl-dkr-net-status
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Starts an MPC network.
+    Renders docker container status of an MPC network.
     "
 }
 
 function _main()
 {
-    local binary=${1}
-    local idx_of_node
-
-    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
-    do
-        source "$MPCTL"/cmds/infra/dkr/node_start.sh node=$idx_of_node binary=$binary
-    done
+    echo "TODO"
 }
 
 # ----------------------------------------------------------------
@@ -29,7 +23,6 @@ function _main()
 
 source "$MPCTL"/utils/main.sh
 
-unset _BINARY
 unset _HELP
 
 for ARGUMENT in "$@"
@@ -37,7 +30,6 @@ do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
-        binary) _BINARY=${VALUE} ;;
         help) _HELP="show" ;;
         *)
     esac
@@ -46,5 +38,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_BINARY:-"standard"}"
+    _main
 fi

@@ -4,23 +4,27 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-jobs-init-db-from-plain-text-iris-file
+    mpctl-infra-bin-compile-key-manager
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Initializes database from previously generated plain text iris files.
+    Compiles key-manager binary.
+
+    ARGS
+    ----------------------------------------------------------------
+    mode        Compilation mode: debug | release. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    mode        release
     "
 }
 
 function _main()
 {
-    pushd "$(get_path_to_monorepo)" || exit
+    local build_mode=${1}
 
-    declare SMPC_INIT_PATH_TO_PRNG_STATE="$MPCTL/data/tmp/prng_state"
-    declare SMPC_INIT_PATH_TO_IRIS_PLAINTEXT="$MPCTL/data/iris-plaintext/store.ndjson"
-    source "./scripts/tools/init_db_from_plaintext_iris_file.sh"
-
-    popd || exit
+    do_build_binary "$build_mode" "iris-mpc-common" "key-manager"
 }
 
 # ----------------------------------------------------------------
@@ -30,6 +34,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
+unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
@@ -37,6 +42,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
+        mode) _BUILD_MODE=${VALUE} ;;
         *)
     esac
 done
@@ -44,5 +50,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_BUILD_MODE:-"release"}"
 fi

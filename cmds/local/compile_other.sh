@@ -4,39 +4,38 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-node-rotate-keys
+    mpctl-infra-bin-compile-other
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Rotates asymmetric key-pairs for a node within an MPC network.
+    Compiles other server related binaries.
 
     ARGS
     ----------------------------------------------------------------
-    node        Ordinal identifier of node.
+    mode        Compilation mode: debug | release. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    mode        release
     "
 }
 
 function _main()
 {
-    local idx_of_node=${1}
+    local build_mode=${1}
+    local -a build_targets=(
+        "hawk_main"
+        "hnsw_algorithm_metrics"
+        "hnsw_network_stats_example"
+        "init-test-dbs"
+        "local_hnsw"
+        "generate_benchmark_data"
+    )
 
-    log_break
-    log "Rotating keys for node $idx_of_node"
-    log_break
-
-    # Activate node env.
-    source "$MPCTL"/cmds/infra/node/activate_env.sh node=$idx_of_node
-
-    # Rotate keys via AWS KMS.
-    pushd "$(get_path_to_monorepo)" || exit
-    cargo run --bin \
-        key-manager -- \
-            --region $MPCTL_DEFAULT_AWS_REGION \
-            --node-id $idx_of_node \
-            --env dev \
-        rotate \
-            --public-key-bucket-name wf-dev-public-keys
-    popd || exit
+    for build_target in "${build_targets[@]}"
+    do
+        do_build_binary "$build_mode" "iris-mpc-cpu" "$build_target"
+    done
 }
 
 # ----------------------------------------------------------------
@@ -46,7 +45,7 @@ function _main()
 source "$MPCTL"/utils/main.sh
 
 unset _HELP
-unset _IDX_OF_NODE
+unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
@@ -54,7 +53,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        node) _IDX_OF_NODE=${VALUE} ;;
+        mode) _BUILD_MODE=${VALUE} ;;
         *)
     esac
 done
@@ -62,5 +61,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "$_IDX_OF_NODE"
+    _main "${_BUILD_MODE:-"release"}"
 fi

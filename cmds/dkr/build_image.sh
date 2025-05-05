@@ -4,26 +4,23 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-net-keys-rotate
+    mpctl-dkr-build-image
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Rotates key-pairs for each node within an MPC network.
+    Builds Hawk server docker image.
     "
 }
 
 function _main()
 {
-    local idx_of_node
+    local docker_filepath="$(get_path_to_monorepo)/Dockerfile.dev.hawk"
 
-    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
-    do
-        source "$MPCTL"/cmds/infra/node/rotate_keys.sh node=$idx_of_node
-    done
-
-    log_break
-    log "Key rotation complete"
-    log_break
+    pushd "$(get_path_to_monorepo)" || exit
+    docker build \
+        -f "${docker_filepath}" \
+        -t hawk-server-local-build:latest .
+    popd | exit
 }
 
 # ----------------------------------------------------------------
