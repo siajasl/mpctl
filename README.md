@@ -22,9 +22,9 @@ How to install mpctl ?
 --------------------------------------
 
 ```
+# Note: Ensure that `iris-mpc` monorepo has also been cloned into WORKING_DIRECTORY.
+
 cd WORKING_DIRECTORY
 git clone https://github.com/siajsal/mpctl.git
 . ./activate
 ```
-
-# Note: Ensure that `iris-mpc` monorepo is also cloned into WORKING_DIRECTORY.
