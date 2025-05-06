@@ -35,7 +35,7 @@ function _build_image()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "$MPCTL"/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 

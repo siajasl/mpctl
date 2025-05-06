@@ -19,6 +19,7 @@ alias mpctl-local-compile-key-manager='source $MPCTL/cmds/local/compile_key_mana
 alias mpctl-local-compile-other='source $MPCTL/cmds/local/compile_other.sh'
 alias mpctl-local-compile-server='source $MPCTL/cmds/local/compile_server.sh'
 alias mpctl-local-net-setup='source $MPCTL/cmds/local/net_setup.sh'
+alias mpctl-local-net-start='source $MPCTL/cmds/local/net_start.sh'
 alias mpctl-local-net-teardown='source $MPCTL/cmds/local/net_teardown.sh'
 alias mpctl-local-node-activate-env='source $MPCTL/cmds/local/node_activate_env.sh'
 alias mpctl-local-node-start='source $MPCTL/cmds/local/node_start.sh'
@@ -39,12 +40,13 @@ alias mpctl-dkr-services-up='source $MPCTL/cmds/dkr/services_up.sh'
 # Jobs:
 # ... developer
 alias mpctl-dev-apply-linter='source $MPCTL/cmds/jobs/dev/apply_linter.sh'
+alias mpctl-ls='source $MPCTL/cmds/jobs/dev/view_commands.sh'
 
 # ... services
 alias mpctl-services-pgres-dump='source $MPCTL/cmds/jobs/services/net_pgres_dump.sh'
 alias mpctl-services-pgres-restore='source $MPCTL/cmds/jobs/services/net_pgres_restore.sh'
 alias mpctl-services-pgres-truncate='source $MPCTL/cmds/jobs/services/net_pgres_truncate.sh'
-alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/cmds/jobs/services/net_aws_sm_rotate_keys.sh'
+alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/cmds/jobs/services/net_aws_sm_rotate.sh'
 
 # ... testing
 alias mpctl-testing-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_db_from_plain_text_iris_file.sh'

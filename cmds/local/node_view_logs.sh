@@ -4,17 +4,31 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-net-status
+    mpctl-local-node-view-logs
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Renders docker container status of an MPC network.
+    Renders MPC node logs to stdout.
+
+    ARGS
+    ----------------------------------------------------------------
+    node        Ordinal identifier of node.
     "
 }
 
 function _main()
 {
-    echo "TODO"
+    local idx_of_node=${1}
+
+    local log_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/logs"
+    local log_fpath="${log_dir_of_node}/output.log"
+
+    if [ -f ${log_fpath} ]
+    then
+        less "${log_fpath}"
+    else
+        log "No logs found for node ${idx_of_node}"
+    fi
 }
 
 # ----------------------------------------------------------------
@@ -24,6 +38,7 @@ function _main()
 source "${MPCTL}"/utils/main.sh
 
 unset _HELP
+unset _IDX_OF_NODE
 
 for ARGUMENT in "$@"
 do
@@ -31,6 +46,7 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
+        node) _IDX_OF_NODE=${VALUE} ;;
         *)
     esac
 done
@@ -38,5 +54,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_IDX_OF_NODE:-"0"}"
 fi

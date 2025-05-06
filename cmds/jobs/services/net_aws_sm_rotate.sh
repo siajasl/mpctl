@@ -4,17 +4,30 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-net-status
+    mpctl-services-net-aws-sm-rotate
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Renders docker container status of an MPC network.
+    Rotates asymmetric key-pairs for all nodes within an MPC network.
     "
 }
 
 function _main()
 {
-    echo "TODO"
+    local idx_of_node
+
+    log_break
+    log "Rotating secret key rotation"
+    log_break
+
+    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
+    do
+        source "${MPCTL}"/cmds/jobs/services/node_aws_sm_rotate.sh node="${idx_of_node}"
+    done
+
+    log_break
+    log "Rotating secret key rotation completed"
+    log_break
 }
 
 # ----------------------------------------------------------------

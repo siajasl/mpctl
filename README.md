@@ -26,5 +26,28 @@ How to install mpctl ?
 
 cd WORKING_DIRECTORY
 git clone https://github.com/siajsal/mpctl.git
-. ./activate
 ```
+
+How to use mpctl ?
+--------------------------------------
+
+```
+# To activate mpctl commands.
+. WORKING_DIRECTORY/mpctl/activate
+
+# To list available commands.
+mpctl-ls
+
+# To view help for a supported command.
+mpctl-[CMD] help
+```
+
+What can you do with mpctl ?
+--------------------------------------
+
+The mpctl utility can be used to:
+
+- Control a network running in Docker.
+- Control a network running on bare metal with Dockerised services
+- Launch jobs for interacting with Dockerised postgres or localstack services.
+- Launch jobs for testing.

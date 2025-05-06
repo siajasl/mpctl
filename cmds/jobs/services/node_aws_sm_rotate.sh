@@ -25,7 +25,7 @@ function _main()
     log_break
 
     # Activate node env.
-    source "$MPCTL"/cmds/local/node_activate_env.sh node=$idx_of_node
+    source "${MPCTL}"/cmds/local/node_activate_env.sh node=$idx_of_node
 
     # Rotate keys via AWS KMS.
     pushd "$(get_path_to_monorepo)" || exit
@@ -43,7 +43,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "$MPCTL"/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 unset _IDX_OF_NODE

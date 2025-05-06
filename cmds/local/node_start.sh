@@ -4,45 +4,50 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-net-up
+    mpctl-local-node-start
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Brings up MPC network.
+    Starts an MPC node on bare metal.
 
     ARGS
     ----------------------------------------------------------------
-    binary      Binary to execute: standard | genesis. Optional.
-    mode        Mode: detached | other. Optional.
+    mode        Compilation mode: debug | release. Optional.
 
     DEFAULTS
     ----------------------------------------------------------------
-    binary      standard
-    mode        detached
+    mode        release
     "
 }
 
 function _main()
 {
-    local binary=${1}
-    local mode=${2}
-    local docker_filename
+    local binary=${2}
+    local idx_of_node=${1}
+    local mode=${3}
 
-    pushd "$(get_path_to_monorepo)" || exit
+    local binary_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/bin"
+    local binary_fpath
+    local log_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/logs"
+    local log_fpath="${log_dir_of_node}/output.log"
 
     if [ "$binary" == "genesis" ]; then
-        docker_filename="docker-compose.test.genesis.yaml"
+        binary_fpath="${binary_dir_of_node}/iris-mpc-hawk-genesis"
     else
-        docker_filename="docker-compose.test.yaml"
+        binary_fpath="${binary_dir_of_node}/iris-mpc-hawk"
     fi
+
+    source "${MPCTL}"/cmds/local/node_activate_env.sh node=$idx_of_node
 
     if [ "$mode" == "detached" ]; then
-        docker-compose -f $docker_filename up --detach
+        if [ -f ${log_fpath} ]
+        then
+            rm ${log_fpath}
+        fi
+        nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
     else
-        docker-compose -f $docker_filename up
+        "${binary_fpath}"
     fi
-
-    popd || exit
 }
 
 # ----------------------------------------------------------------
@@ -53,6 +58,7 @@ source "${MPCTL}"/utils/main.sh
 
 unset _BINARY
 unset _HELP
+unset _IDX_OF_NODE
 unset _MODE
 
 for ARGUMENT in "$@"
@@ -63,6 +69,7 @@ do
         binary) _BINARY=${VALUE} ;;
         help) _HELP="show" ;;
         mode) _MODE=${VALUE} ;;
+        node) _IDX_OF_NODE=${VALUE} ;;
         *)
     esac
 done
@@ -71,6 +78,7 @@ if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
     _main \
+        "${_IDX_OF_NODE:-"0"}" \
         "${_BINARY:-"standard"}" \
-        "${_MODE:-"detached"}"
+        "${_MODE:-"terminal"}"
 fi

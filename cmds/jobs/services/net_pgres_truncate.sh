@@ -32,7 +32,7 @@ function _main()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "$MPCTL"/cmds/jobs/services/node_pgres_truncate.sh node="${idx_of_node}" group="${table_group}"
+        source "${MPCTL}"/cmds/jobs/services/node_pgres_truncate.sh node="${idx_of_node}" group="${table_group}"
     done
 
     log_break
@@ -44,7 +44,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "$MPCTL"/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 unset _GROUP

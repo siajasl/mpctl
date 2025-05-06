@@ -138,7 +138,7 @@ function _setup_keys()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "$MPCTL"/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 

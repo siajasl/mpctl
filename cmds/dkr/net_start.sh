@@ -19,7 +19,7 @@ function _main()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "$MPCTL"/cmds/dkr/node_start.sh node=$idx_of_node binary=$binary
+        source "${MPCTL}"/cmds/dkr/node_start.sh node=$idx_of_node binary=$binary
     done
 }
 
@@ -27,7 +27,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "$MPCTL"/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _BINARY
 unset _HELP
