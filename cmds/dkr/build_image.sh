@@ -16,6 +16,14 @@ function _main()
 {
     local docker_filepath="$(get_path_to_monorepo)/Dockerfile.dev.hawk"
 
+    # _build_image "Dockerfile.dev.hawk"
+    _build_image "Dockerfile.genesis.dev.hawk"
+}
+
+function _build_image()
+{
+    local docker_filepath="$(get_path_to_monorepo)/${1}"
+
     pushd "$(get_path_to_monorepo)" || exit
     docker build \
         -f "${docker_filepath}" \
