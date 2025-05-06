@@ -21,6 +21,8 @@ alias mpctl-local-compile-server='source $MPCTL/cmds/local/compile_server.sh'
 alias mpctl-local-net-setup='source $MPCTL/cmds/local/net_setup.sh'
 alias mpctl-local-net-teardown='source $MPCTL/cmds/local/net_teardown.sh'
 alias mpctl-local-node-activate-env='source $MPCTL/cmds/local/node_activate_env.sh'
+alias mpctl-local-node-start='source $MPCTL/cmds/local/node_start.sh'
+alias mpctl-local-node-view-logs='source $MPCTL/cmds/local/node_view_logs.sh'
 
 # ... docker
 alias mpctl-dkr-build-image='source $MPCTL/cmds/dkr/build_image.sh'

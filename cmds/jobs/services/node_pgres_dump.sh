@@ -32,7 +32,7 @@ function _main()
     log "    dB super user=${super_user_name}"
     log "    dB dump path=${backup_dir}"
 
-    mkdir -p ${target_dir}
+    mkdir -p ${backup_dir}
 
     docker exec \
         -i "${MPCTL_DOCKER_CONTAINER_PGRES_DB}" /bin/bash \

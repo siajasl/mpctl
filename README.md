@@ -17,3 +17,14 @@ Who uses mpctl ?
 --------------------------------------
 
 Command line friendly folks such as developers, testers, evaluators ... etc.
+
+How to install mpctl ?
+--------------------------------------
+
+```
+cd WORKING_DIRECTORY
+git clone https://github.com/siajsal/mpctl.git
+. ./activate
+```
+
+# Note: Ensure that `iris-mpc` monorepo is also cloned into WORKING_DIRECTORY.

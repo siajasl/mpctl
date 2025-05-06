@@ -39,25 +39,31 @@ function _main()
 function _setup_binaries()
 {
     local idx_of_node
+    local path_to_assets_of_net
+    local path_to_assets_of_node
 
-    # Compile.
+    # Compile binary set.
     source "${MPCTL}/cmds/local/compile.sh"
 
-    # Copy.
+    # Copy network wide binaries.
+    path_to_assets_of_net=$(get_path_to_assets_of_net)
+    cp \
+        $(get_path_to_target_binary "client" "release") \
+        "${path_to_assets_of_net}/bin"
+    cp \
+        $(get_path_to_target_binary "key-manager" "release") \
+        "${path_to_assets_of_net}/bin"
+
+    # Copy node specific binaries.
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        cp \
-            $(get_path_to_target_binary "client" "release") \
-            "$(get_path_to_assets_of_node $idx_of_node)/bin"
-        cp \
-            $(get_path_to_target_binary "key-manager" "release") \
-            "$(get_path_to_assets_of_node $idx_of_node)/bin"
+        path_to_assets_of_node=$(get_path_to_assets_of_node $idx_of_node)
         cp \
             $(get_path_to_target_binary "iris-mpc-hawk" "release") \
-            "$(get_path_to_assets_of_node $idx_of_node)/bin"
+            "${path_to_assets_of_node}/bin"
         cp \
             $(get_path_to_target_binary "iris-mpc-hawk-genesis" "release") \
-            "$(get_path_to_assets_of_node $idx_of_node)/bin"
+            "${path_to_assets_of_node}/bin"
     done
 }
 
@@ -80,15 +86,15 @@ function _setup_config_of_net()
 function _setup_config_of_node()
 {
     local idx_of_node=${1}
-    local path_to_node_assets=$(get_path_to_assets_of_node $idx_of_node)
+    local path_to_assets_of_node=$(get_path_to_assets_of_node $idx_of_node)
 
     # Env vars.
     cp \
         "$(get_path_to_resources)/envs/local.base.env" \
-        "${path_to_node_assets}/env/base.env"
+        "${path_to_assets_of_node}/env/base.env"
     cp \
         "$(get_path_to_resources)/envs/local.node.${idx_of_node}.env" \
-        "${path_to_node_assets}/env/node.env"
+        "${path_to_assets_of_node}/env/node.env"
 }
 
 ##############################################################################
@@ -96,19 +102,21 @@ function _setup_config_of_node()
 ##############################################################################
 function _setup_fs()
 {
-    local path_to_assets=$(get_path_to_assets_of_net)
-    local path_to_node
-    local idx_of_node
+    local path_to_assets_of_net=$(get_path_to_assets_of_net)
 
-    mkdir -p "$path_to_assets"
+    local idx_of_node
+    local path_to_assets_of_node
+
+    mkdir -p "${path_to_assets_of_net}"
+    mkdir "${path_to_assets_of_net}/bin"
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        path_to_node="$path_to_assets"/nodes/node-"$idx_of_node"
-        mkdir -p "$path_to_node"
-        mkdir "$path_to_node/bin"
-        mkdir "$path_to_node/env"
-        mkdir "$path_to_node/logs"
+        path_to_assets_of_node=$(get_path_to_assets_of_node $idx_of_node)
+        mkdir -p "${path_to_assets_of_node}"
+        mkdir "${path_to_assets_of_node}/bin"
+        mkdir "${path_to_assets_of_node}/env"
+        mkdir "${path_to_assets_of_node}/logs"
     done
 }
 
