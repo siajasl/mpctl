@@ -62,13 +62,26 @@ function get_path_to_monorepo()
 }
 
 #######################################
+# Returns path to a node's env directory.
+# Arguments:
+#   Node ordinal identifier.
+#######################################
+function get_path_to_node_env()
+{
+    local idx_of_node=${1}
+
+    echo "$(get_path_to_assets_of_node ${idx_of_node})/env"
+    # echo "$(get_path_to_assets_of_node "$idx_of_node")"/env
+}
+
+#######################################
 # Returns path to a node's logs directory.
 # Arguments:
 #   Node ordinal identifier.
 #######################################
 function get_path_to_node_logs()
 {
-    local idx_of_node=${1:-1}
+    local idx_of_node=${1}
 
     echo "$(get_path_to_assets_of_node "$idx_of_node")"/logs
 }

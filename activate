@@ -43,10 +43,10 @@ alias mpctl-dev-apply-linter='source $MPCTL/cmds/jobs/dev/apply_linter.sh'
 alias mpctl-ls='source $MPCTL/cmds/jobs/dev/view_commands.sh'
 
 # ... services
-alias mpctl-services-pgres-dump='source $MPCTL/cmds/jobs/services/net_pgres_dump.sh'
-alias mpctl-services-pgres-restore='source $MPCTL/cmds/jobs/services/net_pgres_restore.sh'
-alias mpctl-services-pgres-truncate='source $MPCTL/cmds/jobs/services/net_pgres_truncate.sh'
-alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/cmds/jobs/services/net_aws_sm_rotate.sh'
+alias mpctl-services-pgres-dump='source $MPCTL/cmds/jobs/services/pgres_dump.sh'
+alias mpctl-services-pgres-restore='source $MPCTL/cmds/jobs/services/pgres_restore.sh'
+alias mpctl-services-pgres-truncate='source $MPCTL/cmds/jobs/services/pgres_truncate.sh'
+alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/cmds/jobs/services/aws_sm_rotate.sh'
 
 # ... testing
 alias mpctl-testing-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_db_from_plain_text_iris_file.sh'

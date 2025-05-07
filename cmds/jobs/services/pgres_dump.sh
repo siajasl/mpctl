@@ -1,20 +1,32 @@
+#!/usr/bin/env bash
+
 function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-node-dump-pgres-db
+    mpctl-infra-net-pgres-dump
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Backs up a node's postgres database.
-
-    ARGS
-    ----------------------------------------------------------------
-    node        Ordinal identifier of node.
+    Backs up a network's postgres databases.
     "
 }
 
 function _main()
+{
+    local idx_of_node
+
+    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
+    do
+        _do_backup ${idx_of_node}
+    done
+
+    log_break
+    log "Network postgres databases dumps complete"
+    log_break
+}
+
+function _do_backup()
 {
     local idx_of_node=${1}
 
@@ -49,7 +61,6 @@ function _main()
 source "${MPCTL}"/utils/main.sh
 
 unset _HELP
-unset _IDX_OF_NODE
 
 for ARGUMENT in "$@"
 do
@@ -57,7 +68,6 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        node) _IDX_OF_NODE=${VALUE} ;;
         *)
     esac
 done
@@ -65,5 +75,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "$_IDX_OF_NODE"
+    _main
 fi

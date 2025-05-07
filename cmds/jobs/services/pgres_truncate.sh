@@ -28,16 +28,53 @@ function _main()
     log_break
     log "Network postgres dB tables truncation begins"
     log "TABLE GROUP=${table_group}"
-    log_break
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "${MPCTL}"/cmds/jobs/services/node_pgres_truncate.sh node="${idx_of_node}" group="${table_group}"
+        _do_truncation ${idx_of_node} ${table_group}
     done
 
     log_break
     log "Network postgres dB tables truncation complete"
     log_break
+}
+
+function _do_truncation()
+{
+    local idx_of_node=${1}
+    local table_group=${2}
+
+    log_break
+    log "Node $idx_of_node: postgres dB table truncation"
+
+    if [ "${table_group:-""}" = "all" ]; then
+        _do_truncation_of_group "$idx_of_node" "graph"
+        _do_truncation_of_group "$idx_of_node" "iris"
+
+    elif [ "${table_group:-""}" = "graph" ]; then
+        _do_truncation_of_group "$idx_of_node" "graph"
+
+    elif [ "${table_group:-""}" = "iris" ]; then
+        _do_truncation_of_group "$idx_of_node" "iris"
+
+    else
+        log_error "Unrecognized table group: ${table_group}"
+    fi
+
+    log "Node $idx_of_node: postgres dB table truncation complete"
+    log_break
+}
+
+function _do_truncation_of_group() {
+    local idx_of_node=${1}
+    local table_group=${2}
+    local db_name
+    local sql_fpath
+
+    db_name=$(get_pgres_app_db_name "$idx_of_node")
+    sql_fpath="$MPCTL/resources/sql/pgres_truncate_${table_group}-node-${idx_of_node}.sql"
+
+    exec_pgres_script "${db_name}" "${sql_fpath}"
 }
 
 # ----------------------------------------------------------------

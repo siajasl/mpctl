@@ -4,30 +4,43 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-infra-node-rotate
+    mpctl-services-net-aws-sm-rotate
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Rotates asymmetric key-pairs for a node within an MPC network.
-
-    ARGS
-    ----------------------------------------------------------------
-    node        Ordinal identifier of node.
+    Rotates asymmetric key-pairs for all nodes within an MPC network.
     "
 }
 
 function _main()
 {
+    local idx_of_loop
+    local idx_of_node
+
+    log_break
+    log "Rotating secret key rotation"
+    log_break
+
+    for idx_of_loop in $(seq 0 1)
+    do
+        for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
+        do
+            log " ... rotating keys for node $idx_of_node"
+            _rotate_keys "${idx_of_node}"
+        done
+    done
+
+    log_break
+    log "Rotating secret key rotation completed"
+    log_break
+}
+
+function _rotate_keys()
+{
     local idx_of_node=${1}
 
-    log_break
-    log "Rotating keys for node $idx_of_node"
-    log_break
+    load_env_of_node ${idx_of_node}
 
-    # Activate node env.
-    source "${MPCTL}"/cmds/local/node_activate_env.sh node=$idx_of_node
-
-    # Rotate keys via AWS KMS.
     pushd "$(get_path_to_monorepo)" || exit
     cargo run --bin \
         key-manager -- \
@@ -46,7 +59,6 @@ function _main()
 source "${MPCTL}"/utils/main.sh
 
 unset _HELP
-unset _IDX_OF_NODE
 
 for ARGUMENT in "$@"
 do
@@ -54,7 +66,6 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
-        node) _IDX_OF_NODE=${VALUE} ;;
         *)
     esac
 done
@@ -62,5 +73,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "$_IDX_OF_NODE"
+    _main
 fi

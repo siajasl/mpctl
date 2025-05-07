@@ -18,8 +18,7 @@ function _main()
 {
     local idx_of_node=${1}
 
-    source "$MPCTL/resources/envs/local.base.env"
-    source "$MPCTL/resources/envs/local.node.${idx_of_node}.env"
+    load_project_env "$(get_path_to_assets_of_node ${idx_of_node})/env"
 }
 
 # ----------------------------------------------------------------

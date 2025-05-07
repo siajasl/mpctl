@@ -90,6 +90,12 @@ function _setup_config_of_node()
 
     # Env vars.
     cp \
+        "$(get_path_to_resources)/envs/direnv.toml" \
+        "${path_to_assets_of_node}/env"
+    cp \
+        "$(get_path_to_resources)/envs/.envrc" \
+        "${path_to_assets_of_node}/env"
+    cp \
         "$(get_path_to_resources)/envs/local.base.env" \
         "${path_to_assets_of_node}/env/base.env"
     cp \
