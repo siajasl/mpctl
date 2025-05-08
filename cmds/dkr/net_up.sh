@@ -26,22 +26,21 @@ function _main()
 {
     local binary=${1}
     local mode=${2}
-    local docker_filename
+    local docker_fpath
+
+    # TODO: use specific docker files.
+    if [ "$binary" == "genesis" ]; then
+        docker_fpath="Dockerfile.dev.hawk"
+    else
+        docker_fpath="Dockerfile.dev.hawk"
+    fi
 
     pushd "$(get_path_to_monorepo)" || exit
-
-    if [ "$binary" == "genesis" ]; then
-        docker_filename="docker-compose.test.genesis.yaml"
-    else
-        docker_filename="docker-compose.test.yaml"
-    fi
-
     if [ "$mode" == "detached" ]; then
-        docker-compose -f $docker_filename up --detach
+        docker-compose -f ${docker_fpath} up --detach
     else
-        docker-compose -f $docker_filename up
+        docker-compose -f ${docker_fpath} up
     fi
-
     popd || exit
 }
 

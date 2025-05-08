@@ -40,5 +40,5 @@ function load_project_env()
     # Remove the temporary file.
     rm "${tmpfile}"
 
-    echo "Environment loaded from $project_dir"
+    log "Environment loaded from ${project_dir}"
 }

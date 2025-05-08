@@ -28,8 +28,9 @@ function _main()
         "hnsw_algorithm_metrics"
         "hnsw_network_stats_example"
         "init-test-dbs"
-        "local_hnsw"
         "generate_benchmark_data"
+        "generate-serial-ids-for-deletion"
+        "local_hnsw"
     )
 
     for build_target in "${build_targets[@]}"

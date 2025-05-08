@@ -12,11 +12,14 @@ function _help() {
 
     ARGS
     ----------------------------------------------------------------
-    mode        Compilation mode: debug | release. Optional.
+    binary      Binary to execute: standard | genesis. Optional.
+    mode        Compilation mode: terminal | detached. Optional.
+    node        Ordinal identifier of node.
 
     DEFAULTS
     ----------------------------------------------------------------
-    mode        release
+    binary      standard
+    mode        terminal
     "
 }
 
@@ -26,19 +29,23 @@ function _main()
     local idx_of_node=${1}
     local mode=${3}
 
-    local binary_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/bin"
+    local binary_dir_of_node
     local binary_fpath
-    local log_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/logs"
-    local log_fpath="${log_dir_of_node}/output.log"
+    local log_fpath
 
+    # Set paths.
+    binary_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/bin"
     if [ "$binary" == "genesis" ]; then
         binary_fpath="${binary_dir_of_node}/iris-mpc-hawk-genesis"
     else
         binary_fpath="${binary_dir_of_node}/iris-mpc-hawk"
     fi
+    log_fpath="$(get_path_to_assets_of_node ${idx_of_node})/logs/output.log"
 
+    # Set node config.
     source "${MPCTL}"/cmds/local/node_activate_env.sh node=$idx_of_node
 
+    # Start in either detached or terminal mode.
     if [ "$mode" == "detached" ]; then
         if [ -f ${log_fpath} ]
         then

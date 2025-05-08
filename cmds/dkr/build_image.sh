@@ -14,20 +14,22 @@ function _help() {
 
 function _main()
 {
-    local docker_filepath="$(get_path_to_monorepo)/Dockerfile.dev.hawk"
+    # Hawk server: main.
+    _build_image "${MPCTL_DOCKER_FILE_HAWK}" "${MPCTL_DOCKER_IMAGE_HAWK}"
 
-    _build_image "Dockerfile.dev.hawk"
-    # _build_image "Dockerfile.genesis.dev.hawk"
+    # Hawk server: genesis.
+    _build_image "${MPCTL_DOCKER_FILE_HAWK}" "${MPCTL_DOCKER_IMAGE_HAWK_GENESIS}"
 }
 
 function _build_image()
 {
-    local docker_filepath="$(get_path_to_monorepo)/${1}"
+    local image_fname=${1}
+    local image_tag=${2}
+
+    local image_fpath="$(get_path_to_monorepo)/${image_fname}"
 
     pushd "$(get_path_to_monorepo)" || exit
-    docker build \
-        -f "${docker_filepath}" \
-        -t hawk-server-local-build:latest .
+    docker build -f "${image_fpath}" -t "${image_tag}:latest" .
     popd | exit
 }
 

@@ -24,14 +24,14 @@ function _main()
 {
     local mode=${1}
 
+    local docker_fname="$(get_path_to_monorepo)/docker-compose.dev.yaml"
+
     pushd "$(get_path_to_monorepo)" || exit
-
     if [ "$mode" == "detached" ]; then
-        docker-compose -f docker-compose.dev.yaml up --detach
+        docker-compose -f "${docker_fname}" up --detach
     else
-        docker-compose -f docker-compose.dev.yaml up
+        docker-compose -f "${docker_fname}" up
     fi
-
     popd || exit
 }
 
