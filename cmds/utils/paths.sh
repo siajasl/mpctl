@@ -96,7 +96,7 @@ function get_path_to_node_logs()
 #######################################
 function get_path_to_parent()
 {
-    "$( cd "$( dirname "${MPCTL[0]}" )" && pwd )"
+    echo $( cd "$( dirname "${MPCTL[0]}" )" && pwd )
 }
 
 #######################################

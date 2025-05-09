@@ -24,7 +24,7 @@ function _main()
 {
     local build_mode=${1}
 
-    do_build_binary "$build_mode" "iris-mpc" "client"
+    do_build_binary "${build_mode}" "iris-mpc" "client"
 }
 
 # ----------------------------------------------------------------

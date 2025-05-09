@@ -29,7 +29,6 @@ function _main()
         "hnsw_network_stats_example"
         "init-test-dbs"
         "generate_benchmark_data"
-        "generate-serial-ids-for-deletion"
         "local_hnsw"
     )
 

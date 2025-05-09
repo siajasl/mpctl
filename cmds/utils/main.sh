@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # N.B. import order matters.
-source "${MPCTL}"/cmd/utils/vars.sh
-source "${MPCTL}"/cmd/utils/envs.sh
-source "${MPCTL}"/cmd/utils/os.sh
-source "${MPCTL}"/cmd/utils/paths.sh
-source "${MPCTL}"/cmd/utils/infra.sh
-source "${MPCTL}"/cmd/utils/infra_aws.sh
-source "${MPCTL}"/cmd/utils/infra_pgres.sh
+source "${MPCTL}"/cmds/utils/vars.sh
+source "${MPCTL}"/cmds/utils/envs.sh
+source "${MPCTL}"/cmds/utils/os.sh
+source "${MPCTL}"/cmds/utils/paths.sh
+source "${MPCTL}"/cmds/utils/infra.sh
+source "${MPCTL}"/cmds/utils/infra_aws.sh
+source "${MPCTL}"/cmds/utils/infra_pgres.sh
