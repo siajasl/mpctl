@@ -51,3 +51,4 @@ alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/cmds/jobs/services/aws_sm
 # ... testing
 alias mpctl-testing-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_db_from_plain_text_iris_file.sh'
 alias mpctl-testing-init-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_plain_text_iris_file.sh'
+alias mpctl-testing-generate-iris-serial-ids-for-deletion='source $MPCTL/cmds/jobs/testing/generate_iris_serial_ids_for_deletion.sh'

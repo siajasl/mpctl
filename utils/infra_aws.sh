@@ -6,7 +6,7 @@
 function get_aws_access_key_id()
 {
     if is_env_var_set AWS_ACCESS_KEY_ID; then
-        echo "$AWS_ACCESS_KEY_ID"
+        echo "$MPCTL_DEFAULT_AWS_ACCESS_KEY_ID"
     else
         echo "$MPCTL_DEFAULT_AWS_ACCESS_KEY_ID"
     fi
@@ -20,7 +20,7 @@ function get_aws_endpoint_url()
     if is_env_var_set AWS_ENDPOINT_URL; then
         echo "$AWS_ENDPOINT_URL"
     else
-        echo "${MPCTL_DEFAULT_AWS_ENDPOINT_HOST}:${MPCTL_DEFAULT_AWS_ENDPOINT_PORT}"
+        echo "${MPCTL_DEFAULT_AWS_ENDPOINT_URL}"
     fi
 }
 

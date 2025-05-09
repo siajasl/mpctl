@@ -39,16 +39,18 @@ function _rotate_keys()
 {
     local idx_of_node=${1}
 
-    load_env_of_node ${idx_of_node}
+    export AWS_ACCESS_KEY_ID="$(get_aws_access_key_id)"
+    export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
 
     pushd "$(get_path_to_monorepo)" || exit
     cargo run --bin \
         key-manager -- \
-            --region $MPCTL_DEFAULT_AWS_REGION \
-            --node-id $idx_of_node \
-            --env dev \
-        rotate \
-            --public-key-bucket-name wf-dev-public-keys
+            --endpoint-url "$(get_aws_endpoint_url)" \
+            --region "$(get_aws_region)" \
+            --node-id "${idx_of_node}" \
+            --env "dev" \
+            rotate \
+                --public-key-bucket-name wf-dev-public-keys
     popd || exit
 }
 

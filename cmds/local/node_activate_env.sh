@@ -32,13 +32,13 @@ function _main()
     export SMPC__MAX_DB_SIZE=10000
     export SMPC__HAWK_REQUEST_PARALLELISM=10
     export SMPC__AWS__REGION=us-east-1
-    export SMPC__AWS__ENDPOINT=http://exportstack:4566
+    export SMPC__AWS__ENDPOINT=http://localstack:4566
     export SMPC__KMS_KEY_ARNS='["arn:aws:kms:us-east-1:000000000000:key/00000000-0000-0000-0000-000000000000","arn:aws:kms:us-east-1:000000000000:key/00000000-0000-0000-0000-000000000001","arn:aws:kms:us-east-1:000000000000:key/00000000-0000-0000-0000-000000000002"]'
     export SMPC__SERVICE_PORTS='["4000","4001","4002"]'
     export SMPC__HEALTHCHECK_PORTS='["3000","3001","3002"]'
     export SMPC__SHARES_BUCKET_NAME="wf-smpcv2-dev-sns-requests"
     export SMPC__RESULTS_TOPIC_ARN="arn:aws:sns:us-east-1:000000000000:iris-mpc-results.fifo"
-    export AWS_ENDPOINT_URL=http://exportstack:4566
+    export AWS_ENDPOINT_URL=http://localstack:4566
     export AWS_ACCESS_KEY_ID=test
     export AWS_SECRET_ACCESS_KEY=test
     export AWS_REGION=us-east-1
@@ -51,6 +51,7 @@ function _main()
     export SMPC__REQUESTS_QUEUE_URL="http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/smpcv2-${idx_of_node}-dev.fifo"
     export SMPC__NODE_HOSTNAMES='["127.0.0.1","127.0.0.1","127.0.0.1"]'
 
+    # TODO: deterimine how to correctly use direnv.
     # load_project_env "$(get_path_to_assets_of_node ${idx_of_node})/env"
 }
 

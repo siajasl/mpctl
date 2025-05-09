@@ -52,6 +52,16 @@ function get_path_to_docker_compose_file_of_net()
 }
 
 #######################################
+# Returns path to jobs crate.
+# Globals:
+#   MPCTL - path to mpctl home directory.
+#######################################
+function get_path_to_jobs()
+{
+    echo "${MPCTL}/jobs"
+}
+
+#######################################
 # Returns path to the monorepo within which solution has been developed.
 #######################################
 function get_path_to_monorepo()

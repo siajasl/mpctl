@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 # N.B. import order matters.
-source "$MPCTL"/utils/constants.sh
-source "$MPCTL"/utils/defaults.sh
+source "$MPCTL"/utils/vars.sh
 source "$MPCTL"/utils/envs.sh
 source "$MPCTL"/utils/os.sh
 source "$MPCTL"/utils/paths.sh
