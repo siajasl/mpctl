@@ -26,30 +26,30 @@ function _help() {
 function _main()
 {
     local binary=${2}
-    local idx_of_node=${1}
-    local mode=${3}
-
     local binary_dir_of_node
     local binary_fpath
+    local idx_of_node=${1}
     local log_fpath
+    local mode=${3}
+
 
     # Set paths.
-    binary_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/bin"
-    if [ "$binary" == "genesis" ]; then
+    binary_dir_of_node="$(get_path_to_assets_of_node "${idx_of_node}")/bin"
+    if [ "${binary}" == "genesis" ]; then
         binary_fpath="${binary_dir_of_node}/iris-mpc-hawk-genesis"
     else
         binary_fpath="${binary_dir_of_node}/iris-mpc-hawk"
     fi
-    log_fpath="$(get_path_to_assets_of_node ${idx_of_node})/logs/output.log"
+    log_fpath="$(get_path_to_assets_of_node "${idx_of_node}")/logs/output.log"
 
     # Set node config.
-    source "${MPCTL}"/cmds/local/node_activate_env.sh node=$idx_of_node
+    source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}"
 
     # Start in either detached or terminal mode.
     if [ "$mode" == "detached" ]; then
-        if [ -f ${log_fpath} ]
+        if [ -f "${log_fpath}" ]
         then
-            rm ${log_fpath}
+            rm "${log_fpath}"
         fi
         nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
     else
@@ -61,7 +61,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _BINARY
 unset _HELP

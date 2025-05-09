@@ -32,8 +32,9 @@ function _main()
 
 function _teardown_assets()
 {
-    local path_to_assets=$(get_path_to_assets_of_net)
+    local path_to_assets
 
+    path_to_assets="$(get_path_to_assets_of_net)"
     if [ -d "$path_to_assets" ]; then
         rm -rf "$path_to_assets"
     fi
@@ -53,14 +54,13 @@ function _teardown_services()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
-    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         *)

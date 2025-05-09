@@ -15,18 +15,21 @@ function _help() {
 function _main()
 {
     local binary=${2}
+    local docker_fpath
+    local docker_service
     local idx_of_node=${1}
-    local docker_filepath=$(get_path_to_docker_compose_file_of_net ${binary})
-    local docker_service="hawk_participant_${idx_of_node}"
 
-    docker-compose -f "${docker_filepath}" start "${docker_service}"
+    docker_fpath="$(get_path_to_docker_compose_file_of_net "${binary}")"
+    docker_service="hawk_participant_${idx_of_node}"
+
+    docker-compose -f "${docker_fpath}" start "${docker_service}"
 }
 
 # ----------------------------------------------------------------
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _BINARY
 unset _HELP

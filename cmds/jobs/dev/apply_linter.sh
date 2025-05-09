@@ -17,21 +17,20 @@ function _main()
     pushd "$(get_path_to_monorepo)" || exit
     cargo fmt --check
     cargo clippy --all-targets --all-features -- -D warnings --no-deps
-    popd | exit
+    popd || exit
 }
 
 # ----------------------------------------------------------------
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
-    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         *)

@@ -14,16 +14,17 @@ function _help() {
 
 function _main()
 {
-    pushd "$(get_path_to_monorepo)" || exit
+    local binary="${1}"
+    local docker_compose_fpath
 
-    if [ "$binary" == "genesis" ]; then
-        docker_filename="docker-compose.test.genesis.yaml"
+    if [ "${binary}" == "genesis" ]; then
+        docker_compose_fpath="${MPCTL_DOCKER_COMPOSE_HAWK_GENESIS}"
     else
-        docker_filename="docker-compose.test.yaml"
+        docker_compose_fpath="${MPCTL_DOCKER_COMPOSE_HAWK}"
     fi
 
-    docker-compose -f $docker_filename down --volumes
-
+    pushd "$(get_path_to_monorepo)" || exit
+    docker-compose -f "${docker_compose_fpath}" down --volumes
     popd || exit
 }
 
@@ -31,7 +32,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _BINARY
 unset _HELP

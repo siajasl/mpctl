@@ -15,9 +15,7 @@ function _help() {
 function _main()
 {
     pushd "$(get_path_to_monorepo)" || exit
-
-    docker-compose -f docker-compose.dev.yaml down --volumes
-
+    docker-compose -f "${MPCTL_DOCKER_COMPOSE_SERVICES}" down --volumes
     popd || exit
 }
 
@@ -25,14 +23,13 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
-    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         *)

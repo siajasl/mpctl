@@ -18,7 +18,7 @@ function _main()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        _do_backup ${idx_of_node}
+        _do_backup "${idx_of_node}"
     done
 
     log_break
@@ -28,23 +28,24 @@ function _main()
 
 function _do_backup()
 {
+    local backup_dir
+    local db_name
     local idx_of_node=${1}
+    local super_user_name
+    local super_user_password
 
-    local backup_dir="$(get_path_to_assets)/data/db-backups"
-    local db_name=$(get_pgres_app_db_name "$idx_of_node")
-    local server_host=$(get_pgres_server_host)
-    local server_port=$(get_pgres_server_port)
-    local super_user_name=$(get_pgres_super_user_name)
-    local super_user_password=$(get_pgres_super_user_password)
+    backup_dir="$(get_path_to_assets)/data/db-backups"
+    db_name=$(get_pgres_app_db_name "$idx_of_node")
+    super_user_name=$(get_pgres_super_user_name)
+    super_user_password=$(get_pgres_super_user_password)
 
     log_break
     log "Node $idx_of_node: postgres dB dump begins"
     log "    dB name=${db_name}"
-    log "    dB server ${server_host}:${server_port}"
     log "    dB super user=${super_user_name}"
     log "    dB dump path=${backup_dir}"
 
-    mkdir -p ${backup_dir}
+    mkdir -p "${backup_dir}"
 
     docker exec \
         -i "${MPCTL_DOCKER_CONTAINER_PGRES_DB}" /bin/bash \
@@ -58,14 +59,13 @@ function _do_backup()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
-    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         *)

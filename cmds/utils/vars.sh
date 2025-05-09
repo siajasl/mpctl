@@ -8,6 +8,15 @@ declare MPCTL_COUNT_OF_PARTIES=3
 # Name of application monorepo.
 declare MPCTL_NAME_OF_MONREPO="iris-mpc"
 
+# Docker compose file: Hawk main.
+declare MPCTL_DOCKER_COMPOSE_HAWK="docker-compose.test.yaml"
+
+# Docker compose file: Hawk main.
+declare MPCTL_DOCKER_COMPOSE_HAWK_GENESIS="docker-compose.test.genesis.yaml"
+
+# Docker compose file: Base services.
+declare MPCTL_DOCKER_COMPOSE_SERVICES="docker-compose.dev.yaml"
+
 # Docker container id: PostgreSQL dB.
 declare MPCTL_DOCKER_CONTAINER_PGRES_DB="iris-mpc-dev_db-1"
 

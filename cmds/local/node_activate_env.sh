@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function _help() {
     echo "
     COMMAND
@@ -59,7 +61,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 unset _IDX_OF_NODE

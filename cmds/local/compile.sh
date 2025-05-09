@@ -24,17 +24,17 @@ function _main()
 {
     local build_mode=${1}
 
-    source "$MPCTL/cmds/local/compile_client.sh" mode="$build_mode"
-    source "$MPCTL/cmds/local/compile_key_manager.sh" mode="$build_mode"
-    source "$MPCTL/cmds/local/compile_other.sh" mode="$build_mode"
-    source "$MPCTL/cmds/local/compile_server.sh" mode="$build_mode"
+    source "${MPCTL}/cmds/local/compile_client.sh" mode="${build_mode}"
+    source "${MPCTL}/cmds/local/compile_key_manager.sh" mode="${build_mode}"
+    source "${MPCTL}/cmds/local/compile_other.sh" mode="${build_mode}"
+    source "${MPCTL}/cmds/local/compile_server.sh" mode="${build_mode}"
 }
 
 # ----------------------------------------------------------------
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 unset _BUILD_MODE

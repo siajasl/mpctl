@@ -48,21 +48,21 @@ function _setup_binaries()
     # Copy network wide binaries.
     path_to_assets_of_net=$(get_path_to_assets_of_net)
     cp \
-        $(get_path_to_target_binary "client" "release") \
+        "$(get_path_to_target_binary "client" "release")" \
         "${path_to_assets_of_net}/bin"
     cp \
-        $(get_path_to_target_binary "key-manager" "release") \
+        "$(get_path_to_target_binary "key-manager" "release")" \
         "${path_to_assets_of_net}/bin"
 
     # Copy node specific binaries.
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        path_to_assets_of_node=$(get_path_to_assets_of_node $idx_of_node)
+        path_to_assets_of_node="$(get_path_to_assets_of_node "${idx_of_node}")"
         cp \
-            $(get_path_to_target_binary "iris-mpc-hawk" "release") \
+            "$(get_path_to_target_binary "iris-mpc-hawk" "release")" \
             "${path_to_assets_of_node}/bin"
         cp \
-            $(get_path_to_target_binary "iris-mpc-hawk-genesis" "release") \
+            "$(get_path_to_target_binary "iris-mpc-hawk-genesis" "release")" \
             "${path_to_assets_of_node}/bin"
     done
 }
@@ -76,7 +76,7 @@ function _setup_config_of_net()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        _setup_config_of_node $idx_of_node
+        _setup_config_of_node "${idx_of_node}"
     done
 }
 
@@ -86,7 +86,9 @@ function _setup_config_of_net()
 function _setup_config_of_node()
 {
     local idx_of_node=${1}
-    local path_to_assets_of_node=$(get_path_to_assets_of_node $idx_of_node)
+    local path_to_assets_of_node
+
+    path_to_assets_of_node="$(get_path_to_assets_of_node "${idx_of_node}")"
 
     # Env vars.
     cp \
@@ -108,17 +110,13 @@ function _setup_config_of_node()
 ##############################################################################
 function _setup_fs()
 {
-    local path_to_assets_of_net=$(get_path_to_assets_of_net)
-
     local idx_of_node
     local path_to_assets_of_node
 
-    mkdir -p "${path_to_assets_of_net}"
-    mkdir "${path_to_assets_of_net}/bin"
-
+    mkdir -p "$(get_path_to_assets_of_net)/bin"
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        path_to_assets_of_node=$(get_path_to_assets_of_node $idx_of_node)
+        path_to_assets_of_node="$(get_path_to_assets_of_node "${idx_of_node}")"
         mkdir -p "${path_to_assets_of_node}"
         mkdir "${path_to_assets_of_node}/bin"
         mkdir "${path_to_assets_of_node}/env"
@@ -137,21 +135,20 @@ function _setup_keys()
     export AWS_REGION="$(get_aws_region)"
     export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
 
-    source $(get_path_to_monorepo)/scripts/tools/init-servers.sh
+    source "$(get_path_to_monorepo)"/scripts/tools/init-servers.sh
 }
 
 # ----------------------------------------------------------------
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
-    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         *)

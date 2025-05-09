@@ -7,7 +7,7 @@
 #######################################
 function get_path_to_assets()
 {
-    echo "${MPCTL_ASSETS:-$MPCTL/assets}"
+    echo "${MPCTL_ASSETS:-${MPCTL}/assets}"
 }
 
 #######################################
@@ -38,17 +38,15 @@ function get_path_to_assets_of_node()
 function get_path_to_docker_compose_file_of_net()
 {
     local binary=${1}
-    local docker_filename
-    local docker_filepath
-    local docker_service
+    local docker_fname
 
     if [ "$binary" == "genesis" ]; then
-        docker_filename="docker-compose.test.genesis.yaml"
+        docker_fname="docker-compose.test.genesis.yaml"
     else
-        docker_filename="docker-compose.test.yaml"
+        docker_fname="docker-compose.test.yaml"
     fi
 
-    echo "$(get_path_to_monorepo)/${docker_filename}"
+    echo "$(get_path_to_monorepo)/${docker_fname}"
 }
 
 #######################################
@@ -66,9 +64,7 @@ function get_path_to_jobs()
 #######################################
 function get_path_to_monorepo()
 {
-    local get_path_to_parent=$(get_path_to_parent)
-
-    echo $get_path_to_parent/$MPCTL_NAME_OF_MONREPO
+    echo "$(get_path_to_parent)/${MPCTL_NAME_OF_MONREPO}"
 }
 
 #######################################
@@ -80,8 +76,7 @@ function get_path_to_node_env()
 {
     local idx_of_node=${1}
 
-    echo "$(get_path_to_assets_of_node ${idx_of_node})/env"
-    # echo "$(get_path_to_assets_of_node "$idx_of_node")"/env
+    echo "$(get_path_to_assets_of_node "${idx_of_node}")/env"
 }
 
 #######################################
@@ -101,7 +96,7 @@ function get_path_to_node_logs()
 #######################################
 function get_path_to_parent()
 {
-    echo "$( cd "$( dirname "${MPCTL[0]}" )" && pwd )"
+    "$( cd "$( dirname "${MPCTL[0]}" )" && pwd )"
 }
 
 #######################################

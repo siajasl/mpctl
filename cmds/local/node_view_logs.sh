@@ -18,12 +18,14 @@ function _help() {
 
 function _main()
 {
+    local log_dir_of_node
+    local log_fpath
     local idx_of_node=${1}
 
-    local log_dir_of_node="$(get_path_to_assets_of_node ${idx_of_node})/logs"
-    local log_fpath="${log_dir_of_node}/output.log"
+    log_dir_of_node="$(get_path_to_assets_of_node "${idx_of_node}")/logs"
+    log_fpath="${log_dir_of_node}/output.log"
 
-    if [ -f ${log_fpath} ]
+    if [ -f "${log_fpath}" ]
     then
         less "${log_fpath}"
     else
@@ -35,7 +37,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 unset _IDX_OF_NODE

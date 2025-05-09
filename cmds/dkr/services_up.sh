@@ -24,13 +24,11 @@ function _main()
 {
     local mode=${1}
 
-    local docker_fname="$(get_path_to_monorepo)/docker-compose.dev.yaml"
-
     pushd "$(get_path_to_monorepo)" || exit
     if [ "$mode" == "detached" ]; then
-        docker-compose -f "${docker_fname}" up --detach
+        docker-compose -f "${MPCTL_DOCKER_COMPOSE_SERVICES}" up --detach
     else
-        docker-compose -f "${docker_fname}" up
+        docker-compose -f "${MPCTL_DOCKER_COMPOSE_SERVICES}" up
     fi
     popd || exit
 }
@@ -39,7 +37,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 unset _MODE

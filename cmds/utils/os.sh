@@ -10,6 +10,14 @@ declare _OS_MACOSX="macosx"
 declare _OS_UNKNOWN="unknown"
 
 #######################################
+# Returns OS wall clock time.
+#######################################
+function get_now()
+{
+    "$(date +%Y-%m-%dT%H:%M:%S.%6N)"
+}
+
+#######################################
 # Returns OS type.
 # Globals:
 #   OSTYPE: type of OS being run.
@@ -63,9 +71,8 @@ function is_env_var_set ()
 function log ()
 {
     local MSG=${1}
-	local NOW=$(date +%Y-%m-%dT%H:%M:%S.%6N)
 
-    echo -e "$NOW [INFO] [$$] MPCTL :: $MSG"
+    echo -e "$(get_now) [INFO] [$$] MPCTL :: ${MSG}"
 }
 
 #######################################
@@ -82,9 +89,8 @@ function log_break()
 function log_error ()
 {
     local MSG=${1}
-    local NOW=$(date +%Y-%m-%dT%H:%M:%S.%6N)
 
-    echo -e "$NOW [ERROR] [$$] MPCTL :: $MSG"
+    echo -e "$(get_now) [ERROR] [$$] MPCTL :: $MSG"
 }
 
 #######################################
@@ -110,9 +116,8 @@ function log_step_upgrades()
 function log_warning()
 {
     local MSG=${1}
-	local NOW=$(date +%Y-%m-%dT%H:%M:%S.%6N)
 
-    echo -e "$NOW [WARN] [$$] MPCTL :: $MSG"
+    echo -e "$(get_now) [WARN] [$$] MPCTL :: ${MSG}"
 }
 
 #######################################

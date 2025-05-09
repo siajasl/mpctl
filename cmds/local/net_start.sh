@@ -15,12 +15,11 @@ function _help() {
 function _main()
 {
     local binary=${1}
-    local mode=${2}
     local idx_of_node
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "${MPCTL}"/cmds/local/node_start.sh node=${idx_of_node} binary=${binary} mode="detached"
+        source "${MPCTL}"/cmds/local/node_start.sh node="${idx_of_node}" binary="${binary}" mode="detached"
     done
 }
 
@@ -28,7 +27,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _BINARY
 unset _HELP

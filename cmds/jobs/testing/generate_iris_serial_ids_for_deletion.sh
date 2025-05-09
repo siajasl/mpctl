@@ -18,7 +18,7 @@ function _main()
 
     path_to_output="$(get_path_to_resources)/misc/deleted_serial_ids.json"
 
-    mkdir =p "$(get_path_to_resources)/misc"
+    mkdir -p "$(get_path_to_resources)/misc"
 
     pushd "$(get_path_to_jobs)" || exit
     cargo run \
@@ -31,14 +31,13 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
-    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         *)

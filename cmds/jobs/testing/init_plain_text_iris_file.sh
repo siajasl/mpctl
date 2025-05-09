@@ -14,7 +14,9 @@ function _help() {
 
 function _main()
 {
-    local target_dir="$(get_path_to_assets)/data/iris-plaintext"
+    local target_dir
+
+    target_dir="$(get_path_to_assets)/data/iris-plaintext"
 
     if [ -d "${target_dir}" ]; then
         rm -rf "${target_dir}"
@@ -30,14 +32,13 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/utils/main.sh
+source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
-    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         *)
