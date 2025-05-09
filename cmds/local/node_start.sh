@@ -32,7 +32,6 @@ function _main()
     local log_fpath
     local mode=${3}
 
-
     # Set paths.
     binary_dir_of_node="$(get_path_to_assets_of_node "${idx_of_node}")/bin"
     if [ "${binary}" == "genesis" ]; then

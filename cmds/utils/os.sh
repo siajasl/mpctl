@@ -14,7 +14,7 @@ declare _OS_UNKNOWN="unknown"
 #######################################
 function get_now()
 {
-    "$(date +%Y-%m-%dT%H:%M:%S.%6N)"
+    echo $(date +%Y-%m-%dT%H:%M:%S.%6N)
 }
 
 #######################################

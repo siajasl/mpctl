@@ -37,7 +37,7 @@ declare MPCTL_DOCKER_IMAGE_HAWK_GENESIS="hawk-server-genesis"
 # ---------------------------------------------------------------------------------
 
 # Default: name of application environment.
-declare MPCTL_DEFAULT_APP_ENVIRONMENT_NAME="dev"
+declare MPCTL_DEFAULT_ENVIRONMENT="dev"
 
 # ---------------------------------------------------------------------------------
 # Defaults -> AWS

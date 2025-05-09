@@ -26,15 +26,3 @@ function do_build_binary()
     fi
     popd || exit
 }
-
-##############################################################################
-# Returns name of application environment.
-##############################################################################
-function get_app_environment_name()
-{
-    if is_env_var_set SMPC__ENVIRONMENT; then
-        echo "$SMPC__ENVIRONMENT"
-    else
-        echo "$MPCTL_DEFAULT_APP_ENVIRONMENT_NAME"
-    fi
-}

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+##############################################################################
+# Loads a node's environment into memory.
+##############################################################################
 function load_env_of_node()
 {
     local idx_of_node=${1}
@@ -14,6 +17,9 @@ function load_env_of_node()
     load_project_env "$(get_path_to_node_env "${idx_of_node}")"
 }
 
+##############################################################################
+# Loads a direnv project into memory.
+##############################################################################
 function load_project_env()
 {
     local project_dir=$1

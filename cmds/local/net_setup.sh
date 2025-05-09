@@ -26,7 +26,7 @@ function _main()
     _setup_binaries
     log "    binaries assigned"
 
-    # _setup_keys
+    _setup_keys
     log "    secret keys initialised"
 
     log "MPC network setup :: ends"
@@ -117,8 +117,7 @@ function _setup_fs()
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
         path_to_assets_of_node="$(get_path_to_assets_of_node "${idx_of_node}")"
-        mkdir -p "${path_to_assets_of_node}"
-        mkdir "${path_to_assets_of_node}/bin"
+        mkdir -p "${path_to_assets_of_node}/bin"
         mkdir "${path_to_assets_of_node}/env"
         mkdir "${path_to_assets_of_node}/logs"
     done
@@ -129,13 +128,19 @@ function _setup_fs()
 ##############################################################################
 function _setup_keys()
 {
+    source ${MPCTL}/cmds/jobs/services/aws_sm_rotate.sh
 
-    export AWS_ACCESS_KEY_ID="$(get_aws_access_key_id)"
-    export AWS_ENDPOINT_URL="$(get_aws_endpoint_url)"
-    export AWS_REGION="$(get_aws_region)"
-    export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
+    # export AWS_ACCESS_KEY_ID="$(get_aws_access_key_id)"
+    # export AWS_ENDPOINT_URL="$(get_aws_endpoint_url)"
+    # export AWS_REGION="$(get_aws_region)"
+    # export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
 
-    source "$(get_path_to_monorepo)"/scripts/tools/init-servers.sh
+    # echo $AWS_ACCESS_KEY_ID
+    # echo $AWS_ENDPOINT_URL
+    # echo $AWS_REGION
+    # echo $AWS_SECRET_ACCESS_KEY
+
+    # source $(get_path_to_monorepo)/scripts/tools/init-servers.sh
 }
 
 # ----------------------------------------------------------------

@@ -45,9 +45,9 @@ function _rotate_keys()
     cargo run --bin \
         key-manager -- \
             --endpoint-url "$(get_aws_endpoint_url)" \
-            --region "$(get_aws_region)" \
-            --node-id "${idx_of_node}" \
             --env "dev" \
+            --node-id "${idx_of_node}" \
+            --region "$(get_aws_region)" \
             rotate \
                 --public-key-bucket-name wf-dev-public-keys
     popd || exit
