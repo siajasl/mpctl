@@ -50,12 +50,16 @@ function _do_truncation()
     if [ "${table_group:-""}" = "all" ]; then
         _do_truncation_of_group "${idx_of_node}" "graph"
         _do_truncation_of_group "${idx_of_node}" "iris"
+        _do_truncation_of_group "${idx_of_node}" "state"
 
     elif [ "${table_group:-""}" = "graph" ]; then
         _do_truncation_of_group "${idx_of_node}" "graph"
 
     elif [ "${table_group:-""}" = "iris" ]; then
         _do_truncation_of_group "${idx_of_node}" "iris"
+
+    elif [ "${table_group:-""}" = "state" ]; then
+        _do_truncation_of_group "${idx_of_node}" "state"
 
     else
         log_error "Unrecognized table group: ${table_group}"
@@ -72,7 +76,7 @@ function _do_truncation_of_group() {
     local sql_fpath
 
     db_name=$(get_pgres_app_db_name "$idx_of_node")
-    sql_fpath="$MPCTL/resources/sql/pgres_truncate_${table_group}-node-${idx_of_node}.sql"
+    sql_fpath="$MPCTL/resources/sql/pgres-truncate-${table_group}-node-${idx_of_node}.sql"
 
     exec_pgres_script "${db_name}" "${sql_fpath}"
 }

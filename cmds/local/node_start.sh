@@ -50,9 +50,17 @@ function _main()
         then
             rm "${log_fpath}"
         fi
-        nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
+        if [ "${binary}" == "genesis" ]; then
+            nohup "${binary_fpath}" --max-height=1000 > "${log_fpath}" 2>&1 &
+        else
+            nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
+        fi
     else
-        "${binary_fpath}"
+        if [ "${binary}" == "genesis" ]; then
+            "${binary_fpath}" --max-height=1000
+        else
+            "${binary_fpath}"
+        fi
     fi
 }
 
