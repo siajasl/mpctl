@@ -19,6 +19,7 @@ function _help() {
 function _main()
 {
     local idx_of_node=${1}
+    local size_of_batch=${2}
 
     export RUST_LOG=info
     export RUST_BACKTRACE=full
@@ -29,7 +30,7 @@ function _main()
     export SMPC__DATABASE__MIGRATE=true
     export SMPC__DATABASE__CREATE=true
     export SMPC__DATABASE__LOAD_PARALLELISM=8
-    export SMPC__MAX_BATCH_SIZE=64
+    export SMPC__MAX_BATCH_SIZE=${size_of_batch}
     export SMPC__OVERRIDE_MAX_BATCH_SIZE=true
     export SMPC__MAX_DB_SIZE=10000
     export SMPC__HAWK_REQUEST_PARALLELISM=10
@@ -65,12 +66,14 @@ source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 unset _IDX_OF_NODE
+unset _SIZE_OF_BATCH
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
+        batchsize) _SIZE_OF_BATCH=${VALUE} ;;
         help) _HELP="show" ;;
         node) _IDX_OF_NODE=${VALUE} ;;
         *)
@@ -80,5 +83,7 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "$_IDX_OF_NODE"
+    _main \
+        "${_IDX_OF_NODE}" \
+        "${_SIZE_OF_BATCH:-64}"
 fi

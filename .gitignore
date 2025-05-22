@@ -1,7 +1,8 @@
 # Temporary directories.
-/target
 /assets
 /data
+/pgms/target
+/target
 /tmp
 result
 venv
@@ -19,5 +20,3 @@ venv
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
-
-/pgms/target

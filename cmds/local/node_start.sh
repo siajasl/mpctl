@@ -12,13 +12,17 @@ function _help() {
 
     ARGS
     ----------------------------------------------------------------
+    batchsize   Size of indexation batches. Optional.
     binary      Binary to execute: standard | genesis. Optional.
+    height      Last Iris serial identifier to be indexed in job.
     mode        Compilation mode: terminal | detached. Optional.
     node        Ordinal identifier of node.
 
     DEFAULTS
     ----------------------------------------------------------------
+    batchsize   64
     binary      standard
+    height      150
     mode        terminal
     "
 }
@@ -26,11 +30,14 @@ function _help() {
 function _main()
 {
     local binary=${2}
+    local idx_of_node=${1}
+    local height_max=${3}
+    local mode=${4}
+    local size_of_batch=${5}
+
     local binary_dir_of_node
     local binary_fpath
-    local idx_of_node=${1}
     local log_fpath
-    local mode=${3}
 
     # Set paths.
     binary_dir_of_node="$(get_path_to_assets_of_node "${idx_of_node}")/bin"
@@ -42,7 +49,7 @@ function _main()
     log_fpath="$(get_path_to_assets_of_node "${idx_of_node}")/logs/output.log"
 
     # Set node config.
-    source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}"
+    source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}" batchsize="${size_of_batch}"
 
     # Start in either detached or terminal mode.
     if [ "$mode" == "detached" ]; then
@@ -51,13 +58,13 @@ function _main()
             rm "${log_fpath}"
         fi
         if [ "${binary}" == "genesis" ]; then
-            nohup "${binary_fpath}" --max-height=1000 > "${log_fpath}" 2>&1 &
+            nohup "${binary_fpath}" --max-height="${height_max}" > "${log_fpath}" 2>&1 &
         else
             nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
         fi
     else
         if [ "${binary}" == "genesis" ]; then
-            "${binary_fpath}" --max-height=1000
+            "${binary_fpath}" --max-height="${height_max}"
         else
             "${binary_fpath}"
         fi
@@ -73,15 +80,19 @@ source "${MPCTL}"/cmds/utils/main.sh
 unset _BINARY
 unset _HELP
 unset _IDX_OF_NODE
+unset _MAX_HEIGHT
 unset _MODE
+unset _SIZE_OF_BATCH
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
+        batchsize) _SIZE_OF_BATCH=${VALUE} ;;
         binary) _BINARY=${VALUE} ;;
         help) _HELP="show" ;;
+        height) _MAX_HEIGHT=${VALUE} ;;
         mode) _MODE=${VALUE} ;;
         node) _IDX_OF_NODE=${VALUE} ;;
         *)
@@ -94,5 +105,7 @@ else
     _main \
         "${_IDX_OF_NODE:-"0"}" \
         "${_BINARY:-"standard"}" \
-        "${_MODE:-"terminal"}"
+        "${_MAX_HEIGHT:-"150"}" \
+        "${_MODE:-"terminal"}" \
+        "${_SIZE_OF_BATCH:-64}"
 fi
