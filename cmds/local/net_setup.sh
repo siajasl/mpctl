@@ -23,7 +23,9 @@ function _main()
     _setup_config_of_net
     log "    environment files assigned"
 
+    log "    compiling binaries"
     _setup_binaries
+    log "    binaries compiled"
     log "    binaries assigned"
 
     _setup_keys

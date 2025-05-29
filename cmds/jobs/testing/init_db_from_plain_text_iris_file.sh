@@ -14,8 +14,12 @@ function _help() {
 
 function _main()
 {
-    declare SMPC_INIT_PATH_TO_PRNG_STATE="$(get_path_to_assets)/data/tmp/prng_state"
-    declare SMPC_INIT_PATH_TO_IRIS_PLAINTEXT="$(get_path_to_assets)/data/iris-plaintext/store.ndjson"
+    # Override default values.
+    export SMPC_INIT_DB_URL_PARTY_1="postgres://postgres:postgres@localhost:5432/SMPC_dev_0"
+    export SMPC_INIT_DB_URL_PARTY_2="postgres://postgres:postgres@localhost:5432/SMPC_dev_1"
+    export SMPC_INIT_DB_URL_PARTY_3="postgres://postgres:postgres@localhost:5432/SMPC_dev_2"
+    export SMPC_INIT_PATH_TO_PRNG_STATE="$(get_path_to_assets)/data/tmp/prng_state"
+    export SMPC_INIT_PATH_TO_IRIS_PLAINTEXT="$(get_path_to_assets)/data/iris-plaintext/store.ndjson"
 
     pushd "$(get_path_to_monorepo)" || exit
     source "./scripts/tools/init_db_from_plaintext_iris_file.sh"

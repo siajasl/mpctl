@@ -16,7 +16,7 @@ function do_build_binary()
         return
     fi
 
-    echo "Compiling binary: ${build_subdir} :: ${build_target} :: ${build_mode}"
+    log "Compiling binary: ${build_subdir} :: ${build_target} :: ${build_mode}"
 
     pushd "${build_path}" || exit
     if [ "${build_mode}" == "debug" ]; then

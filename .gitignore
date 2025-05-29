@@ -2,6 +2,7 @@
 /assets
 /data
 /pgms/target
+/pgms/target/.rustc_info.json
 /target
 /tmp
 result
