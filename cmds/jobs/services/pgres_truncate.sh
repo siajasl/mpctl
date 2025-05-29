@@ -45,7 +45,7 @@ function _do_truncation()
     local table_group=${2}
 
     log_break
-    log "Node ${idx_of_node}: postgres dB table truncation"
+    log "Node ${idx_of_node}: postgres dB table truncation begins"
 
     if [ "${table_group:-""}" = "all" ]; then
         _do_truncation_of_group "${idx_of_node}" "graph"
@@ -74,6 +74,8 @@ function _do_truncation_of_group() {
     local table_group=${2}
     local db_name
     local sql_fpath
+
+    log "... truncating ${table_group} tables"
 
     db_name=$(get_pgres_app_db_name "$idx_of_node")
     sql_fpath="$MPCTL/resources/sql/pgres-truncate-${table_group}-node-${idx_of_node}.sql"
