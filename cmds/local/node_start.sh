@@ -13,7 +13,6 @@ function _help() {
     ARGS
     ----------------------------------------------------------------
     batchsize   Size of indexation batches. Optional.
-    binary      Binary to execute: standard | genesis. Optional.
     height      Last Iris serial identifier to be indexed in job.
     mode        Execution mode: terminal | detached. Optional.
     node        Ordinal identifier of node.
@@ -21,7 +20,6 @@ function _help() {
     DEFAULTS
     ----------------------------------------------------------------
     batchsize   64
-    binary      standard
     height      150
     mode        terminal
     "
@@ -29,45 +27,34 @@ function _help() {
 
 function _main()
 {
-    local binary=${2}
     local idx_of_node=${1}
-    local height_max=${3}
-    local mode=${4}
-    local size_of_batch=${5}
+    local height_max=${2}
+    local mode=${3}
+    local size_of_batch=${4}
 
     local binary_dir_of_node
     local binary_fpath
     local log_fpath
 
-    # Set paths.
+    # Set path.
     binary_dir_of_node="$(get_path_to_assets_of_node "${idx_of_node}")/bin"
-    if [ "${binary}" == "genesis" ]; then
-        binary_fpath="${binary_dir_of_node}/iris-mpc-hawk-genesis"
-    else
-        binary_fpath="${binary_dir_of_node}/iris-mpc-hawk"
-    fi
-    log_fpath="$(get_path_to_assets_of_node "${idx_of_node}")/logs/output.log"
+    binary_fpath="${binary_dir_of_node}/iris-mpc-hawk"
 
-    # Set node config.
+    # Set env.
     source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}" batchsize="${size_of_batch}"
 
-    # Start in either detached or terminal mode.
+    # Start process:
+    # ... mode = terminal
     if [ "$mode" == "detached" ]; then
+        "${binary_fpath}"
+    # ... mode = detached
+    else
+        log_fpath="$(get_path_to_assets_of_node "${idx_of_node}")/logs/output.log"
         if [ -f "${log_fpath}" ]
         then
             rm "${log_fpath}"
         fi
-        if [ "${binary}" == "genesis" ]; then
-            nohup "${binary_fpath}" --max-height="${height_max}" --perform-snapshot="false" > "${log_fpath}" 2>&1 &
-        else
-            nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
-        fi
-    else
-        if [ "${binary}" == "genesis" ]; then
-            "${binary_fpath}" --max-height="${height_max}" --perform-snapshot="false"
-        else
-            "${binary_fpath}"
-        fi
+        nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
     fi
 }
 
@@ -77,7 +64,6 @@ function _main()
 
 source "${MPCTL}"/cmds/utils/main.sh
 
-unset _BINARY
 unset _HELP
 unset _IDX_OF_NODE
 unset _MAX_HEIGHT
@@ -90,7 +76,6 @@ do
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         batchsize) _SIZE_OF_BATCH=${VALUE} ;;
-        binary) _BINARY=${VALUE} ;;
         help) _HELP="show" ;;
         height) _MAX_HEIGHT=${VALUE} ;;
         mode) _MODE=${VALUE} ;;
@@ -104,7 +89,6 @@ if [ "${_HELP:-""}" = "show" ]; then
 else
     _main \
         "${_IDX_OF_NODE:-"0"}" \
-        "${_BINARY:-"standard"}" \
         "${_MAX_HEIGHT:-"150"}" \
         "${_MODE:-"terminal"}" \
         "${_SIZE_OF_BATCH:-64}"
