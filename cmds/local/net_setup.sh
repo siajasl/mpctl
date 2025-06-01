@@ -18,12 +18,11 @@ function _main()
     log "MPC network setup :: begins"
 
     _setup_fs
-    log "    assets directory created"
+    log "    file system initialised"
 
-    _setup_config_of_net
-    log "    environment files assigned"
+    _setup_config
+    log "    configuration initialised"
 
-    log "    compiling binaries"
     _setup_binaries
     log "    binaries compiled"
     log "    binaries assigned"
@@ -45,9 +44,9 @@ function _setup_binaries()
     local path_to_assets_of_node
 
     # Compile binary set.
-    source "${MPCTL}/cmds/local/compile.sh"
+    source "${MPCTL}/cmds/local/compile_binaries.sh"
 
-    # Copy network wide binaries.
+    # Copy net binaries.
     path_to_assets_of_net=$(get_path_to_assets_of_net)
     cp \
         "$(get_path_to_target_binary "client" "release")" \
@@ -56,7 +55,7 @@ function _setup_binaries()
         "$(get_path_to_target_binary "key-manager" "release")" \
         "${path_to_assets_of_net}/bin"
 
-    # Copy node specific binaries.
+    # Copy node binaries.
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
         path_to_assets_of_node="$(get_path_to_assets_of_node "${idx_of_node}")"
@@ -72,7 +71,7 @@ function _setup_binaries()
 ##############################################################################
 # Initialises a networks's configuration files.
 ##############################################################################
-function _setup_config_of_net()
+function _setup_config()
 {
     local idx_of_node
 
@@ -131,18 +130,6 @@ function _setup_fs()
 function _setup_keys()
 {
     source ${MPCTL}/cmds/jobs/services/aws_sm_rotate.sh
-
-    # export AWS_ACCESS_KEY_ID="$(get_aws_access_key_id)"
-    # export AWS_ENDPOINT_URL="$(get_aws_endpoint_url)"
-    # export AWS_REGION="$(get_aws_region)"
-    # export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
-
-    # echo $AWS_ACCESS_KEY_ID
-    # echo $AWS_ENDPOINT_URL
-    # echo $AWS_REGION
-    # echo $AWS_SECRET_ACCESS_KEY
-
-    # source $(get_path_to_monorepo)/scripts/tools/init-servers.sh
 }
 
 # ----------------------------------------------------------------

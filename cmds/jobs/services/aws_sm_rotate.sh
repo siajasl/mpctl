@@ -20,6 +20,10 @@ function _main()
     log "Rotating secret key rotation"
     log_break
 
+    # Ensure AWS credentials are set.
+    export AWS_ACCESS_KEY_ID="$(get_aws_access_key_id)"
+    export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
+
     for _ in $(seq 0 1)
     do
         for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
@@ -37,9 +41,6 @@ function _main()
 function _rotate_keys()
 {
     local idx_of_node=${1}
-
-    export AWS_ACCESS_KEY_ID="$(get_aws_access_key_id)"
-    export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
 
     pushd "$(get_path_to_monorepo)" || exit
     cargo run --bin \

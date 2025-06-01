@@ -33,7 +33,7 @@ declare MPCTL_DOCKER_IMAGE_HAWK_GENESIS="hawk-server-genesis"
 declare MPCTL_NAME_OF_MONREPO="iris-mpc"
 
 # Names of node binaries.
-declare MPCTL_NODE_BINARY_NAMES=("iris-mpc-hawk" "iris-mpc-hawk-genesis")
+declare -a MPCTL_NODE_BINARY_NAMES=("iris-mpc-hawk" "iris-mpc-hawk-genesis")
 
 # ---------------------------------------------------------------------------------
 # Defaults -> Misc
