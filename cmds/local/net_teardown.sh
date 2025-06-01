@@ -20,9 +20,6 @@ function _main()
     _teardown_processes
     log "    processes stopped"
 
-    _teardown_services
-    log "    services stopped"
-
     _teardown_assets
     log "    assets deleted"
 
@@ -43,11 +40,6 @@ function _teardown_assets()
 function _teardown_processes()
 {
     echo "TODO: _teardown_processes"
-}
-
-function _teardown_services()
-{
-    echo "TODO: _teardown_services"
 }
 
 # ----------------------------------------------------------------

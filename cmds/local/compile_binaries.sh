@@ -24,10 +24,10 @@ function _main()
 {
     local build_mode=${1}
 
-    _compile_client
-    _compile_key_manager
-    _compile_node
-    _compile_other
+    _compile_client "${build_mode}"
+    _compile_key_manager "${build_mode}"
+    _compile_node "${build_mode}"
+    _compile_other "${build_mode}"
 }
 
 function _compile_client()

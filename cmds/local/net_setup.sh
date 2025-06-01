@@ -9,11 +9,21 @@ function _help() {
     DESCRIPTION
     ----------------------------------------------------------------
     Sets up assets for an MPC network.
+
+    ARGS
+    ----------------------------------------------------------------
+    buildmode        Compilation mode: debug | release. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    buildmode        release
     "
 }
 
 function _main()
 {
+    local build_mode=${1}
+
     log_break
     log "MPC network setup :: begins"
 
@@ -23,7 +33,7 @@ function _main()
     _setup_config
     log "    configuration initialised"
 
-    _setup_binaries
+    _setup_binaries "${build_mode}"
     log "    binaries compiled"
     log "    binaries assigned"
 
@@ -39,32 +49,34 @@ function _main()
 ##############################################################################
 function _setup_binaries()
 {
+    local build_mode=${1}
+
     local idx_of_node
-    local path_to_assets_of_net
-    local path_to_assets_of_node
+    local path_to_net_bin
+    local path_to_node_bin
 
     # Compile binary set.
-    source "${MPCTL}/cmds/local/compile_binaries.sh"
+    source "${MPCTL}"/cmds/local/compile_binaries.sh mode="${build_mode}"
 
     # Copy net binaries.
-    path_to_assets_of_net=$(get_path_to_assets_of_net)
+    path_to_net_bin="$(get_path_to_assets_of_net)"/bin
     cp \
-        "$(get_path_to_target_binary "client" "release")" \
-        "${path_to_assets_of_net}/bin"
+        "$(get_path_to_target_binary "client" "${build_mode}")" \
+        "${path_to_net_bin}"
     cp \
-        "$(get_path_to_target_binary "key-manager" "release")" \
-        "${path_to_assets_of_net}/bin"
+        "$(get_path_to_target_binary "key-manager" "${build_mode}")" \
+        "${path_to_net_bin}"
 
     # Copy node binaries.
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        path_to_assets_of_node="$(get_path_to_assets_of_node "${idx_of_node}")"
+        path_to_node_bin="$(get_path_to_assets_of_node "${idx_of_node}")"/bin
         cp \
-            "$(get_path_to_target_binary "iris-mpc-hawk" "release")" \
-            "${path_to_assets_of_node}/bin"
+            "$(get_path_to_target_binary "iris-mpc-hawk" "${build_mode}")" \
+            "${path_to_node_bin}"
         cp \
-            "$(get_path_to_target_binary "iris-mpc-hawk-genesis" "release")" \
-            "${path_to_assets_of_node}/bin"
+            "$(get_path_to_target_binary "iris-mpc-hawk-genesis" "${build_mode}")" \
+            "${path_to_node_bin}"
     done
 }
 
@@ -138,12 +150,14 @@ function _setup_keys()
 
 source "${MPCTL}"/cmds/utils/main.sh
 
+unset _BUILD_MODE
 unset _HELP
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     case "$KEY" in
+        buildmode) _BUILD_MODE=${VALUE} ;;
         help) _HELP="show" ;;
         *)
     esac
@@ -152,5 +166,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_BUILD_MODE:-"release"}"
 fi
