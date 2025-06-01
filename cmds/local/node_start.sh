@@ -32,13 +32,11 @@ function _main()
     local mode=${3}
     local size_of_batch=${4}
 
-    local binary_dir_of_node
-    local binary_fpath
-    local log_fpath
+    local path_to_binary
+    local path_to_log
 
     # Set path.
-    binary_dir_of_node="$(get_path_to_assets_of_node "${idx_of_node}")/bin"
-    binary_fpath="${binary_dir_of_node}/iris-mpc-hawk"
+    path_to_binary="$(get_path_to_assets_of_node "${idx_of_node}")/bin/iris-mpc-hawk"
 
     # Set env.
     source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}" batchsize="${size_of_batch}"
@@ -49,12 +47,12 @@ function _main()
         "${binary_fpath}"
     # ... mode = detached
     else
-        log_fpath="$(get_path_to_assets_of_node "${idx_of_node}")/logs/output.log"
-        if [ -f "${log_fpath}" ]
+        path_to_log="$(get_path_to_assets_of_node "${idx_of_node}")/logs/output.log"
+        if [ -f "${path_to_log}" ]
         then
-            rm "${log_fpath}"
+            rm "${path_to_log}"
         fi
-        nohup "${binary_fpath}" > "${log_fpath}" 2>&1 &
+        nohup "${binary_fpath}" > "${path_to_log}" 2>&1 &
     fi
 }
 
