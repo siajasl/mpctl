@@ -4,11 +4,11 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-local-node-refresh-binaries
+    mpctl-local-node-update-binaries
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Refreshes binary set of a local bare metal MPC node.
+    Updates binary set of a local bare metal MPC node.
 
     ARGS
     ----------------------------------------------------------------
@@ -18,26 +18,19 @@ function _help() {
 
 function _main()
 {
-    local build_mode=${3}
-    local compile_binaries=${2}
+    local build_mode=${2}
     local idx_of_node=${1}
-    local path_to_assets_of_node
 
-    log "MPC network :: refreshing binaries of node "${idx_of_node}""
+    local binary_fname
 
-    if [ "${compile_binaries}" = "true" ]; then
-        source "${MPCTL}"/cmds/local/compile_server.sh mode=release
-    fi
+    for binary_fname in "${MPCTL_NODE_BINARY_NAMES[@]}"
+    do
+        cp \
+            "$(get_path_to_target_binary "${binary_fname}" "${build_mode}")" \
+            "$(get_path_to_assets_of_node "${idx_of_node}")/bin"
+    done
 
-    path_to_assets_of_node="$(get_path_to_assets_of_node "${idx_of_node}")"
-    cp \
-        "$(get_path_to_target_binary "iris-mpc-hawk" "release")" \
-        "${path_to_assets_of_node}/bin"
-    cp \
-        "$(get_path_to_target_binary "iris-mpc-hawk-genesis" "release")" \
-        "${path_to_assets_of_node}/bin"
-
-    log "MPC network :: refreshed binaries of node "${idx_of_node}""
+    log "MPC network :: updated binaries of node "${idx_of_node}""
 }
 
 # ----------------------------------------------------------------
@@ -47,7 +40,6 @@ function _main()
 source "${MPCTL}"/cmds/utils/main.sh
 
 unset _BUILD_MODE
-unset _COMPILE
 unset _HELP
 unset _IDX_OF_NODE
 
@@ -56,7 +48,6 @@ do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
-        compile) _COMPILE=${VALUE} ;;
         help) _HELP="show" ;;
         mode) _BUILD_MODE=${VALUE} ;;
         node) _IDX_OF_NODE=${VALUE} ;;
@@ -67,5 +58,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_IDX_OF_NODE}" "${_COMPILE:-true}" "${_BUILD_MODE:-"release"}"
+    _main "${_IDX_OF_NODE}" "${_BUILD_MODE:-"release"}"
 fi

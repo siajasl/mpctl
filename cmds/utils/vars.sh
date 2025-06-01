@@ -5,9 +5,6 @@
 # Default number of parties participating in MPC protocol.
 declare MPCTL_COUNT_OF_PARTIES=3
 
-# Name of application monorepo.
-declare MPCTL_NAME_OF_MONREPO="iris-mpc"
-
 # Docker compose file: Hawk main.
 declare MPCTL_DOCKER_COMPOSE_HAWK="docker-compose.test.yaml"
 
@@ -31,6 +28,12 @@ declare MPCTL_DOCKER_IMAGE_HAWK="hawk-server-local-build"
 
 # Docker image id: Hawk genesis.
 declare MPCTL_DOCKER_IMAGE_HAWK_GENESIS="hawk-server-genesis"
+
+# Name of application monorepo.
+declare MPCTL_NAME_OF_MONREPO="iris-mpc"
+
+# Names of node binaries.
+declare MPCTL_NODE_BINARY_NAMES=("iris-mpc-hawk" "iris-mpc-hawk-genesis")
 
 # ---------------------------------------------------------------------------------
 # Defaults -> Misc

@@ -26,8 +26,8 @@ function _main()
 
     source "${MPCTL}/cmds/local/compile_client.sh" mode="${build_mode}"
     source "${MPCTL}/cmds/local/compile_key_manager.sh" mode="${build_mode}"
+    source "${MPCTL}/cmds/local/compile_node.sh" mode="${build_mode}"
     source "${MPCTL}/cmds/local/compile_other.sh" mode="${build_mode}"
-    source "${MPCTL}/cmds/local/compile_server.sh" mode="${build_mode}"
 }
 
 # ----------------------------------------------------------------

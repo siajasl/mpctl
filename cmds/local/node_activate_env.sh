@@ -12,7 +12,12 @@ function _help() {
 
     ARGS
     ----------------------------------------------------------------
+    batchsize   Size of indexation batches.
     node        Ordinal identifier of node.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    batchsize   64
     "
 }
 

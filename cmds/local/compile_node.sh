@@ -4,32 +4,28 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-local-net-refresh-binaries
+    mpctl-infra-bin-compile-node
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Refreshes binary set of a local bare metal MPC network.
+    Compiles CPU server binaries.
+
+    ARGS
+    ----------------------------------------------------------------
+    mode        Compilation mode: debug | release. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    mode        release
     "
 }
 
 function _main()
 {
     local build_mode=${1}
-    local idx_of_node
 
-    log_break
-    log "MPC network :: refreshing binaries"
-    log_break
-
-    source "${MPCTL}"/cmds/local/compile_server.sh mode="${build_mode}"
-    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
-    do
-        source "${MPCTL}"/cmds/local/node_refresh_binaries.sh node="${idx_of_node}" compile="false"
-    done
-
-    log_break
-    log "MPC network :: refreshed binaries"
-    log_break
+    do_build_binary "$build_mode" "iris-mpc" "iris-mpc-hawk"
+    do_build_binary "$build_mode" "iris-mpc-upgrade-hawk" "iris-mpc-hawk-genesis"
 }
 
 # ----------------------------------------------------------------
@@ -38,12 +34,13 @@ function _main()
 
 source "${MPCTL}"/cmds/utils/main.sh
 
-unset _BUILD_MODE
 unset _HELP
+unset _BUILD_MODE
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
+    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
         mode) _BUILD_MODE=${VALUE} ;;
