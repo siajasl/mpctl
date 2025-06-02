@@ -56,7 +56,7 @@ function _setup_binaries()
     local path_to_node_bin
 
     # Compile binary set.
-    source "${MPCTL}"/cmds/local/compile_binaries.sh mode="${build_mode}"
+    source "${MPCTL}"/cmds/local/compile_binaries.sh mode="${build_mode}" type="all"
 
     # Copy net binaries.
     path_to_net_bin="$(get_path_to_assets_of_net)"/bin
