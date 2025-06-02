@@ -33,7 +33,7 @@ How to use mpctl ?
 
 ```
 # To activate mpctl commands.
-. WORKING_DIRECTORY/mpctl/activate
+source WORKING_DIRECTORY/mpctl/activate
 
 # To list available commands.
 mpctl-ls
