@@ -43,8 +43,9 @@ function _main()
 
     # Start process:
     # ... mode = terminal
-    if [ "$mode" == "detached" ]; then
-        "${binary_fpath}"
+    if [ "$mode" == "terminal" ]; then
+        "${path_to_binary}"
+
     # ... mode = detached
     else
         path_to_log="$(get_path_to_assets_of_node "${idx_of_node}")/logs/output.log"
@@ -52,7 +53,7 @@ function _main()
         then
             rm "${path_to_log}"
         fi
-        nohup "${binary_fpath}" > "${path_to_log}" 2>&1 &
+        nohup "${path_to_binary}" > "${path_to_log}" 2>&1 &
     fi
 }
 
