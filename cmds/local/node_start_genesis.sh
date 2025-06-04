@@ -103,6 +103,6 @@ else
         "${_IDX_OF_NODE:-0}" \
         "${_MAX_HEIGHT:-100}" \
         "${_MODE:-"terminal"}" \
-        "${_BATCH_SIZE:-64}" \
+        "${_BATCH_SIZE:-0}" \
         "${_BATCH_SIZE_ERROR_RATE:-128}"
 fi

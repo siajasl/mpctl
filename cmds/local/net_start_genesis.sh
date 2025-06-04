@@ -41,14 +41,18 @@ function _main()
 source "${MPCTL}"/utils/main.sh
 
 unset _HELP
-unset _SIZE_OF_BATCH
+unset _MAX_HEIGHT
+unset _BATCH_SIZE
+unset _BATCH_SIZE_ERROR_RATE
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
-        batchsize) _SIZE_OF_BATCH=${VALUE} ;;
+        batchsize) _BATCH_SIZE=${VALUE} ;;
+        batchsize-error) _BATCH_SIZE_ERROR_RATE=${VALUE} ;;
+        height) _MAX_HEIGHT=${VALUE} ;;
         help) _HELP="show" ;;
         *)
     esac
@@ -57,5 +61,8 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_SIZE_OF_BATCH:-64}"
+    _main \
+        "${_MAX_HEIGHT:-100}" \
+        "${_BATCH_SIZE:-0}" \
+        "${_BATCH_SIZE_ERROR_RATE:-128}"
 fi
