@@ -14,18 +14,26 @@ function _help() {
 
 function _main()
 {
-    local skip_hnsw_graph=${1}
+    local skip_graph_inserts=${1}
 
-    # Override default values.
-    export SMPC_INIT_DB_URL_PARTY_1="postgres://postgres:postgres@localhost:5432/SMPC_dev_0"
-    export SMPC_INIT_DB_URL_PARTY_2="postgres://postgres:postgres@localhost:5432/SMPC_dev_1"
-    export SMPC_INIT_DB_URL_PARTY_3="postgres://postgres:postgres@localhost:5432/SMPC_dev_2"
-    export SMPC_INIT_PATH_TO_PRNG_STATE="$(get_path_to_assets)/data/tmp/prng_state"
-    export SMPC_INIT_PATH_TO_IRIS_PLAINTEXT="$(get_path_to_assets)/data/iris-plaintext/store.ndjson"
-    export SMPC_INIT_SKIP_HNSW_GRAPH="${skip_hnsw_graph}"
+    # Set values to be passed to binary.
+    SMPC_INIT_DB_URL_PARTY_1="postgres://postgres:postgres@localhost:5432/SMPC_dev_0"
+    SMPC_INIT_DB_URL_PARTY_2="postgres://postgres:postgres@localhost:5432/SMPC_dev_1"
+    SMPC_INIT_DB_URL_PARTY_3="postgres://postgres:postgres@localhost:5432/SMPC_dev_2"
+    SMPC_INIT_PATH_TO_PRNG_STATE="$(get_path_to_assets)/data/tmp/prng_state"
+    SMPC_INIT_PATH_TO_IRIS_PLAINTEXT="$(get_path_to_assets)/data/iris-plaintext/store.ndjson"
+    SMPC_INIT_SKIP_HNSW_GRAPH="${skip_graph_inserts}"
+
+    # Export to external environment so that binary can pick them up.
+    export SMPC_INIT_DB_URL_PARTY_1
+    export SMPC_INIT_DB_URL_PARTY_2
+    export SMPC_INIT_DB_URL_PARTY_3
+    export SMPC_INIT_PATH_TO_PRNG_STATE
+    export SMPC_INIT_PATH_TO_IRIS_PLAINTEXT
+    export SMPC_INIT_SKIP_HNSW_GRAPH
 
     pushd "$(get_path_to_monorepo)" || exit
-    source "./scripts/tools/init_db_from_plaintext_iris_file.sh"
+    source "$(get_path_to_monorepo)/scripts/tools/init_db_from_plaintext_iris_file.sh"
     popd || exit
 }
 

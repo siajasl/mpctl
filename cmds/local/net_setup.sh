@@ -141,7 +141,7 @@ function _setup_fs()
 ##############################################################################
 function _setup_keys()
 {
-    source ${MPCTL}/cmds/jobs/services/aws_sm_rotate.sh
+    source "${MPCTL}"/cmds/jobs/services/aws_sm_rotate.sh
 }
 
 # ----------------------------------------------------------------

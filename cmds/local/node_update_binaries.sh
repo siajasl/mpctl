@@ -30,7 +30,7 @@ function _main()
             "$(get_path_to_assets_of_node "${idx_of_node}")/bin"
     done
 
-    log "MPC network :: updated binaries of node "${idx_of_node}""
+    log "MPC network :: updated binaries of node ${idx_of_node}"
 }
 
 # ----------------------------------------------------------------

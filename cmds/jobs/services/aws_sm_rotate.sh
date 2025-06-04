@@ -21,8 +21,12 @@ function _main()
     log_break
 
     # Ensure AWS credentials are set.
-    export AWS_ACCESS_KEY_ID="$(get_aws_access_key_id)"
-    export AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
+    AWS_ACCESS_KEY_ID=$(get_aws_access_key_id)
+    AWS_SECRET_ACCESS_KEY="$(get_aws_secret_access_key)"
+
+    # Export to wider env.
+    export AWS_ACCESS_KEY_ID
+    export AWS_SECRET_ACCESS_KEY
 
     for _ in $(seq 0 1)
     do

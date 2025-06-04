@@ -20,7 +20,7 @@ function _help() {
     DEFAULTS
     ----------------------------------------------------------------
     batchsize   64
-    height      150
+    height      100
     mode        terminal
     "
 }
@@ -28,9 +28,8 @@ function _help() {
 function _main()
 {
     local idx_of_node=${1}
-    local height_max=${2}
-    local mode=${3}
-    local size_of_batch=${4}
+    local mode=${2}
+    local batch_size=${3}
 
     local path_to_binary
     local path_to_log
@@ -39,7 +38,7 @@ function _main()
     path_to_binary="$(get_path_to_assets_of_node "${idx_of_node}")/bin/iris-mpc-hawk"
 
     # Set env.
-    source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}" batchsize="${size_of_batch}"
+    source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}" batchsize="${batch_size}"
 
     # Start process:
     # ... mode = terminal
@@ -65,18 +64,16 @@ source "${MPCTL}"/cmds/utils/main.sh
 
 unset _HELP
 unset _IDX_OF_NODE
-unset _MAX_HEIGHT
 unset _MODE
-unset _SIZE_OF_BATCH
+unset _BATCH_SIZE
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
     VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
-        batchsize) _SIZE_OF_BATCH=${VALUE} ;;
+        batchsize) _BATCH_SIZE=${VALUE} ;;
         help) _HELP="show" ;;
-        height) _MAX_HEIGHT=${VALUE} ;;
         mode) _MODE=${VALUE} ;;
         node) _IDX_OF_NODE=${VALUE} ;;
         *)
@@ -87,8 +84,7 @@ if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
     _main \
-        "${_IDX_OF_NODE:-"0"}" \
-        "${_MAX_HEIGHT:-"150"}" \
+        "${_IDX_OF_NODE:-0}" \
         "${_MODE:-"terminal"}" \
-        "${_SIZE_OF_BATCH:-64}"
+        "${_BATCH_SIZE:-64}"
 fi
