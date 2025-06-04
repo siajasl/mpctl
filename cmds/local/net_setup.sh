@@ -141,14 +141,14 @@ function _setup_fs()
 ##############################################################################
 function _setup_keys()
 {
-    source "${MPCTL}"/cmds/jobs/services/aws_sm_rotate.sh
+    source "${MPCTL}"/jobs/services/aws_sm_rotate.sh
 }
 
 # ----------------------------------------------------------------
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/cmds/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _BUILD_MODE
 unset _HELP

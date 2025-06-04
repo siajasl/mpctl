@@ -62,7 +62,7 @@ function _rotate_keys()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/cmds/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 

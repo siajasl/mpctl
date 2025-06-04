@@ -38,19 +38,19 @@ alias mpctl-dkr-services-up='source $MPCTL/cmds/dkr/services_up.sh'
 
 # Jobs:
 # ... developer
-alias mpctl-dev-apply-linter='source $MPCTL/cmds/jobs/dev/apply_linter.sh'
-alias mpctl-ls='source $MPCTL/cmds/jobs/dev/view_commands.sh'
+alias mpctl-dev-apply-linter='source $MPCTL/jobs/dev/apply_linter.sh'
+alias mpctl-ls='source $MPCTL/jobs/dev/view_commands.sh'
 
 # ... services
-alias mpctl-services-pgres-dump='source $MPCTL/cmds/jobs/services/pgres_dump.sh'
-alias mpctl-services-pgres-restore='source $MPCTL/cmds/jobs/services/pgres_restore.sh'
-alias mpctl-services-pgres-truncate='source $MPCTL/cmds/jobs/services/pgres_truncate.sh'
-alias mpctl-services-pgres-truncate-graph-tables='source $MPCTL/cmds/jobs/services/pgres_truncate.sh group=graph'
-alias mpctl-services-pgres-truncate-iris-tables='source $MPCTL/cmds/jobs/services/pgres_truncate.sh group=iris'
-alias mpctl-services-pgres-truncate-state-tables='source $MPCTL/cmds/jobs/services/pgres_truncate.sh group=state'
-alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/cmds/jobs/services/aws_sm_rotate.sh'
+alias mpctl-services-pgres-dump='source $MPCTL/jobs/services/pgres_dump.sh'
+alias mpctl-services-pgres-restore='source $MPCTL/jobs/services/pgres_restore.sh'
+alias mpctl-services-pgres-truncate='source $MPCTL/jobs/services/pgres_truncate.sh'
+alias mpctl-services-pgres-truncate-graph-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=graph'
+alias mpctl-services-pgres-truncate-iris-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=iris'
+alias mpctl-services-pgres-truncate-state-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=state'
+alias mpctl-services-aws-sm-rotate-keys='source $MPCTL/jobs/services/aws_sm_rotate.sh'
 
 # ... testing
-alias mpctl-testing-init-db-from-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_db_from_plain_text_iris_file.sh'
-alias mpctl-testing-init-plain-text-iris-file='source $MPCTL/cmds/jobs/testing/init_plain_text_iris_file.sh'
-alias mpctl-testing-generate-iris-serial-ids-for-deletion='source $MPCTL/cmds/jobs/testing/generate_iris_serial_ids_for_deletion.sh'
+alias mpctl-testing-init-db-from-plain-text-iris-file='source $MPCTL/jobs/testing/init_db_from_plain_text_iris_file.sh'
+alias mpctl-testing-init-plain-text-iris-file='source $MPCTL/jobs/testing/init_plain_text_iris_file.sh'
+alias mpctl-testing-generate-iris-serial-ids-for-deletion='source $MPCTL/jobs/testing/generate_iris_serial_ids_for_deletion.sh'

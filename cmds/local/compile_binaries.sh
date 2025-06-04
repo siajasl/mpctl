@@ -94,7 +94,7 @@ function _compile_other()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/cmds/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 unset _BUILD_MODE

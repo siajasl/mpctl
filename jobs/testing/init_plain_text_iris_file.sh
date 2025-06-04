@@ -4,26 +4,27 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-jobs-generate-iris-serial-ids-for-deletion
+    mpctl-job-init-plain-text-iris-file
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Generates a file with Iris serial identifiers marked for deletion.
+    Initializes plain text iris files.
     "
 }
 
 function _main()
 {
-    local path_to_output
+    local target_dir
 
-    path_to_output="$(get_path_to_resources)/misc/deleted_serial_ids.json"
+    target_dir="$(get_path_to_assets)/data/iris-plaintext"
 
-    mkdir -p "$(get_path_to_resources)/misc"
+    if [ -d "${target_dir}" ]; then
+        rm -rf "${target_dir}"
+    fi
 
-    pushd "$(get_path_to_jobs)" || exit
-    cargo run \
-        --bin generate-serial-ids-for-deletion -- \
-        --output="${path_to_output}"
+    pushd "$(get_path_to_monorepo)" || exit
+    cargo run --bin generate_benchmark_data
+    cp -r "$(pwd)/iris-mpc-cpu/data" "${target_dir}"
     popd || exit
 }
 
@@ -31,7 +32,7 @@ function _main()
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/cmds/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 

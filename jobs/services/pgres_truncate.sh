@@ -87,7 +87,7 @@ function _do_truncation_of_group() {
 # ENTRY POINT
 # ----------------------------------------------------------------
 
-source "${MPCTL}"/cmds/utils/main.sh
+source "${MPCTL}"/utils/main.sh
 
 unset _HELP
 unset _GROUP
