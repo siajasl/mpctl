@@ -17,6 +17,7 @@ function _main()
     echo "
     # Developer commands.
     mpctl-dev-apply-linter
+    mpctl-dev-run-tests
 
     # Docker based infra commands.
     mpctl-dkr-build-image

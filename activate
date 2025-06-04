@@ -40,6 +40,7 @@ alias mpctl-local-node-view-logs='source $MPCTL/cmds/local/node_view_logs.sh'
 
 # Developer helpers.
 alias mpctl-dev-apply-linter='source $MPCTL/jobs/dev/apply_linter.sh'
+alias mpctl-dev-run-tests='source $MPCTL/jobs/dev/run_tests.sh'
 alias mpctl-ls='source $MPCTL/jobs/dev/view_commands.sh'
 
 # Jobs.
