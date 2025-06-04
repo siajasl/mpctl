@@ -13,10 +13,14 @@ function _help() {
     ARGS
     ----------------------------------------------------------------
     batchsize   Size of indexation batches. Optional.
+    batchsize-error     Error rate to apply for dynamic batch size calculation. Optional.
+    height              Last Iris serial identifier to be indexed in job.
 
     DEFAULTS
     ----------------------------------------------------------------
     batchsize   64
+    batchsize-error     128
+    height              100
     "
 }
 
