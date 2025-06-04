@@ -13,6 +13,11 @@ function _help() {
     ARGS
     ----------------------------------------------------------------
     node        Ordinal identifier of node.
+    filter      Grep filter to apply to logs.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    filter      none
     "
 }
 
@@ -44,9 +49,9 @@ function _main()
 
 source "${MPCTL}"/utils/main.sh
 
+unset _FILTER
 unset _HELP
 unset _IDX_OF_NODE
-unset _FILTER
 
 for ARGUMENT in "$@"
 do
