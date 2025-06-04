@@ -29,11 +29,11 @@ function _help() {
 
 function _main()
 {
-    local idx_of_node=${1}
-    local height_max=${2}
-    local mode=${3}
-    local batch_size=${4}
-    local batch_size_error_rate=${5}
+    local batch_size=${1}
+    local batch_size_error_rate=${2}
+    local idx_of_node=${3}
+    local height_max=${4}
+    local mode=${5}
 
     local path_to_binary
     local path_to_log
@@ -74,12 +74,12 @@ function _main()
 
 source "${MPCTL}"/utils/main.sh
 
+unset _BATCH_SIZE
+unset _BATCH_SIZE_ERROR_RATE
 unset _HELP
 unset _IDX_OF_NODE
 unset _MAX_HEIGHT
 unset _MODE
-unset _BATCH_SIZE
-unset _BATCH_SIZE_ERROR_RATE
 
 for ARGUMENT in "$@"
 do
@@ -100,9 +100,9 @@ if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
     _main \
+        "${_BATCH_SIZE:-0}" \
+        "${_BATCH_SIZE_ERROR_RATE:-128}" \
         "${_IDX_OF_NODE:-0}" \
         "${_MAX_HEIGHT:-100}" \
-        "${_MODE:-"terminal"}" \
-        "${_BATCH_SIZE:-0}" \
-        "${_BATCH_SIZE_ERROR_RATE:-128}"
+        "${_MODE:-"terminal"}"
 fi

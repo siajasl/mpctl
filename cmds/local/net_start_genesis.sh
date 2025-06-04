@@ -40,10 +40,10 @@ function _main()
 
 source "${MPCTL}"/utils/main.sh
 
-unset _HELP
-unset _MAX_HEIGHT
 unset _BATCH_SIZE
 unset _BATCH_SIZE_ERROR_RATE
+unset _HELP
+unset _MAX_HEIGHT
 
 for ARGUMENT in "$@"
 do
@@ -62,7 +62,7 @@ if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
     _main \
-        "${_MAX_HEIGHT:-100}" \
         "${_BATCH_SIZE:-0}" \
-        "${_BATCH_SIZE_ERROR_RATE:-128}"
+        "${_BATCH_SIZE_ERROR_RATE:-128}" \
+        "${_MAX_HEIGHT:-100}"
 fi
