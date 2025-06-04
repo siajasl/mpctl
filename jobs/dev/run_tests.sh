@@ -12,24 +12,25 @@ function _help() {
 
     ARGS
     ----------------------------------------------------------------
-    filter      Filter to determine which tests to run.
+    package     Package over which to run tests.
+    tests       Filter to determine which tests to run.
 
     DEFAULTS
     ----------------------------------------------------------------
-    filter      none
+    package     iris-mpc-cpu
     "
 }
 
 function _main()
 {
-    local test_filter=${1}
+    local package=${1}
+    local tests_filter=${2}
 
     pushd "$(get_path_to_monorepo)" || exit
-
-    if [ "${test_filter}" = "none" ]; then
-        cargo test --release
+    if [ "${tests_filter}" = "none" ]; then
+        cargo test --release --package="${package}" --lib
     else
-        cargo test --release "${test_filter}"
+        cargo test --release --package="${package}" --lib "${tests_filter}"
     fi
     popd || exit
 }
@@ -40,15 +41,18 @@ function _main()
 
 source "${MPCTL}"/utils/main.sh
 
-unset _FILTER
 unset _HELP
+unset _PACKAGE
+unset _TEST_FILTER
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
+    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
-        filter) _FILTER=${VALUE} ;;
         help) _HELP="show" ;;
+        package) _PACKAGE=${VALUE} ;;
+        tests) _TEST_FILTER=${VALUE} ;;
         *)
     esac
 done
@@ -56,5 +60,7 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_FILTER:-"none"}"
+    _main \
+        "${_PACKAGE:-"iris-mpc-cpu"}" \
+        "${_TEST_FILTER:-"none"}"
 fi
