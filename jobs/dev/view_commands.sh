@@ -15,8 +15,10 @@ function _help() {
 function _main()
 {
     echo "
+    # Developer commands.
     mpctl-dev-apply-linter
 
+    # Docker based infra commands.
     mpctl-dkr-build-image
     mpctl-dkr-net-down
     mpctl-dkr-net-start
@@ -28,6 +30,7 @@ function _main()
     mpctl-dkr-services-down
     mpctl-dkr-services-up
 
+    # Baremetal based infra commands.
     mpctl-local-compile-binaries
     mpctl-local-net-setup
     mpctl-local-net-start
@@ -39,16 +42,16 @@ function _main()
     mpctl-local-node-update-binaries
     mpctl-local-node-view-logs
 
-    mpctl-services-aws-sm-rotate-keys
-    mpctl-services-pgres-dump
-    mpctl-services-pgres-restore
-    mpctl-services-pgres-truncate-graph-tables
-    mpctl-services-pgres-truncate-iris-tables
-    mpctl-services-pgres-truncate-state-tables
-
-    mpctl-testing-generate-iris-serial-ids-for-deletion
-    mpctl-testing-init-db-from-plain-text-iris-file
-    mpctl-testing-init-plain-text-iris-file
+    # Jobs.
+    mpctl-job-aws-sm-rotate-keys
+    mpctl-job-pgres-dump
+    mpctl-job-pgres-init-from-plain-text-iris-file
+    mpctl-job-pgres-restore
+    mpctl-job-pgres-truncate-graph-tables
+    mpctl-job-pgres-truncate-iris-tables
+    mpctl-job-pgres-truncate-state-tables
+    mpctl-job-write-iris-serial-ids-for-deletion
+    mpctl-job-write-plain-text-iris-file
     "
 }
 
