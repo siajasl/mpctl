@@ -50,7 +50,6 @@ alias mpctl-job-write-plain-text-iris-file='source $MPCTL/jobs/testing/write_pla
 alias mpctl-job-pgres-dump='source $MPCTL/jobs/services/pgres_dump.sh'
 alias mpctl-job-pgres-init-from-plain-text-iris-file='source $MPCTL/jobs/testing/init_db_from_plain_text_iris_file.sh'
 alias mpctl-job-pgres-restore='source $MPCTL/jobs/services/pgres_restore.sh'
-alias mpctl-job-pgres-truncate='source $MPCTL/jobs/services/pgres_truncate.sh'
+alias mpctl-job-pgres-truncate-all='source $MPCTL/jobs/services/pgres_truncate.sh group=all'
 alias mpctl-job-pgres-truncate-graph-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=graph'
 alias mpctl-job-pgres-truncate-iris-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=iris'
-alias mpctl-job-pgres-truncate-state-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=state'
