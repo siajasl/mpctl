@@ -21,14 +21,12 @@ function _main()
     local build_mode=${2}
     local idx_of_node=${1}
 
-    local binary_fname
-
-    for binary_fname in "${MPCTL_NODE_BINARY_NAMES[@]}"
-    do
-        cp \
-            "$(get_path_to_target_binary "${binary_fname}" "${build_mode}")" \
-            "$(get_path_to_assets_of_node "${idx_of_node}")/bin"
-    done
+    cp \
+        "$(get_path_to_target_binary "iris-mpc-hawk" "${build_mode}")" \
+        "$(get_path_to_assets_of_node "${idx_of_node}")/bin"
+    cp \
+        "$(get_path_to_target_binary "iris-mpc-hawk-genesis" "${build_mode}")" \
+        "$(get_path_to_assets_of_node "${idx_of_node}")/bin"
 
     log "MPC network :: updated binaries of node ${idx_of_node}"
 }

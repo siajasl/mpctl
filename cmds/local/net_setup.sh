@@ -64,6 +64,15 @@ function _setup_binaries()
         "$(get_path_to_target_binary "client" "${build_mode}")" \
         "${path_to_net_bin}"
     cp \
+        "$(get_path_to_target_binary "generate_benchmark_data" "${build_mode}")" \
+        "${path_to_net_bin}"
+    cp \
+        "$(get_path_to_target_binary "graph-mem-cli" "${build_mode}")" \
+        "${path_to_net_bin}"
+    cp \
+        "$(get_path_to_target_binary "init-test-dbs" "${build_mode}")" \
+        "${path_to_net_bin}"
+    cp \
         "$(get_path_to_target_binary "key-manager" "${build_mode}")" \
         "${path_to_net_bin}"
 

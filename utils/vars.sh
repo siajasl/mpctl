@@ -34,9 +34,6 @@ export MPCTL_DOCKER_IMAGE_HAWK_GENESIS="hawk-server-genesis"
 # Name of application monorepo.
 export MPCTL_NAME_OF_MONREPO="iris-mpc"
 
-# Names of node binaries.
-export -a MPCTL_NODE_BINARY_NAMES=("iris-mpc-hawk" "iris-mpc-hawk-genesis")
-
 # ---------------------------------------------------------------------------------
 # Defaults
 # ---------------------------------------------------------------------------------
