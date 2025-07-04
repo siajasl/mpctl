@@ -1,7 +1,0 @@
-TRUNCATE "SMPC_dev_0".irises RESTART IDENTITY;
-
-TRUNCATE "SMPC_dev_0".modifications RESTART IDENTITY;
-
-TRUNCATE "SMPC_dev_0".results RESTART IDENTITY;
-
-TRUNCATE "SMPC_dev_0".persistent_state RESTART IDENTITY;

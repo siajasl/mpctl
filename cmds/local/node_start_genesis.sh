@@ -39,7 +39,9 @@ function _main()
     local path_to_log
 
     # Set env.
-    source "${MPCTL}"/cmds/local/node_activate_env.sh node="${idx_of_node}" batchsize="${batch_size}"
+    source "${MPCTL}"/cmds/local/node_activate_env.sh \
+        node="${idx_of_node}" \
+        batchsize="${batch_size}"
 
     # Set path.
     path_to_binary="$(get_path_to_assets_of_node "${idx_of_node}")/bin/iris-mpc-hawk-genesis"

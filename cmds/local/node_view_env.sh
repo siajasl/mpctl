@@ -4,34 +4,26 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-build-image
+    mpctl-local-node-view-env
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Builds Hawk server docker image.
+    Renders an MPC node's environment variables.
+
+    ARGS
+    ----------------------------------------------------------------
+    node                Ordinal identifier of node.
     "
 }
 
 function _main()
 {
-    # Hawk server: main.
-    _build_image "Dockerfile.dev.hawk" "hawk-server-local-build"
+    local idx_of_node=${1}
 
-    # Hawk server: genesis.
-    _build_image "Dockerfile.dev.hawk" "hawk-server-genesis"
-}
-
-function _build_image()
-{
-    local image_fname=${1}
-    local image_fpath
-    local image_tag=${2}
-
-    image_fpath="$(get_path_to_monorepo)/${image_fname}"
-
-    pushd "$(get_path_to_monorepo)" || exit
-    docker build -f "${image_fpath}" -t "${image_tag}:latest" .
-    popd || exit
+    source "${MPCTL}"/cmds/local/node_activate_env.sh \
+        node="${idx_of_node}" \
+        batchsize="${batch_size}"
+    printenv | grep "SMPC" | sort
 }
 
 # ----------------------------------------------------------------
@@ -41,12 +33,15 @@ function _build_image()
 source "${MPCTL}"/utils/main.sh
 
 unset _HELP
+unset _IDX_OF_NODE
 
 for ARGUMENT in "$@"
 do
     KEY=$(echo "$ARGUMENT" | cut -f1 -d=)
+    VALUE=$(echo "$ARGUMENT" | cut -f2 -d=)
     case "$KEY" in
         help) _HELP="show" ;;
+        node) _IDX_OF_NODE=${VALUE} ;;
         *)
     esac
 done
@@ -54,5 +49,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main
+    _main "${_IDX_OF_NODE:-0}"
 fi

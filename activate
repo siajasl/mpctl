@@ -36,6 +36,7 @@ alias mpctl-local-node-activate-env='source $MPCTL/cmds/local/node_activate_env.
 alias mpctl-local-node-start='source $MPCTL/cmds/local/node_start.sh'
 alias mpctl-local-node-start-genesis='source $MPCTL/cmds/local/node_start_genesis.sh'
 alias mpctl-local-node-update-binaries='source $MPCTL/cmds/local/node_update_binaries.sh'
+alias mpctl-local-node-view-env='source $MPCTL/cmds/local/node_view_env.sh'
 alias mpctl-local-node-view-logs='source $MPCTL/cmds/local/node_view_logs.sh'
 
 # Developer helpers.
@@ -47,9 +48,11 @@ alias mpctl-ls='source $MPCTL/jobs/dev/view_commands.sh'
 alias mpctl-job-aws-sm-rotate-keys='source $MPCTL/jobs/services/aws_sm_rotate.sh'
 alias mpctl-job-write-iris-deletions-file='source $MPCTL/jobs/testing/write_iris_serial_ids_for_deletion.sh'
 alias mpctl-job-write-plain-text-iris-file='source $MPCTL/jobs/testing/write_plain_text_iris_file.sh'
+
+# Jobs: pgres.
 alias mpctl-job-pgres-dump='source $MPCTL/jobs/services/pgres_dump.sh'
 alias mpctl-job-pgres-init-from-plain-text-iris-file='source $MPCTL/jobs/testing/init_db_from_plain_text_iris_file.sh'
 alias mpctl-job-pgres-restore='source $MPCTL/jobs/services/pgres_restore.sh'
 alias mpctl-job-pgres-truncate-all='source $MPCTL/jobs/services/pgres_truncate.sh group=all'
-alias mpctl-job-pgres-truncate-graph-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=graph'
-alias mpctl-job-pgres-truncate-iris-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=iris'
+alias mpctl-job-pgres-truncate-cpu-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=cpu'
+alias mpctl-job-pgres-truncate-gpu-tables='source $MPCTL/jobs/services/pgres_truncate.sh group=gpu'

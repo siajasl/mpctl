@@ -26,15 +26,19 @@ function _help() {
 
 function _main()
 {
-    local size_of_batch=${1}
+    local batch_size=${1}
+    local batch_size_error_rate=${2}
+    local height_max=${3}
     local idx_of_node
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
         source "${MPCTL}"/cmds/local/node_start_genesis.sh \
+            batchsize="${batch_size}" \
+            batchsize-error="${batch_size_error_rate}" \
+            height="${height_max}" \
             node="${idx_of_node}" \
-            mode="detached" \
-            batchsize="${size_of_batch}"
+            mode="detached"
     done
 }
 

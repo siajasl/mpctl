@@ -23,6 +23,7 @@ function _main()
     SMPC_INIT_PATH_TO_PRNG_STATE="$(get_path_to_assets)/data/tmp/prng_state"
     SMPC_INIT_PATH_TO_IRIS_PLAINTEXT="$(get_path_to_assets)/data/iris-plaintext/store.ndjson"
     SMPC_INIT_SKIP_HNSW_GRAPH="${skip_graph_inserts}"
+    SMPC_INIT_TARGET_DB_SIZE=100
 
     # Export to external environment so that binary can pick them up.
     export SMPC_INIT_DB_URL_PARTY_1
@@ -31,6 +32,7 @@ function _main()
     export SMPC_INIT_PATH_TO_PRNG_STATE
     export SMPC_INIT_PATH_TO_IRIS_PLAINTEXT
     export SMPC_INIT_SKIP_HNSW_GRAPH
+    export SMPC_INIT_TARGET_DB_SIZE
 
     pushd "$(get_path_to_monorepo)" || exit
     source "$(get_path_to_monorepo)/scripts/tools/init_db_from_plaintext_iris_file.sh"

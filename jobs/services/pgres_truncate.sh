@@ -12,11 +12,11 @@ function _help() {
 
     ARGS
     ----------------------------------------------------------------
-    group       Group of table to truncate: all | graph | iris.
+    group       Group of table to truncate: all | cpu | gpu.
 
     DEFAULTS
     ----------------------------------------------------------------
-    group       graph
+    group       cpu
     "
 }
 
@@ -48,14 +48,14 @@ function _do_truncation()
     log "Node ${idx_of_node}: postgres dB table truncation begins"
 
     if [ "${table_group:-""}" = "all" ]; then
-        _do_truncation_of_group "${idx_of_node}" "graph"
-        _do_truncation_of_group "${idx_of_node}" "iris"
+        _do_truncation_of_group "${idx_of_node}" "cpu"
+        _do_truncation_of_group "${idx_of_node}" "gpu"
 
-    elif [ "${table_group:-""}" = "graph" ]; then
-        _do_truncation_of_group "${idx_of_node}" "graph"
+    elif [ "${table_group:-""}" = "cpu" ]; then
+        _do_truncation_of_group "${idx_of_node}" "cpu"
 
-    elif [ "${table_group:-""}" = "iris" ]; then
-        _do_truncation_of_group "${idx_of_node}" "iris"
+    elif [ "${table_group:-""}" = "gpu" ]; then
+        _do_truncation_of_group "${idx_of_node}" "gpu"
 
     else
         log_error "Unrecognized table group: ${table_group}"
@@ -102,5 +102,5 @@ done
 if [ "${_HELP:-""}" = "show" ]; then
     _help
 else
-    _main "${_GROUP:-"graph"}"
+    _main "${_GROUP:-"cpu"}"
 fi
