@@ -24,13 +24,37 @@ function _main()
 {
     local build_mode=${1}
 
-    do_build_binary "${build_mode}" "iris-mpc" "client"
-    do_build_binary "${build_mode}" "iris-mpc" "iris-mpc-hawk"
-    do_build_binary "${build_mode}" "iris-mpc-common" "key-manager"
-    do_build_binary "${build_mode}" "iris-mpc-cpu" "graph-mem-cli"
-    do_build_binary "${build_mode}" "iris-mpc-cpu" "init-test-dbs"
-    do_build_binary "${build_mode}" "iris-mpc-cpu" "generate_benchmark_data"
-    do_build_binary "${build_mode}" "iris-mpc-upgrade-hawk" "iris-mpc-hawk-genesis"
+    _do_build "${build_mode}" "iris-mpc" "client"
+    _do_build "${build_mode}" "iris-mpc" "iris-mpc-hawk"
+    _do_build "${build_mode}" "iris-mpc-common" "key-manager"
+    _do_build "${build_mode}" "iris-mpc-cpu" "graph-mem-cli"
+    _do_build "${build_mode}" "iris-mpc-cpu" "init-test-dbs"
+    _do_build "${build_mode}" "iris-mpc-cpu" "generate_benchmark_data"
+    _do_build "${build_mode}" "iris-mpc-upgrade-hawk" "iris-mpc-hawk-genesis"
+}
+
+function _do_build()
+{
+    local build_mode=${1}
+    local build_path
+    local build_subdir=${2}
+    local build_target=${3}
+
+    build_path="$(get_path_to_monorepo)"
+    if [ ! -d "${build_path}" ]; then
+        log_error "Invalid build path: $build_path"
+        return
+    fi
+
+    log "Compiling binary: ${build_subdir} :: ${build_target} :: ${build_mode}"
+
+    pushd "${build_path}" || exit
+    if [ "${build_mode}" == "debug" ]; then
+        cargo build --bin "${build_target}"
+    else
+        cargo build --bin "${build_target}" --"${build_mode}"
+    fi
+    popd || exit
 }
 
 # ----------------------------------------------------------------
