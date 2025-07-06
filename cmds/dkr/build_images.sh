@@ -4,33 +4,32 @@ function _help() {
     echo "
     COMMAND
     ----------------------------------------------------------------
-    mpctl-dkr-build-image
+    mpctl-dkr-build-images
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Builds Hawk server docker image.
+    Builds Hawk server docker images.
     "
 }
 
 function _main()
 {
-    # Hawk server: main.
-    _build_image "Dockerfile.dev.hawk" "hawk-server-local-build"
+    # Hawk server: standard.
+    _build_image "${MPCTL_DKR_FILE_STANDARD}" "${MPCTL_DKR_IMAGE_NAME_STANDARD}"
 
     # Hawk server: genesis.
-    _build_image "Dockerfile.dev.hawk" "hawk-server-genesis"
+    _build_image "${MPCTL_DKR_FILE_GENESIS}" "${MPCTL_DKR_IMAGE_NAME_GENESIS}"
 }
 
 function _build_image()
 {
     local image_fname=${1}
-    local image_fpath
     local image_tag=${2}
 
-    image_fpath="$(get_path_to_monorepo)/${image_fname}"
-
     pushd "$(get_path_to_monorepo)" || exit
-    docker build -f "${image_fpath}" -t "${image_tag}:latest" .
+    docker build \
+        -f "$(get_path_to_monorepo)/${image_fname}" \
+        -t "${image_tag}:latest" .
     popd || exit
 }
 

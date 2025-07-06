@@ -9,22 +9,27 @@ function _help() {
     DESCRIPTION
     ----------------------------------------------------------------
     Brings down MPC network.
+
+    ARGS
+    ----------------------------------------------------------------
+    binary      Binary to execute: standard | genesis. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    binary      standard
     "
 }
 
 function _main()
 {
     local binary="${1}"
-    local docker_compose_fpath
-
-    if [ "${binary}" == "genesis" ]; then
-        docker_compose_fpath="${MPCTL_DKR_COMPOSE_HAWK_GENESIS}"
-    else
-        docker_compose_fpath="${MPCTL_DKR_COMPOSE_HAWK}"
-    fi
 
     pushd "$(get_path_to_monorepo)" || exit
-    docker-compose -f "${docker_compose_fpath}" down --volumes
+    if [ "${binary}" == "genesis" ]; then
+        docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK_GENESIS}" down --volumes
+    else
+        docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK}" down --volumes
+    fi
     popd || exit
 }
 

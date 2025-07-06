@@ -26,20 +26,23 @@ function _main()
 {
     local binary=${1}
     local mode=${2}
-    local docker_compose_fpath
-
-    if [ "${binary}" == "genesis" ]; then
-        docker_compose_fpath="${MPCTL_DKR_COMPOSE_HAWK_GENESIS}"
-    else
-        docker_compose_fpath="${MPCTL_DKR_COMPOSE_HAWK}"
-    fi
 
     pushd "$(get_path_to_monorepo)" || exit
+
     if [ "${mode}" == "detached" ]; then
-        docker-compose -f "${docker_compose_fpath}" up --detach
+        if [ "${binary}" == "genesis" ]; then
+            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK_GENESIS}" up --detach
+        else
+            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK}" up --detach
+        fi
     else
-        docker-compose -f "${docker_compose_fpath}" up
+        if [ "${binary}" == "genesis" ]; then
+            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK_GENESIS}" up
+        else
+            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK}" up
+        fi
     fi
+
     popd || exit
 }
 

@@ -8,7 +8,16 @@ function _help() {
 
     DESCRIPTION
     ----------------------------------------------------------------
-    Starts an MPC network.
+    Starts an MPC node.
+
+    ARGS
+    ----------------------------------------------------------------
+    binary      Binary to execute: standard | genesis. Optional.
+    node        Ordinal identifier of node.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    binary      standard
     "
 }
 

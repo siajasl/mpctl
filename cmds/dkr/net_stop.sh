@@ -9,6 +9,14 @@ function _help() {
     DESCRIPTION
     ----------------------------------------------------------------
     Stops an MPC network.
+
+    ARGS
+    ----------------------------------------------------------------
+    binary      Binary to execute: standard | genesis. Optional.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    binary      standard
     "
 }
 
@@ -19,7 +27,7 @@ function _main()
 
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        source "${MPCTL}"/cmds/dkr/node_stop.sh node="${idx_of_node}" binary="${binary}"
+        source "${MPCTL}"/cmds/dkr/node_stop.sh binary="${binary}" node="${idx_of_node}"
     done
 }
 

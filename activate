@@ -21,7 +21,6 @@ alias mpctl-dkr-net-down='source $MPCTL/cmds/dkr/net_down.sh'
 alias mpctl-dkr-net-start='source $MPCTL/cmds/dkr/net_start.sh'
 alias mpctl-dkr-net-stop='source $MPCTL/cmds/dkr/net_stop.sh'
 alias mpctl-dkr-net-up='source $MPCTL/cmds/dkr/net_up.sh'
-alias mpctl-dkr-net-view-status='source $MPCTL/cmds/dkr/net_view_status.sh'
 
 alias mpctl-dkr-node-start='source $MPCTL/cmds/dkr/node_start.sh'
 alias mpctl-dkr-node-start-genesis='source $MPCTL/cmds/dkr/node_start.sh binary=genesis'
