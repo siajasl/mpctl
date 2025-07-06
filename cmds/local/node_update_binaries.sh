@@ -12,7 +12,12 @@ function _help() {
 
     ARGS
     ----------------------------------------------------------------
+    mode        Compilation mode: debug | release. Optional.
     node        Ordinal identifier of node.
+
+    DEFAULTS
+    ----------------------------------------------------------------
+    mode        release
     "
 }
 
@@ -22,11 +27,11 @@ function _main()
     local idx_of_node=${1}
 
     cp \
-        "$(get_path_to_target_binary "iris-mpc-hawk" "${build_mode}")" \
-        "$(get_path_to_assets_of_node "${idx_of_node}")/bin"
+        "$(get_path_to_target_binary iris-mpc-hawk ${build_mode})" \
+        "$(get_path_to_assets_of_node ${idx_of_node})/bin"
     cp \
-        "$(get_path_to_target_binary "iris-mpc-hawk-genesis" "${build_mode}")" \
-        "$(get_path_to_assets_of_node "${idx_of_node}")/bin"
+        "$(get_path_to_target_binary iris-mpc-hawk-genesis ${build_mode})" \
+        "$(get_path_to_assets_of_node ${idx_of_node})/bin"
 
     log "MPC network :: updated binaries of node ${idx_of_node}"
 }
