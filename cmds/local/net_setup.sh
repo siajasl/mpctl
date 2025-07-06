@@ -50,42 +50,37 @@ function _main()
 function _setup_binaries()
 {
     local build_mode=${1}
-
     local idx_of_node
-    local path_to_net_bin
-    local path_to_node_bin
 
     # Compile binary set.
-    source "${MPCTL}"/cmds/local/compile_binaries.sh mode="${build_mode}" type="all"
+    source "${MPCTL}"/cmds/local/compile_binaries.sh mode="${build_mode}"
 
     # Copy net binaries.
-    path_to_net_bin="$(get_path_to_assets_of_net)"/bin
     cp \
-        "$(get_path_to_target_binary "client" "${build_mode}")" \
-        "${path_to_net_bin}"
+        "$(get_path_to_target_binary client ${build_mode})" \
+        "$(get_path_to_assets_of_net)/bin"
     cp \
-        "$(get_path_to_target_binary "generate_benchmark_data" "${build_mode}")" \
-        "${path_to_net_bin}"
+        "$(get_path_to_target_binary generate_benchmark_data ${build_mode})" \
+        "$(get_path_to_assets_of_net)/bin"
     cp \
-        "$(get_path_to_target_binary "graph-mem-cli" "${build_mode}")" \
-        "${path_to_net_bin}"
+        "$(get_path_to_target_binary graph-mem-cli ${build_mode})" \
+        "$(get_path_to_assets_of_net)/bin"
     cp \
-        "$(get_path_to_target_binary "init-test-dbs" "${build_mode}")" \
-        "${path_to_net_bin}"
+        "$(get_path_to_target_binary init-test-dbs ${build_mode})" \
+        "$(get_path_to_assets_of_net)/bin"
     cp \
-        "$(get_path_to_target_binary "key-manager" "${build_mode}")" \
-        "${path_to_net_bin}"
+        "$(get_path_to_target_binary key-manager ${build_mode})" \
+        "$(get_path_to_assets_of_net)/bin"
 
     # Copy node binaries.
     for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
     do
-        path_to_node_bin="$(get_path_to_assets_of_node "${idx_of_node}")"/bin
         cp \
-            "$(get_path_to_target_binary "iris-mpc-hawk" "${build_mode}")" \
-            "${path_to_node_bin}"
+            "$(get_path_to_target_binary iris-mpc-hawk ${build_mode})" \
+            "$(get_path_to_assets_of_node ${idx_of_node})/bin"
         cp \
-            "$(get_path_to_target_binary "iris-mpc-hawk-genesis" "${build_mode}")" \
-            "${path_to_node_bin}"
+            "$(get_path_to_target_binary iris-mpc-hawk-genesis ${build_mode})" \
+            "$(get_path_to_assets_of_node ${idx_of_node})/bin"
     done
 }
 
