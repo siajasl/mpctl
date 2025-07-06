@@ -14,15 +14,11 @@ function _help() {
 
 function _main()
 {
-    local binary=${2}
-    local docker_fpath
-    local docker_service
     local idx_of_node=${1}
+    local binary=${2}
 
-    docker_fpath="$(get_path_to_docker_compose_file_of_net "${binary}")"
-    docker_service="hawk_participant_${idx_of_node}"
-
-    docker-compose -f "${docker_fpath}" stop "${docker_service}"
+    docker-compose -f "$(get_path_to_docker_compose_file_of_node ${binary})" \
+        stop "$(get_name_of_docker_container_of_node ${idx_of_node})"
 }
 
 # ----------------------------------------------------------------

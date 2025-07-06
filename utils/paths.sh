@@ -35,18 +35,15 @@ function get_path_to_assets_of_node()
 #######################################
 # Returns path to a docker compose file for managing network nodes.
 #######################################
-function get_path_to_docker_compose_file_of_net()
+function get_path_to_docker_compose_file_of_node()
 {
     local binary=${1}
-    local docker_fname
 
-    if [ "$binary" == "genesis" ]; then
-        docker_fname="docker-compose.test.genesis.yaml"
+    if [ "${binary}" == "genesis" ]; then
+        echo "$(get_path_to_monorepo)/${MPCTL_DKR_COMPOSE_HAWK_GENESIS}"
     else
-        docker_fname="docker-compose.test.yaml"
+        echo "$(get_path_to_monorepo)/${MPCTL_DKR_COMPOSE_HAWK}"
     fi
-
-    echo "$(get_path_to_monorepo)/${docker_fname}"
 }
 
 #######################################

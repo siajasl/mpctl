@@ -18,9 +18,9 @@ function _main()
     local docker_compose_fpath
 
     if [ "${binary}" == "genesis" ]; then
-        docker_compose_fpath="${MPCTL_DOCKER_COMPOSE_HAWK_GENESIS}"
+        docker_compose_fpath="${MPCTL_DKR_COMPOSE_HAWK_GENESIS}"
     else
-        docker_compose_fpath="${MPCTL_DOCKER_COMPOSE_HAWK}"
+        docker_compose_fpath="${MPCTL_DKR_COMPOSE_HAWK}"
     fi
 
     pushd "$(get_path_to_monorepo)" || exit

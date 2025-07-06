@@ -26,9 +26,9 @@ function _main()
 
     pushd "$(get_path_to_monorepo)" || exit
     if [ "$mode" == "detached" ]; then
-        docker-compose -f "${MPCTL_DOCKER_COMPOSE_SERVICES}" up --detach
+        docker-compose -f "${MPCTL_DKR_COMPOSE_SERVICES}" up --detach
     else
-        docker-compose -f "${MPCTL_DOCKER_COMPOSE_SERVICES}" up
+        docker-compose -f "${MPCTL_DKR_COMPOSE_SERVICES}" up
     fi
     popd || exit
 }

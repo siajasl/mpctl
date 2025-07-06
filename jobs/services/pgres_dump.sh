@@ -48,7 +48,7 @@ function _do_backup()
     mkdir -p "${backup_dir}"
 
     docker exec \
-        -i "${MPCTL_DOCKER_CONTAINER_PGRES_DB}" /bin/bash \
+        -i "${MPCTL_DKR_CONTAINER_PGRES_DB}" /bin/bash \
         -c "PGPASSWORD=${super_user_password} pg_dump -a --inserts -U ${super_user_name} -d ${db_name}" \
         > "${backup_dir}/${db_name}.sql"
 

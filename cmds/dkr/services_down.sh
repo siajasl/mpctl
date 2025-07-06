@@ -15,7 +15,7 @@ function _help() {
 function _main()
 {
     pushd "$(get_path_to_monorepo)" || exit
-    docker-compose -f "${MPCTL_DOCKER_COMPOSE_SERVICES}" down --volumes
+    docker-compose -f "${MPCTL_DKR_COMPOSE_SERVICES}" down --volumes
     popd || exit
 }
 

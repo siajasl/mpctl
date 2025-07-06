@@ -15,18 +15,23 @@ export MPCTL_VERSION="1.0.0"
 # ###############################################################
 
 # Infra docker.
-alias mpctl-dkr-build-image='source $MPCTL/cmds/dkr/build_image.sh'
+alias mpctl-dkr-build-images='source $MPCTL/cmds/dkr/build_images.sh'
+
 alias mpctl-dkr-net-down='source $MPCTL/cmds/dkr/net_down.sh'
 alias mpctl-dkr-net-start='source $MPCTL/cmds/dkr/net_start.sh'
 alias mpctl-dkr-net-stop='source $MPCTL/cmds/dkr/net_stop.sh'
 alias mpctl-dkr-net-up='source $MPCTL/cmds/dkr/net_up.sh'
-alias mpctl-dkr-net-view-status='source $MPCTL/cmds/dkr/net_start.sh'
+alias mpctl-dkr-net-view-status='source $MPCTL/cmds/dkr/net_view_status.sh'
+
 alias mpctl-dkr-node-start='source $MPCTL/cmds/dkr/node_start.sh'
+alias mpctl-dkr-node-start-genesis='source $MPCTL/cmds/dkr/node_start.sh binary=genesis'
 alias mpctl-dkr-node-stop='source $MPCTL/cmds/dkr/node_stop.sh'
+alias mpctl-dkr-node-stop-genesis='source $MPCTL/cmds/dkr/node_stop.sh  binary=genesis'
+
 alias mpctl-dkr-services-down='source $MPCTL/cmds/dkr/services_down.sh'
 alias mpctl-dkr-services-up='source $MPCTL/cmds/dkr/services_up.sh'
 
-# Infra local.
+# Infra local (i.e. baremetal).
 alias mpctl-local-compile-binaries='source $MPCTL/cmds/local/compile_binaries.sh'
 alias mpctl-local-net-setup='source $MPCTL/cmds/local/net_setup.sh'
 alias mpctl-local-net-start='source $MPCTL/cmds/local/net_start.sh'

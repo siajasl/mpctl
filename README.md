@@ -1,7 +1,7 @@
 mpctl
 ===============
 
-Bash application to work with a **local** IRIS-MPC network.
+Bash application to work with a **local** IRIS-MPC CPU network.
 
 What is mpctl ?
 --------------------------------------
