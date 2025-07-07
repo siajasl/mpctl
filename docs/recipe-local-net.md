@@ -21,6 +21,27 @@ mpctl-dkr-node-view-logs-genesis node=1
 mpctl-dkr-node-view-logs-genesis node=2
 ```
 
+To re-run dockerised genesis nodes:
+
+```
+# Tear down MPC genesis nodes.
+mpctl-dkr-net-down-genesis
+
+# Truncate CPU tables.
+mpctl-job-pgres-truncate-cpu-tables
+
+# Rebuild MPC node docker images.
+mpctl-dkr-build-images
+
+# Spin up MPC genesis nodes.
+mpctl-dkr-net-up-genesis
+
+# View MPC node logs.
+mpctl-dkr-node-view-logs-genesis node=0
+mpctl-dkr-node-view-logs-genesis node=1
+mpctl-dkr-node-view-logs-genesis node=2
+```
+
 ## Genesis: local baremetal
 
 To run baremetal genesis nodes against test data:
@@ -35,32 +56,29 @@ mpctl-job-pgres-init-from-plain-text-iris-file
 # Setup local MPC network assets.
 mpctl-local-net-setup
 
-# Spin up MPC genesis nodes.
+# Start MPC genesis network.
 mpctl-local-net-start-genesis
 
 # View MPC node logs.
-mpctl-local-node-view-logs-genesis node=0
-mpctl-local-node-view-logs-genesis node=1
-mpctl-local-node-view-logs-genesis node=2
+mpctl-local-node-view-logs node=0 filter="HNSW-GENESIS"
+mpctl-local-node-view-logs node=1 filter="HNSW-GENESIS"
+mpctl-local-node-view-logs node=2 filter="HNSW-GENESIS"
 ```
 
-To re-run baremetal genesis nodes against test data:
+To re-run baremetal genesis nodes:
 
 ```
+# Reset MPC genesis nodes.
+mpctl-local-net-reset
+
 # Truncate CPU tables.
 mpctl-job-pgres-truncate-cpu-tables
 
-# Setup local MPC network assets.
-mpctl-local-net-setup
-
-# Spin up MPC genesis nodes.
+# Start MPC genesis network.
 mpctl-local-net-start-genesis
 
 # View MPC node logs.
-mpctl-local-node-view-logs-genesis node=0
-mpctl-local-node-view-logs-genesis node=1
-mpctl-local-node-view-logs-genesis node=2
-
-# Tear down MPC genesis nodes.
-mpctl-local-net-teardown
+mpctl-local-node-view-logs node=0 filter="HNSW-GENESIS"
+mpctl-local-node-view-logs node=1 filter="HNSW-GENESIS"
+mpctl-local-node-view-logs node=2 filter="HNSW-GENESIS"
 ```

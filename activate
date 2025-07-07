@@ -36,6 +36,7 @@ alias mpctl-dkr-services-up='source $MPCTL/cmds/dkr/services_up.sh'
 
 # Infra local (i.e. baremetal).
 alias mpctl-local-compile-binaries='source $MPCTL/cmds/local/compile_binaries.sh'
+alias mpctl-local-net-reset='mpctl-local-net-teardown && mpctl-local-net-setup'
 alias mpctl-local-net-setup='source $MPCTL/cmds/local/net_setup.sh'
 alias mpctl-local-net-start='source $MPCTL/cmds/local/net_start.sh'
 alias mpctl-local-net-start-genesis='source $MPCTL/cmds/local/net_start_genesis.sh'
