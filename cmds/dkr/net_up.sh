@@ -27,23 +27,13 @@ function _main()
     local binary=${1}
     local mode=${2}
 
-    pushd "$(get_path_to_monorepo)" || exit
-
-    if [ "${mode}" == "detached" ]; then
-        if [ "${binary}" == "genesis" ]; then
-            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK_GENESIS}" up --detach
-        else
-            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK}" up --detach
-        fi
-    else
-        if [ "${binary}" == "genesis" ]; then
-            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK_GENESIS}" up
-        else
-            docker-compose -f "${MPCTL_DKR_COMPOSE_HAWK}" up
-        fi
-    fi
-
-    popd || exit
+    for idx_of_node in $(seq 0 "$((MPCTL_COUNT_OF_PARTIES - 1))")
+    do
+        source "${MPCTL}"/cmds/dkr/node_up.sh \
+            binary="${binary}" \
+            node="${idx_of_node}" \
+            mode="${mode}"
+    done
 }
 
 # ----------------------------------------------------------------
